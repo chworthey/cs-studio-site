@@ -1,0 +1,17 @@
+.div__portal-page {
+}
+
+.div__console-wrapper {
+  font: 1.3rem Inconsolata, monospace;
+  text-shadow: 0 0 5px #C8C8C8;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  background-color: black;
+  background-image: radial-gradient(
+    rgba(15, 15, 15, 0.75), black 120%
+  );
+  padding: 40px;
+  border: solid;
+  overflow-y: auto;
+}

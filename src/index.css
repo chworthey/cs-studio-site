@@ -80,7 +80,7 @@ button:focus-visible {
 .img__cat {
   width: 100px;
   height: 100px;
-  z-index: 7;
+  z-index: 1000;
   position: absolute;
   pointer-events: none;
   image-rendering: pixelated;

@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
-import studioLogo from "/cairns.gif";
 import charPic from "/char.jpeg";
 import controllerPic from "/controller-white.png"
 import policiesPage from "./pages/policies.md?raw";
 import Markdown from "react-markdown";
+import { PortalPage } from "./portal";
+import { Menubar } from "./Menubar";
 
 enum ButtonLinkAppearance {
   Light,
@@ -67,20 +68,7 @@ function RandomNoiseString(length: number) {
   return arr.join('');
 }
 
-function Menubar() {
-  return (
-    <nav className="nav__navbar">
-      <Link className="a__logo-title" to="/">
-        <span>Worthey Studios</span>
-        <img className="img__logo" src={studioLogo} alt="An animation depicting stones falling onto a stack."></img></Link>
-      <Link className="a__navbar__page" to="/">Schedule &amp; Events</Link>
-      <Link className="a__navbar__page" to="/">Articles</Link>
-      <Link className="a__navbar__page" to="/">Register</Link>
-      <Link className="a__navbar__page" to="/policies">Policies</Link>
-      <Link className="a__navbar__page" to="/">About</Link>
-    </nav>
-  );
-}
+
 
 function Eyecatcher() {
   return (
@@ -235,6 +223,10 @@ function App() {
     {
       path: '/policies',
       element: <PoliciesPage/>
+    },
+    {
+      path: '/portal',
+      element: <PortalPage/>
     }
   ])
 

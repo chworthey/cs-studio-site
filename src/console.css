@@ -1,0 +1,45 @@
+.div__console-entry {
+  margin: 40px 0px 40px 0px;
+}
+
+.div__prompt-yes-no--selected {
+  background-color: white;
+  color:black;
+  display: inline;
+  border-radius: 0px;
+}
+
+.div__prompt-yes-no {
+  display: inline;
+  border-radius: 0px;
+}
+
+.div__prompt-yes-no-divider {
+  display: inline;
+}
+
+.div__output-container {
+  white-space: pre-line;
+}
+
+.button__menu-item {
+  width: 100%;
+  text-align: left;
+  border-radius: 0px;
+}
+
+.button__menu-item:hover {
+  background-color: #1f1f1f;
+}
+
+.button__menu-item--activated {
+  background-color: white;
+  color: black;
+  width: 100%;
+  text-align: left;
+  border-radius: 0px;
+}
+
+/*
+.div__prompt-yes-no-container {
+}*/
