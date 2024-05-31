@@ -40,6 +40,11 @@
   border-radius: 0px;
 }
 
-/*
-.div__prompt-yes-no-container {
-}*/
+.button__menu-item--activated:hover {
+  background-color: white;
+}
+
+.div__title-output-container {
+  display: flex;
+  flex-wrap: wrap;
+}

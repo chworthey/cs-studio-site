@@ -9,6 +9,8 @@ import { IConsoleEntryStateDynamicOutput } from './entries/DynamicOutput';
 import { IConsoleEntryOutput } from './entries/Output';
 import { IConsoleEntryRadioMenu, IConsoleEntryStateRadioMenu, RadioMenuSelectItem } from './entries/RadioMenu';
 import { RadioMenu } from './components/RadioMenu';
+import { IConsoleEntryTitleOutput } from './entries/TitleOutput';
+import { TitleOutput } from './components/TitleOutput';
 
 interface IConsoleProps {
   entries: IConsoleEntry[]
@@ -20,13 +22,13 @@ function RenderEntry(graph: IConsoleGraph, node: IConsoleGraphNode, onUpdate: (n
     case ConsoleEntryType.DynamicOutput:
       {
         const stateCast = node.state as IConsoleEntryStateDynamicOutput;
-        rv = <Output text={stateCast.text}/>
+        rv = <Output text={stateCast.text}/>;
       }
       break;
     case ConsoleEntryType.Output:
       {
         const entryCast = node.entry as IConsoleEntryOutput;
-        rv = <Output text={entryCast.text}/>
+        rv = <Output text={entryCast.text}/>;
       }
       break;
     case ConsoleEntryType.RadioMenu:
@@ -50,6 +52,12 @@ function RenderEntry(graph: IConsoleGraph, node: IConsoleGraphNode, onUpdate: (n
               }
             }}/>;
         }
+      }
+      break;
+    case ConsoleEntryType.TitleOutput:
+      {
+        const entryCast = node.entry as IConsoleEntryTitleOutput;
+        rv = <TitleOutput textParts={entryCast.textParts}/>;
       }
       break;
     default:
