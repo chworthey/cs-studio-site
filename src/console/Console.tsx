@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './Console.css';
 import { IConsoleEntry } from './IConsoleEntry';
 import { CloneConsoleGraph, CreateNewConsoleGraph, FindConsoleGraphNode, IConsoleGraph, SetConsoleGraphState, UpdateConsoleGraph } from './IConsoleGraph';
@@ -77,14 +77,26 @@ export function Console(props: IConsoleProps) {
 
   const visibleNodes = graph.nodes.filter(n => n.state.visible);
 
+  const bottomRef = useRef<null | HTMLDivElement>(null);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth'});
+  });
+
   return (
-    <div className="div__console-area">
-      {visibleNodes.map((n, i) => <div className="div__console-entry" key={i}>
-        {RenderEntry(graph, n, newGraph => {
-          UpdateConsoleGraph(newGraph);
-          setGraphState(newGraph.state);
-        })}
-      </div>)}
+    <div className="div__console-area-wrapper">
+      <div className="div__console-area">
+        <div className="div__console-header">Portal Utility - Copyright (C) 2024 Charlotte Worthey</div>
+        <div className="div__entries-area">
+          {visibleNodes.map((n, i) => <div className="div__console-entry" key={i}>
+            {RenderEntry(graph, n, newGraph => {
+              UpdateConsoleGraph(newGraph);
+              setGraphState(newGraph.state);
+            })}
+          </div>)}
+          <div ref={bottomRef}></div>
+        </div>
+      </div>
     </div>
   );
 }

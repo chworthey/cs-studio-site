@@ -6,6 +6,7 @@ import { IRequirement } from "../IRequirement";
 export interface IRadioMenuItem {
   id: string;
   text: string;
+  additionalData: string | null;
 };
 
 export interface IConsoleEntryRadioMenu extends IConsoleEntry {
@@ -17,6 +18,7 @@ export interface IConsoleEntryRadioMenu extends IConsoleEntry {
 export interface IFactoryMenuItem {
   id: string;
   text: string;
+  additionalData?: string;
 };
 
 export interface IConsoleEntryStateRadioMenu extends IConsoleEntryState {
@@ -41,7 +43,8 @@ export function CreateRadioMenu(id: string, text: string, items: IFactoryMenuIte
     items: items.map(i => ({
       id: i.id,
       text: i.text,
-      activated: false
+      activated: false,
+      additionalData: i.additionalData ? i.additionalData : null
     }))
   };
 

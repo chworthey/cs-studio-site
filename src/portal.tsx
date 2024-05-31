@@ -44,7 +44,16 @@ const consoleEntries: IConsoleEntry[] =
     CreateOutput('new-student-response', 'That is so awesome! I can\u{2019}t wait to meet you!',
       CreateRequirementRadioMenuItem('intent-menu', 'new-student')
     ),
-    CreateScheduleMenus('consult-schedule', CreateRequirementRecursive('new-student-response'))
+    CreateScheduleMenus('consult-schedule', CreateRequirementRecursive('new-student-response')),
+    CreateOutput('consult-schedule-msg', 'Wowee!!! That time works for me!', CreateRequirementRecursive('consult-schedule')),
+    CreateOutput('consult-schedule-msg2',
+`Here is some important information about the consultation:
+\u{2022} Yes, the consultation is free, BUT it may overlap with a lesson. This is so you can observe the teaching process and decide if my style of teaching is right for you.
+\u{2022} If your consultation time overlaps with a lesson, you may stay up to 15 minutes after the lesson to ask all of your questions. The lesson lengths are 45 minutes so you will have a whole hour on the call.
+\u{2022} Zoom links will be sent out before the meeting on the day-of.
+\u{2022} Guests are allowed.
+\u{2022} If the prospective student is under 18, they MUST bring an adult family member to the consultation.
+`, CreateRequirementRecursive('consult-schedule-msg'))
   ].flat();
 
 export function PortalPage() {
