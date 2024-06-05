@@ -22,38 +22,10 @@
   background: white; 
 }
 
-.div__console-area-wrapper {
-  background-color: #0000AA;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.div__console-area {
-  background-color: #0000AA;
-  font: 1.3rem Inconsolata, monospace;
-  color: white;
-  font-family: 'IBMBIOS';
-  font-size: medium;
-  overflow: hidden;
-  width: 99vmin;
-  height: 99vmin;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-}
-
-.div__console-header {
-  margin: 10px;
-}
-
 .div__entries-area {
   border-style: double;
   border-width: 7px;
   overflow: auto;
-  flex-grow: 1;
 }
 
 h2 {

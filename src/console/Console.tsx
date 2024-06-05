@@ -17,8 +17,7 @@ import { TextPrompt } from './components/TextPrompt';
 import { IConsoleEntryStateTextPrompt, IConsoleEntryTextPrompt, TextPromptSetContinued, TextPromptSetInputText } from './entries/TextPrompt';
 
 interface IConsoleProps {
-  entries: IConsoleEntry[],
-  headerText: string | undefined
+  entries: IConsoleEntry[]
 }
 
 function RenderEntry(graph: IConsoleGraph, node: IConsoleGraphNode, onUpdate: (newGraph: IConsoleGraph) => void) {
@@ -126,19 +125,14 @@ export function Console(props: IConsoleProps) {
   });
 
   return (
-    <div className="div__console-area-wrapper">
-      <div className="div__console-area">
-        {props.headerText && <div className="div__console-header">{props.headerText}</div>}
-        <div className="div__entries-area">
-          {visibleNodes.map((n, i) => <div className="div__console-entry" key={i}>
-            {RenderEntry(graph, n, newGraph => {
-              UpdateConsoleGraph(newGraph);
-              setGraphState(newGraph.state);
-            })}
-          </div>)}
-          <div ref={bottomRef}></div>
-        </div>
-      </div>
+    <div className="div__entries-area">
+      {visibleNodes.map((n, i) => <div className="div__console-entry" key={i}>
+        {RenderEntry(graph, n, newGraph => {
+          UpdateConsoleGraph(newGraph);
+          setGraphState(newGraph.state);
+        })}
+      </div>)}
+      <div ref={bottomRef}></div>
     </div>
   );
 }

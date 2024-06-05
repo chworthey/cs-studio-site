@@ -59,12 +59,21 @@ const consoleEntries: IConsoleEntry[] =
 
 export function PortalPage() {
   return (
-    <main>
-      <div className="div__portal-page">
-        <div className="div__console-wrapper">
-          <Console entries={consoleEntries} headerText="Portal Utility - Copyright (C) 2024 Charlotte Worthey"/>
+    <div className="div__portal-page">
+      <div className="div__console-area-wrapper">
+        <div className="div__console-area">
+          <div className="div__console-header">
+            <aside>
+              <div>
+                Portal Utility - Copyright (C) 2024 Charlotte Worthey
+              </div>
+            </aside>
+          </div>
+          <div className="div__console-wrapper">
+            <Console entries={consoleEntries}/>
+          </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
