@@ -11,14 +11,29 @@ import { IConsoleEntryRadioMenu, IConsoleEntryStateRadioMenu, RadioMenuSelectIte
 import { RadioMenu } from './components/RadioMenu';
 import { IConsoleEntryTitleOutput } from './entries/TitleOutput';
 import { TitleOutput } from './components/TitleOutput';
+import { IConsoleEntryInfoConfirm, IConsoleEntryStateInfoConfirm, InfoConfirmType } from './entries/InfoConfirm';
+import { InfoConfirm, InfoConfirmPropsRenderType } from './components/InfoConfirm';
+import { TextPrompt } from './components/TextPrompt';
+import { IConsoleEntryStateTextPrompt, IConsoleEntryTextPrompt, TextPromptSetContinued, TextPromptSetInputText } from './entries/TextPrompt';
 
 interface IConsoleProps {
-  entries: IConsoleEntry[]
+  entries: IConsoleEntry[],
+  headerText: string | undefined
 }
 
 function RenderEntry(graph: IConsoleGraph, node: IConsoleGraphNode, onUpdate: (newGraph: IConsoleGraph) => void) {
   let rv = <></>;
   switch (node.entry.type) {
+    case ConsoleEntryType.InfoConfirm:
+      {
+        const stateCast = node.state as IConsoleEntryStateInfoConfirm;
+        const entryCast = node.entry as IConsoleEntryInfoConfirm;
+        rv = <InfoConfirm input={stateCast.input} buttonText={entryCast.confirmButtonText} renderType={
+          entryCast.inputType === InfoConfirmType.RawText ? InfoConfirmPropsRenderType.RawText :
+          InfoConfirmPropsRenderType.Markdown
+        }/>;
+      }
+      break;
     case ConsoleEntryType.DynamicOutput:
       {
         const stateCast = node.state as IConsoleEntryStateDynamicOutput;
@@ -60,6 +75,33 @@ function RenderEntry(graph: IConsoleGraph, node: IConsoleGraphNode, onUpdate: (n
         rv = <TitleOutput textParts={entryCast.textParts}/>;
       }
       break;
+    case ConsoleEntryType.TextPrompt:
+      {
+        const entryCast = node.entry as IConsoleEntryTextPrompt;
+        const stateCast = node.state as IConsoleEntryStateTextPrompt;
+        rv = <TextPrompt 
+          promptText={entryCast.promptText}
+          inputText={stateCast.userInputText}
+          onTextChange={text => {
+            const newGraph = CloneConsoleGraph(graph);
+            const newNode = FindConsoleGraphNode(newGraph, node.entry.id);
+            if (newNode) {
+              const stateCast = newNode.state as IConsoleEntryStateTextPrompt;
+              TextPromptSetInputText(stateCast, text);
+              onUpdate(newGraph);
+            }
+          }}
+          onContinue={() => {
+            const newGraph = CloneConsoleGraph(graph);
+            const newNode = FindConsoleGraphNode(newGraph, node.entry.id);
+            if (newNode) {
+              const stateCast = newNode.state as IConsoleEntryStateTextPrompt;
+              TextPromptSetContinued(stateCast, true);
+              onUpdate(newGraph);
+            }
+          }}/>;
+      }
+      break;
     default:
       break;
   }
@@ -86,7 +128,7 @@ export function Console(props: IConsoleProps) {
   return (
     <div className="div__console-area-wrapper">
       <div className="div__console-area">
-        <div className="div__console-header">Portal Utility - Copyright (C) 2024 Charlotte Worthey</div>
+        {props.headerText && <div className="div__console-header">{props.headerText}</div>}
         <div className="div__entries-area">
           {visibleNodes.map((n, i) => <div className="div__console-entry" key={i}>
             {RenderEntry(graph, n, newGraph => {

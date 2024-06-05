@@ -4,5 +4,6 @@ export enum RequirementType {
   AND,
   OR,
   RadioMenuItem,
-  RadioMenuActive
+  RadioMenuActive,
+  PromptContinued
 };

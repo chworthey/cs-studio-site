@@ -130,3 +130,37 @@ h2 {
   flex-wrap: wrap;
   font-size: large;
 }
+
+.div__text-prompt-input-button-container {
+  display: flex;
+  flex-direction: row;
+  padding: 15px 0px;
+  flex-wrap: wrap;
+}
+
+.button__text-prompt-button {
+  background-color: transparent;
+  border: solid;
+  border-radius: 0;
+  height: 50px;
+}
+
+.div__text-prompt-button {
+  padding: 5px;
+  display: flex;
+}
+
+.div__text-prompt-input {
+  padding: 5px;
+  display: flex;
+  flex-grow: 1;
+}
+
+.input__text-prompt-input {
+  height: 50px;
+  width: 100%;
+  border: solid;
+  background-color: transparent;
+  font-family: 'IBMBIOS';
+  font-size: large;
+}

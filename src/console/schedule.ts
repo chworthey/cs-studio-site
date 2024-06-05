@@ -241,7 +241,7 @@ function TimeMenus(dates: IUpcomingDates, idPrefix: string) {
   let rv: IConsoleEntry[] = [];
   if (dates.daysThisWeek.length > 0) {
     const menus = dates.daysThisWeek.filter(d => d.times.length > 0).map(
-      d => CreateRadioMenu(`${idPrefix}-${d.id}-time`, 'At which time?',
+      d => CreateRadioMenu(`${idPrefix}-${d.id}-time`, 'At which time? (MST)',
         d.times.map(t => ({ text: t.timeString, id: t.id, additionalData: `${d.dayOfWeekString}, ${d.monthString} ${d.dayOfMonthString} @ ${t.timeString} MST`})),
         CreateRequirementRadioMenuItem(`${idPrefix}-thisweek-day`, d.id)
       ));
@@ -249,7 +249,7 @@ function TimeMenus(dates: IUpcomingDates, idPrefix: string) {
   }
   if (dates.daysNextWeek.length > 0) {
     const menus = dates.daysNextWeek.filter(d => d.times.length > 0).map(
-      d => CreateRadioMenu(`${idPrefix}-${d.id}-time`, 'At which time?',
+      d => CreateRadioMenu(`${idPrefix}-${d.id}-time`, 'At which time? (MST)',
         d.times.map(t => ({ text: t.timeString, id: t.id, additionalData: `${d.dayOfWeekString}, ${d.monthString} ${d.dayOfMonthString} @ ${t.timeString} MST`})),
         CreateRequirementRadioMenuItem(`${idPrefix}-nextweek-day`, d.id)
       ));
@@ -257,7 +257,7 @@ function TimeMenus(dates: IUpcomingDates, idPrefix: string) {
   }
   if (dates.daysNextNextWeek.length > 0) {
     const menus = dates.daysNextNextWeek.filter(d => d.times.length > 0).map(
-      d => CreateRadioMenu(`${idPrefix}-${d.id}-time`, 'At which time?',
+      d => CreateRadioMenu(`${idPrefix}-${d.id}-time`, 'At which time? (MST)',
         d.times.map(t => ({ text: t.timeString, id: t.id, additionalData: `${d.dayOfWeekString}, ${d.monthString} ${d.dayOfMonthString} @ ${t.timeString} MST`})),
         CreateRequirementRadioMenuItem(`${idPrefix}-nextnextweek-day`, d.id)
       ));
