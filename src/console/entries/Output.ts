@@ -17,7 +17,8 @@ export function CreateOutput(id: string, text: string, requirement: IRequirement
     type: ConsoleEntryType.Output,
     id: id,
     text: text,
-    requirement: requirement
+    requirement: requirement,
+    isFocusable: false
   };
 
   return newEntry;
@@ -27,7 +28,8 @@ export function CreateOutputState(id: string) {
   const rv: IConsoleEntryStateOutput = {
     id: id,
     type: ConsoleEntryType.Output,
-    visible: true
+    visible: true,
+    isFocused: false
   };
   return rv;
 }

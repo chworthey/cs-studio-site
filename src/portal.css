@@ -21,12 +21,17 @@
   flex-direction: column;
 }
 
-.div__console-header {
+.h1__console-header {
   margin: 10px;
-  min-width: 0;
+  font-size: medium;
 }
 
-.div__console-wrapper {
+.aside__console-header-wrapper {
+  min-width: 0;
+  padding: 0;
+}
+
+.main__console-wrapper {
   flex-grow: 1;
   display: flex;
   height: 100%;

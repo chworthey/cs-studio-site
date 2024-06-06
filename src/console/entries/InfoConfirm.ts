@@ -30,7 +30,8 @@ export function CreateInfoConfirm(id: string, inputFunc: (graph: IConsoleGraph) 
     inputFunc: inputFunc,
     inputType: inputType,
     confirmButtonText: confirmButtonText,
-    requirement: requirement
+    requirement: requirement,
+    isFocusable: true
   };
 
   return newEntry;
@@ -55,7 +56,8 @@ export function CreateInfoConfirmState(id: string) {
     type: ConsoleEntryType.InfoConfirm,
     input: '',
     visible: true,
-    isConfirmed: false
+    isConfirmed: false,
+    isFocused: false
   };
   return rv;
 }

@@ -19,7 +19,8 @@ export function CreateTextPrompt(id: string, promptText: string, requirement: IR
     type: ConsoleEntryType.TextPrompt,
     id: id,
     promptText: promptText,
-    requirement: requirement
+    requirement: requirement,
+    isFocusable: true
   };
 
   return newEntry;
@@ -39,7 +40,8 @@ export function CreateTextPromptState(id: string) {
     type: ConsoleEntryType.TextPrompt,
     visible: true,
     userInputText: '',
-    continued: false
+    continued: false,
+    isFocused: false
   };
 
   return rv;

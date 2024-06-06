@@ -5,4 +5,5 @@ export interface IConsoleEntry {
   type: ConsoleEntryType;
   id: string;
   requirement: IRequirement | undefined;
+  isFocusable: boolean;
 };

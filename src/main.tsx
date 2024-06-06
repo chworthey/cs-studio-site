@@ -63,7 +63,7 @@ new ResizeObserver(setCatContainerSize).observe(root);
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
-    <div id="cat-container" className="div__cat-container">
+    <div id="cat-container" className="div__cat-container" aria-hidden={true}>
       <img id="cat" className='img__cat'/>
     </div>
     <App />

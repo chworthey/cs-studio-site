@@ -33,9 +33,22 @@ h2 {
   font-size: medium;
 }
 
+.div__console-entry-wrapper {
+  margin: 15px;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+}
+
 .div__console-entry {
-  margin: 30px;
-  /*text-shadow: 0 0 3px #20E458;*/
+  flex-grow: 1;
+}
+
+.div__focus-indicator {
+  min-width: 5px;
+  min-height: 100%;
+  background-color: white;
+  margin-right: 10px;
 }
 
 .div__prompt-yes-no--selected {
@@ -58,33 +71,47 @@ h2 {
   white-space: pre-line;
 }
 
-.div__menu-item {
-  margin: 20px 0 20px 0;
-}
-
-.button__menu-item::before {
-  content:"► ";
-}
-
-.button__menu-item {
+.div__menu-items {
+  display: grid;
+  grid-auto-rows: 1fr;
+  height: 100%;
   width: 100%;
+  margin: 20px 0;
+}
+
+.div__menu-item {
+  width: 100%;
+  height: 100%;
   text-align: left;
   border-radius: 0px;
   background-color: transparent;
   color: #FFFF55;
   border: none;
+  display: flex;
+  cursor: pointer;
+  padding: 10px;
+  user-select: none;
 }
 
-.button__menu-item:hover {
+.div__menu-item-bullet {
+  margin-right: 10px;
+}
+
+.div__menu-item-bullet--focused {
+  color: white;
+}
+
+.div__menu-item-header {
+  min-width: 0;
+  min-height: 0;
+}
+
+.div__menu-item:hover {
   background-color: #AA0000;
   color: white;
 }
 
-.button__menu-item:focus {
-  outline: none;
-}
-
-.button__menu-item--activated {
+.div__menu-item--activated {
   background-color: #AA0000;
   color: white;
   width: 100%;
@@ -97,13 +124,13 @@ h2 {
   
 }
 
-.div__title-output-container {
+.h2__title-output-container {
   display: flex;
   flex-wrap: wrap;
   font-size: large;
 }
 
-.div__text-prompt-input-button-container {
+.form__text-prompt-input-button-container {
   display: flex;
   flex-direction: row;
   padding: 15px 0px;

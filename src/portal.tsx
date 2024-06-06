@@ -30,15 +30,11 @@ const consoleEntries: IConsoleEntry[] =
 ╚════██║   ██║   ██║   ██║██║  ██║██║██║   ██║╚════██║
 ███████║   ██║   ╚██████╔╝██████╔╝██║╚██████╔╝███████║
 ╚══════╝   ╚═╝    ╚═════╝ ╚═════╝ ╚═╝ ╚═════╝ ╚══════╝
-`]),
+`], 'Some awesome-looking ASCII art that displays the text Worthey Studios'),
     CreateRadioMenu('intent-menu', 'Hi, it\'s me Charlotte, your instructor! How may I direct you? (Please pick from the choices below)', [
       {
-        id: 'login',
-        text: 'I would like to log in. I\'ve been here before.'
-      },
-      {
         id: 'new-student',
-        text: 'I would like to sign up for lessons! Or book a free consultation...'
+        text: 'I would like to sign up for a free consultation.'
       },
       {
         id: 'contact',
@@ -59,19 +55,17 @@ const consoleEntries: IConsoleEntry[] =
 
 export function PortalPage() {
   return (
-    <div className="div__portal-page">
-      <div className="div__console-area-wrapper">
-        <div className="div__console-area">
-          <div className="div__console-header">
-            <aside>
-              <div>
-                Portal Utility - Copyright (C) 2024 Charlotte Worthey
-              </div>
-            </aside>
-          </div>
-          <div className="div__console-wrapper">
+    <div className="div__portal-page" role="presentation">
+      <div className="div__console-area-wrapper" role="presentation">
+        <div className="div__console-area" role="presentation">
+          <aside className="aside__console-header-wrapper">
+            <h1 className="h1__console-header">
+              Portal Utility - Copyright (C) 2024 Charlotte Worthey
+            </h1>
+          </aside>
+          <main className="main__console-wrapper">
             <Console entries={consoleEntries}/>
-          </div>
+          </main>
         </div>
       </div>
     </div>

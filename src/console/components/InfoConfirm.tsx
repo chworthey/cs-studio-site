@@ -13,10 +13,10 @@ interface IInfoConfirmProps {
 
 export function InfoConfirm(props: IInfoConfirmProps) {
   return (
-    <div className="div__info-confirm-container">
+    <div className="div__info-confirm-container" role="presentation">
       {props.renderType === InfoConfirmPropsRenderType.RawText ? 
         props.input :
-        <Markdown>{props.input}</Markdown>}
+        <article><Markdown>{props.input}</Markdown></article>}
       <button className="button__info-confirm">{props.buttonText}</button>
     </div>
   );

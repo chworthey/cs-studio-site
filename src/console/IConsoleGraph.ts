@@ -5,7 +5,7 @@ import { IConsoleGraphNode } from "./IConsoleGraphNode";
 import { CreateDyanamicOutputState, UpdateDynamicOutput } from "./entries/DynamicOutput";
 import { CreateInfoConfirmState, UpdateInfoConfirm } from "./entries/InfoConfirm";
 import { CreateOutputState } from "./entries/Output";
-import { CreateRadioMenuState } from "./entries/RadioMenu";
+import { CreateRadioMenuState, UpdateRadioMenu } from "./entries/RadioMenu";
 import { CreateTextPromptState } from "./entries/TextPrompt";
 
 export interface IConsoleGraph {
@@ -85,6 +85,9 @@ export function UpdateConsoleGraph(graph: IConsoleGraph) {
         break;
       case ConsoleEntryType.DynamicOutput:
         UpdateDynamicOutput(graph, node);
+        break;
+      case ConsoleEntryType.RadioMenu:
+        UpdateRadioMenu(node);
         break;
       default:
         break;
