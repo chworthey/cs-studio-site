@@ -195,16 +195,15 @@ h2, h3 {
   background-repeat: no-repeat;
   background-size:cover;
   background-position: center center;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+  overflow: auto;
 }
 
 .div__layout-main {
   --d:500px;
   --angle:45deg;
-
-  flex: 80%;
   background-color: white;
   padding: 0;
   color: white;

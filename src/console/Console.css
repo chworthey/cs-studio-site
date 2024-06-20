@@ -26,6 +26,9 @@
   border-style: double;
   border-width: 7px;
   overflow: auto;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
 }
 
 h2 {
@@ -162,4 +165,5 @@ h2 {
   background-color: transparent;
   font-family: 'IBMBIOS';
   font-size: large;
+  caret-shape: underscore;
 }

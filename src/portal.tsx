@@ -11,6 +11,7 @@ import "./portal.css";
 import consultationInfo from "./info/consultationInfo.md?raw";
 import { CreateTextPrompt } from "./console/entries/TextPrompt";
 import { CreateRequirementPromptContinued } from "./console/requirements/PromptContinued";
+import { VirtualKeyboard } from "./console/VirtualKeyboard";
 
 const consoleEntries: IConsoleEntry[] =
   [
@@ -66,6 +67,9 @@ export function PortalPage() {
           <main className="main__console-wrapper">
             <Console entries={consoleEntries}/>
           </main>
+          <aside>
+            <VirtualKeyboard/>
+          </aside>
         </div>
       </div>
     </div>

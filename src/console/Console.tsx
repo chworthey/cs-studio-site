@@ -142,8 +142,8 @@ function RadioMenuOnKeyDown(key: string, graph: IConsoleGraph, node: IConsoleGra
   };
 
   switch (key) {
-    case "ArrowDown":
-    case "ArrowRight":
+    case 'ArrowDown':
+    case 'ArrowRight':
       {
         const i = entryCast.items.findIndex(i => i.id === stateCast.focusedItem);
         if (i >= 0) {
@@ -151,8 +151,8 @@ function RadioMenuOnKeyDown(key: string, graph: IConsoleGraph, node: IConsoleGra
         }
       }
       break;
-    case "ArrowUp":
-    case "ArrowLeft":
+    case 'ArrowUp':
+    case 'ArrowLeft':
       {
         const i = entryCast.items.findIndex(i => i.id === stateCast.focusedItem);
         if (i >= 0) {
@@ -162,21 +162,22 @@ function RadioMenuOnKeyDown(key: string, graph: IConsoleGraph, node: IConsoleGra
         }
       }
       break;
-    case "Enter":
-    case " ":
+    case 'Enter':
+    case 'Spacebar':
+    case ' ':
       if (stateCast.focusedItem) {
         onMenuItemSelect(stateCast.focusedItem);
       }
       break;
-    case "1":
-    case "2":
-    case "3":
-    case "4":
-    case "5":
-    case "6":
-    case "7":
-    case "8":
-    case "9":
+    case '1':
+    case '2':
+    case '3':
+    case '4':
+    case '5':
+    case '6':
+    case '7':
+    case '8':
+    case '9':
       {
         const i = parseInt(key) - 1;
         if (i < entryCast.items.length) {
@@ -189,10 +190,24 @@ function RadioMenuOnKeyDown(key: string, graph: IConsoleGraph, node: IConsoleGra
   }
 }
 
+function TextPromptOnKeyDown(key: string, graph: IConsoleGraph, node: IConsoleGraphNode, onUpdate: (newGraph: IConsoleGraph, focusEnd: boolean) => void) {
+  switch (key) {
+    case 'Enter':
+      break;
+    case '':
+      break;
+    default:
+      break;
+  }
+}
+
 function OnKeyDown(key: string, graph: IConsoleGraph, node: IConsoleGraphNode, onUpdate: (newGraph: IConsoleGraph, focusEnd: boolean) => void) {
   switch (node.entry.type) {
     case ConsoleEntryType.RadioMenu:
       RadioMenuOnKeyDown(key, graph, node, onUpdate);
+      break;
+    case ConsoleEntryType.TextPrompt:
+
       break;
     default:
       break;
@@ -257,6 +272,7 @@ export function Console(props: IConsoleProps) {
           }
         }}
         onKeyDown={e => {
+          console.log(e.key);
           OnKeyDown(e.key, graph, n, onUpdate);
         }}>
           {n.state.isFocused && <div className="div__focus-indicator" aria-hidden={true}></div>}

@@ -1,3 +1,10 @@
+.div__portal-page {
+  overflow: hidden;
+  display: flex;
+  min-width: 100vw;
+  min-height: 100vh;
+}
+
 .div__console-area-wrapper {
   background-color: #0000AA;
   width: 100%;
