@@ -119,6 +119,7 @@ h2, h3 {
 
 .nav__navbar {
   display: flex;
+  min-height: 30px;
   /*background-color: #DB51AE;*/
   background-color: #67385B;
   background-image:
@@ -190,6 +191,11 @@ h2, h3 {
   color: white;
 }
 
+.test {
+  background-color: red;
+  flex-grow: 1;
+}
+
 .div__layout-wrapper {
   background-image: url(lab.jpg);
   background-repeat: no-repeat;
@@ -198,7 +204,6 @@ h2, h3 {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  overflow: auto;
 }
 
 .div__layout-main {
@@ -210,6 +215,8 @@ h2, h3 {
   display: flex;
   flex-direction: column;
   color: white;
+  flex-grow: 1;
+  overflow: auto;
   background: repeating-linear-gradient(
     var(--angle),
     #562f4c45,
