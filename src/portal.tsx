@@ -11,7 +11,10 @@ import "./portal.css";
 import consultationInfo from "./info/consultationInfo.md?raw";
 import { CreateTextPrompt } from "./console/entries/TextPrompt";
 import { CreateRequirementPromptContinued } from "./console/requirements/PromptContinued";
-import { VirtualKeyboard } from "./console/VirtualKeyboard";
+import { VirtualKeyboard, VirtualKeyboardPage } from "./console/VirtualKeyboard";
+import { Toolbar } from "./Toolbar";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const consoleEntries: IConsoleEntry[] =
   [
@@ -54,7 +57,18 @@ const consoleEntries: IConsoleEntry[] =
       CreateRequirementRecursive('consult-schedule-msg'))
   ].flat();
 
+function IsTouchScreen() {
+  return window.matchMedia("(pointer: coarse)").matches;
+}
+
 export function PortalPage() {
+  const [keyboardShown, setKeyboardShown] = useState(IsTouchScreen());
+  const navigate = useNavigate();
+  const [shiftOn, setShiftOn] = useState(false);
+  const [capsOn, setCapsOn] = useState(false);
+  const [insertOn, setInsertOn] = useState(false);
+  const [keyboardPage, setKeyboardPage] = useState(VirtualKeyboardPage.Alpha);
+
   return (
     <div className="div__portal-page" role="presentation">
       <div className="div__console-area-wrapper" role="presentation">
@@ -64,12 +78,65 @@ export function PortalPage() {
               Portal Utility - Copyright (C) 2024 Charlotte Worthey
             </h1>
           </aside>
+          <aside>
+            <Toolbar
+              KeyboardShown={keyboardShown}
+              OnShowKeyboardToggle={(value: boolean) => setKeyboardShown(value)}
+              OnGoHomeClick={() => navigate('/')}
+            />
+          </aside>
           <main className="main__console-wrapper">
             <Console entries={consoleEntries}/>
           </main>
-          <aside>
-            <VirtualKeyboard/>
-          </aside>
+          {keyboardShown && <aside>
+            <VirtualKeyboard
+              IsShiftOn={shiftOn}
+              IsCapsOn={capsOn}
+              IsInsertOn={insertOn}
+              CurrentPage={keyboardPage}
+              OnShift={on => setShiftOn(on)}
+              OnCaps={on => setCapsOn(on)}
+              OnPageChange={page => setKeyboardPage(page)}
+              OnInsert={on => setInsertOn(on)}
+              OnAction={() => {}}
+              OnAlpha={_c => { setShiftOn(false); }}
+              OnNum={_c => {}}
+              OnSymbol={_c => {}}
+              OnBackspace={() => {}}
+              OnDelete={() => {}}
+              OnEnter={() => {}}
+              OnDown={() => {}}
+              OnLeft={() => {}}
+              OnRight={() => {}}
+              OnUp={() => {}}
+              OnEnd={() => {}}
+              OnHome={() => {}}
+              OnPageUp={() => {}}
+              OnPageDown={() => {}}
+              OnSpace={() => {}}
+              OnTab={() => { setShiftOn(false); }}
+              IsActionEnabled={false}
+              IsAlphaEnabled={true}
+              IsBackspaceEnabled={true}
+              IsDeleteEnabled={true}
+              IsCapsEnabled={true}
+              IsShiftEnabled={true}
+              IsUpEnabled={true}
+              IsLeftEnabled={true}
+              IsDownEnabled={true}
+              IsRightEnabled={true}
+              IsHomeEnabled={true}
+              IsEndEnabled={true}
+              IsEnterEnabled={true}
+              IsInsertEnabled={false}
+              IsNumEnabled={false}
+              IsPageUpEnabled={true}
+              IsPageDownEnabled={true}
+              IsSpaceEnabled={true}
+              IsSymbolEnabled={true}
+              IsTabEnabled={true}
+            />
+          </aside>}
         </div>
       </div>
     </div>

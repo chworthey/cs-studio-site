@@ -1,0 +1,24 @@
+.div__toolbar {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.div__tool {
+  color: white;
+  background-color: #0000AA;
+  user-select: none;
+  cursor: pointer;
+  margin: 2px 4px;
+  padding: 6px;
+}
+
+.div__tool:hover {
+  background-color: #AA0000;
+  color: white;
+}
+
+.div__tool--active {
+  background-color: #AA0000;
+  color: white;
+}
