@@ -117,24 +117,8 @@ export function PortalPage() {
               OnTab={() => { setShiftOn(false); }}
               IsActionEnabled={false}
               IsAlphaEnabled={true}
-              IsBackspaceEnabled={true}
-              IsDeleteEnabled={true}
-              IsCapsEnabled={true}
-              IsShiftEnabled={true}
-              IsUpEnabled={true}
-              IsLeftEnabled={true}
-              IsDownEnabled={true}
-              IsRightEnabled={true}
-              IsHomeEnabled={true}
-              IsEndEnabled={true}
-              IsEnterEnabled={true}
-              IsInsertEnabled={false}
               IsNumEnabled={false}
-              IsPageUpEnabled={true}
-              IsPageDownEnabled={true}
-              IsSpaceEnabled={true}
-              IsSymbolEnabled={true}
-              IsTabEnabled={true}
+              IsSymbolsEnabled={true}
             />
           </aside>}
         </div>
