@@ -9,9 +9,9 @@ import { CreateRequirementRecursive } from "./console/requirements/Recursive";
 import { CreateScheduleMenus } from "./console/schedule";
 import "./portal.css";
 import consultationInfo from "./info/consultationInfo.md?raw";
-import { CreateTextPrompt } from "./console/entries/TextPrompt";
+import { CreateTextPrompt, FormType } from "./console/entries/TextPrompt";
 import { CreateRequirementPromptContinued } from "./console/requirements/PromptContinued";
-import { VirtualKeyboard, VirtualKeyboardPage } from "./console/VirtualKeyboard";
+import { AllowedActionMask, AllowedKeyMask, DisallowedActionMask, DisallowedKeyMask, MaskModeType, VirtualKeyboard, VirtualKeyboardAction, VirtualKeyboardKey, VirtualKeyboardPage } from "./console/VirtualKeyboard";
 import { Toolbar } from "./Toolbar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -48,7 +48,7 @@ const consoleEntries: IConsoleEntry[] =
     CreateOutput('new-student-response', 'That is so awesome! Let\'s get started with some basic information...',
       CreateRequirementRadioMenuItem('intent-menu', 'new-student')
     ),
-    CreateTextPrompt('input-name', 'What is the student\'s preferred first name?', CreateRequirementRecursive('new-student-response')),
+    CreateTextPrompt('input-name', 'What is the student\'s preferred first name?', FormType.Name, CreateRequirementRecursive('new-student-response')),
     CreateScheduleMenus('consult-schedule', CreateRequirementPromptContinued('input-name')),
     CreateOutput('consult-schedule-msg', 'Wowee!!! That time works for me!', CreateRequirementRecursive('consult-schedule')),
     CreateInfoConfirm('consult-schedule-msg2',
@@ -68,6 +68,16 @@ export function PortalPage() {
   const [capsOn, setCapsOn] = useState(false);
   const [insertOn, setInsertOn] = useState(false);
   const [keyboardPage, setKeyboardPage] = useState(VirtualKeyboardPage.Alpha);
+  const [isActionEnabled, setIsActionEnabled] = useState(false);
+  const [isAlphaEnabled, setIsAlphaEnabled] = useState(false);
+  const [isNumEnabled, setIsNumEnabled] = useState(false);
+  const [isSymbolsEnabled, setIsSymbolsEnabled] = useState(false);
+  const [keyMask, setKeyMask] = useState<undefined | AllowedKeyMask | DisallowedKeyMask>(
+    { MaskModeType: MaskModeType.Allowed, Keys: [VirtualKeyboardKey.Tab]}
+  );
+  const [actionMask, setActionMask] = useState<undefined | AllowedActionMask | DisallowedActionMask>(
+    { MaskModeType: MaskModeType.Allowed, Actions: [] }
+  );
 
   return (
     <div className="div__portal-page" role="presentation">
@@ -86,7 +96,19 @@ export function PortalPage() {
             />
           </aside>
           <main className="main__console-wrapper">
-            <Console entries={consoleEntries}/>
+            <Console
+              entries={consoleEntries}
+              onEntryFocus={keyboardConfig => 
+                {
+                  setIsActionEnabled(keyboardConfig.IsActionEnabled);
+                  setIsAlphaEnabled(keyboardConfig.IsAlphaEnabled);
+                  setIsSymbolsEnabled(keyboardConfig.IsSymbolsEnabled);
+                  setIsNumEnabled(keyboardConfig.IsNumEnabled);
+                  setKeyMask(keyboardConfig.KeyMask);
+                  setActionMask(keyboardConfig.ActionMask);
+                  setKeyboardPage(keyboardConfig.DefaultPage);
+                }
+              }/>
           </main>
           {keyboardShown && <aside>
             <VirtualKeyboard
@@ -115,10 +137,12 @@ export function PortalPage() {
               OnPageDown={() => {}}
               OnSpace={() => {}}
               OnTab={() => { setShiftOn(false); }}
-              IsActionEnabled={false}
-              IsAlphaEnabled={true}
-              IsNumEnabled={false}
-              IsSymbolsEnabled={true}
+              IsActionEnabled={isActionEnabled}
+              IsAlphaEnabled={isAlphaEnabled}
+              IsNumEnabled={isNumEnabled}
+              IsSymbolsEnabled={isSymbolsEnabled}
+              KeyMask={keyMask}
+              ActionMask={actionMask}
             />
           </aside>}
         </div>

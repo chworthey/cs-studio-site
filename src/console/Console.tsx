@@ -16,9 +16,11 @@ import { InfoConfirm, InfoConfirmPropsRenderType } from './components/InfoConfir
 import { TextPrompt } from './components/TextPrompt';
 import { IConsoleEntryStateTextPrompt, IConsoleEntryTextPrompt, TextPromptSetContinued, TextPromptSetInputText } from './entries/TextPrompt';
 import { EntrySetFocus } from './IConsoleEntryState';
+import { GetEntryKeyboardConfig, IEntryKeyboardConfig } from './EntryKeyboardConfig';
 
 interface IConsoleProps {
-  entries: IConsoleEntry[]
+  entries: IConsoleEntry[];
+  onEntryFocus(keyboardConfig: IEntryKeyboardConfig): void;
 }
 
 function RenderEntry(graph: IConsoleGraph, node: IConsoleGraphNode, onUpdate: (newGraph: IConsoleGraph, focusEnd: boolean) => void) {
@@ -261,7 +263,9 @@ export function Console(props: IConsoleProps) {
           if (newNode) {
             EntrySetFocus(newNode.state, true);
             onUpdate(newGraph);
+            props.onEntryFocus(GetEntryKeyboardConfig(newNode.entry));
           }
+          
         }}
         onBlur={() => {
           const newGraph = CloneConsoleGraph(graph);

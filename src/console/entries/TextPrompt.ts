@@ -3,9 +3,15 @@ import { IConsoleEntry } from "../IConsoleEntry";
 import { IConsoleEntryState } from "../IConsoleEntryState";
 import { IRequirement } from "../IRequirement";
 
+export enum FormType {
+  General,
+  Name
+};
+
 export interface IConsoleEntryTextPrompt extends IConsoleEntry {
   type: ConsoleEntryType.TextPrompt;
   promptText: string;
+  formType: FormType;
 };
 
 export interface IConsoleEntryStateTextPrompt extends IConsoleEntryState {
@@ -14,13 +20,14 @@ export interface IConsoleEntryStateTextPrompt extends IConsoleEntryState {
   continued: boolean;
 }
 
-export function CreateTextPrompt(id: string, promptText: string, requirement: IRequirement | undefined = undefined) {
+export function CreateTextPrompt(id: string, promptText: string, formType: FormType = FormType.General, requirement: IRequirement | undefined = undefined) {
   const newEntry: IConsoleEntryTextPrompt = {
     type: ConsoleEntryType.TextPrompt,
     id: id,
     promptText: promptText,
     requirement: requirement,
-    isFocusable: true
+    isFocusable: true,
+    formType: formType
   };
 
   return newEntry;

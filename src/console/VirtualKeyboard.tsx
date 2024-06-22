@@ -181,13 +181,38 @@ const keysByAlpha = new Map<string, VirtualKeyboardKey>([
   ['m', VirtualKeyboardKey.M]
 ]);
 
+export interface AllowedKeyMask {
+  MaskModeType: MaskModeType.Allowed;
+  Keys: VirtualKeyboardKey[];
+}
+
+export interface DisallowedKeyMask {
+  MaskModeType: MaskModeType.Disallowed;
+  Keys: VirtualKeyboardKey[];
+}
+
+export interface AllowedActionMask {
+  MaskModeType: MaskModeType.Allowed;
+  Actions: VirtualKeyboardAction[];
+}
+
+export interface DisallowedActionMask {
+  MaskModeType: MaskModeType.Disallowed;
+  Actions: VirtualKeyboardAction[];
+}
+
+export enum MaskModeType {
+  Allowed,
+  Disallowed
+};
+
 interface IVirtualKeyboardProps {
   IsShiftOn: boolean;
   IsCapsOn: boolean;
   IsInsertOn: boolean;
   CurrentPage: VirtualKeyboardPage;
-  AllowedKeys?: VirtualKeyboardKey[];
-  AllowedActions?: VirtualKeyboardAction[];
+  KeyMask?: AllowedKeyMask | DisallowedKeyMask;
+  ActionMask?: AllowedActionMask | DisallowedActionMask;
   OnShift(on: boolean): void;
   OnCaps(on: boolean): void;
   OnInsert(on: boolean): void;
@@ -376,14 +401,32 @@ function UseContainerDimensions(myRef: React.RefObject<HTMLElement>) {
 export function VirtualKeyboard(props: IVirtualKeyboardProps) {
   const ref = useRef<HTMLDivElement>(null);
 
-  const allowedKeys = new Set<VirtualKeyboardKey>(props.AllowedKeys);
-  const allowedActions = new Set(props.AllowedActions);
+  let maskKeys = new Set<VirtualKeyboardKey>(props.KeyMask?.Keys);
+  const maskActions = new Set(props.ActionMask?.Actions);
 
   const keyAllowed = (key: VirtualKeyboardKey) => {
-    return props.AllowedKeys ? allowedKeys.has(key) : true;
+    let rv = true;
+    if (props.KeyMask) {
+      if (props.KeyMask.MaskModeType === MaskModeType.Allowed) {
+        rv = maskKeys.has(key);
+      }
+      else { // Disallowed
+        rv = !maskKeys.has(key);
+      }
+    }
+    return rv;
   };
   const actionAllowed = (action: VirtualKeyboardAction) => {
-    return props.AllowedActions ? allowedActions.has(action) : true;
+    let rv = true;
+    if (props.ActionMask) {
+      if (props.ActionMask.MaskModeType === MaskModeType.Allowed) {
+        rv = maskActions.has(action);
+      }
+      else { // Disallowed
+        rv = !maskActions.has(action);
+      }
+    }
+    return rv;
   };
 
   const dimensions = UseContainerDimensions(ref);
