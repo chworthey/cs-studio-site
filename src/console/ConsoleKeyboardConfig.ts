@@ -1,27 +1,37 @@
 import { ConsoleEntryType } from "./ConsoleEntryType";
-import { IConsoleEntry } from "./IConsoleEntry";
-import { AllowedActionMask, AllowedKeyMask, DisallowedActionMask, DisallowedKeyMask, MaskModeType, VirtualKeyboardAction, VirtualKeyboardKey, VirtualKeyboardPage } from "./VirtualKeyboard";
+import { IVirtualKeyboardConfig, MaskModeType, VirtualKeyboardKey, VirtualKeyboardPage } from "../keyboard/VirtualKeyboardTypes";
 import { FormType, IConsoleEntryTextPrompt } from "./entries/TextPrompt";
+import { IConsoleGraph } from "./ConsoleGraph";
 
-export interface IEntryKeyboardConfig {
-  IsActionEnabled: boolean;
-  IsAlphaEnabled: boolean;
-  IsNumEnabled: boolean;
-  IsSymbolsEnabled: boolean;
-  KeyMask?: AllowedKeyMask | DisallowedKeyMask;
-  ActionMask?: AllowedActionMask | DisallowedActionMask;
-  DefaultPage: VirtualKeyboardPage;
-};
+export function CreateConsoleKeyboardConfig(graph: IConsoleGraph) {
 
+  if (!graph.FocusedNodeId) {
+    return {
+      IsActionEnabled: false,
+      IsAlphaEnabled: true,
+      IsNumEnabled: false,
+      IsSymbolsEnabled: false,
+      DefaultPage: VirtualKeyboardPage.Alpha,
+      KeyMask: {
+        MaskModeType: MaskModeType.Allowed,
+        Keys: [
+          VirtualKeyboardKey.Tab
+        ]
+      },
+      Clone: function () {return {...this}}
+    } as IVirtualKeyboardConfig;
+  }
 
+  const node = graph.NodesById.get(graph.FocusedNodeId)!;
+  const entry = node.entry;
 
-export function GetEntryKeyboardConfig(entry: IConsoleEntry) {
-  const config: IEntryKeyboardConfig = {
+  const config: IVirtualKeyboardConfig = {
     IsActionEnabled: true,
     IsAlphaEnabled: true,
     IsNumEnabled: true,
     IsSymbolsEnabled: true,
-    DefaultPage: VirtualKeyboardPage.Alpha
+    DefaultPage: VirtualKeyboardPage.Alpha,
+    Clone: function () {return {...this}}
   };
 
   switch(entry.type) {

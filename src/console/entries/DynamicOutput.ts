@@ -21,7 +21,8 @@ export function CreateDynamicOutput(id: string, textFunc: (graph: IConsoleGraph)
     id: id,
     textFunc: textFunc,
     requirement: requirement,
-    isFocusable: false
+    isFocusable: false,
+    Clone: function() { return {...this}; }
   };
 
   return newEntry;
@@ -42,7 +43,8 @@ export function CreateDyanamicOutputState(id: string) {
     type: ConsoleEntryType.DynamicOutput,
     visible: true,
     text: '',
-    isFocused: false
+    isFocused: false,
+    Clone: function() { return {...this}; }
   };
 
   return rv;

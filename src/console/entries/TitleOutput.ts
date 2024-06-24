@@ -20,7 +20,8 @@ export function CreateTitleOutput(id: string, textParts: string[], accessibility
     textParts: textParts,
     accessibilityLabel: accessibilityLabel,
     requirement: requirement,
-    isFocusable: false
+    isFocusable: false,
+    Clone: function() { return {...this}; }
   };
 
   return newEntry;
@@ -31,7 +32,8 @@ export function CreateTitleOutputState(id: string) {
     id: id,
     type: ConsoleEntryType.TitleOutput,
     visible: true,
-    isFocused: false
+    isFocused: false,
+    Clone: function() { return {...this}; }
   };
   return rv;
 }

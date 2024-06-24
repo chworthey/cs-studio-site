@@ -31,7 +31,8 @@ export function CreateInfoConfirm(id: string, inputFunc: (graph: IConsoleGraph) 
     inputType: inputType,
     confirmButtonText: confirmButtonText,
     requirement: requirement,
-    isFocusable: true
+    isFocusable: true,
+    Clone: function() { return {...this}; }
   };
 
   return newEntry;
@@ -61,7 +62,8 @@ export function CreateInfoConfirmState(id: string) {
     input: '',
     visible: true,
     isConfirmed: false,
-    isFocused: false
+    isFocused: false,
+    Clone: function() { return {...this}; }
   };
   return rv;
 }

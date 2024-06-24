@@ -1,3 +1,4 @@
+import { IClonable } from "../../shared/IClonable";
 import { ConsoleEntryType } from "../ConsoleEntryType";
 import { ConsoleGraphUpdateEntry, IConsoleGraph } from "../ConsoleGraph";
 import { IConsoleEntry } from "../IConsoleEntry";
@@ -5,7 +6,7 @@ import { IConsoleEntryState } from "../IConsoleEntryState";
 import { IConsoleGraphNode } from "../IConsoleGraphNode";
 import { IRequirement } from "../IRequirement";
 
-export interface IRadioMenuItem {
+export interface IRadioMenuItem extends IClonable<IFactoryMenuItem> {
   id: string;
   text: string;
   additionalData: string | null;
@@ -63,9 +64,11 @@ export function CreateRadioMenu(id: string, text: string, items: IFactoryMenuIte
       id: i.id,
       text: i.text,
       activated: false,
-      additionalData: i.additionalData ? i.additionalData : null
-    })),
-    isFocusable: true
+      additionalData: i.additionalData ? i.additionalData : null,
+      Clone: function() { return {...this}; }
+    } as IRadioMenuItem)),
+    isFocusable: true,
+    Clone: function() { return {...this, items: this.items.map(i => i.Clone())}; }
   };
 
   return newEntry;
@@ -90,7 +93,8 @@ export function CreateRadioMenuState(id: string) {
     visible: true,
     activeItem: null,
     focusedItem: null,
-    isFocused: false
+    isFocused: false,
+    Clone: function() { return {...this}; }
   };
 
   return rv;

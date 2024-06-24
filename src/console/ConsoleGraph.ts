@@ -1,3 +1,4 @@
+import { IClonable } from "../shared/IClonable";
 import { ConsoleEntryType } from "./ConsoleEntryType";
 import { IConsoleEntry } from "./IConsoleEntry";
 import { IConsoleEntryState } from "./IConsoleEntryState";
@@ -8,10 +9,9 @@ import { CreateOutputState } from "./entries/Output";
 import { CreateRadioMenuState, UpdateRadioMenu } from "./entries/RadioMenu";
 import { CreateTextPromptState } from "./entries/TextPrompt";
 
-export interface IConsoleGraph {
-  nodes: IConsoleGraphNode[];
-  nodesById: Map<string, IConsoleGraphNode>;
-  state: IConsoleEntryState[];
+export interface IConsoleGraph extends IClonable<IConsoleGraph> {
+  NodesById: Map<string, IConsoleGraphNode>;
+  FocusedNodeId?: string;
 };
 
 function CreateEntryState(entry: IConsoleEntry) {
@@ -42,14 +42,14 @@ export function CreateNewConsoleGraph(entries: IConsoleEntry[]) {
   const state: IConsoleEntryState[] = entries.map(e => CreateEntryState(e));
 
   const nodes = entries.map((e, i) => ({
+    order: i,
     entry: e,
     state: state[i]
   }));
 
   const rv: IConsoleGraph = {
-    nodes: nodes,
-    nodesById: new Map<string, IConsoleGraphNode>(nodes.map(n => [n.entry.id, n])),
-    state
+    NodesById: new Map<string, IConsoleGraphNode>(nodes.map((n => [n.entry.id, n]))),
+    Clone: function () { return CloneConsoleGraph(this); }
   };
 
   UpdateConsoleGraph(rv);
@@ -58,27 +58,26 @@ export function CreateNewConsoleGraph(entries: IConsoleEntry[]) {
 };
 
 export function CloneConsoleGraph(graph: IConsoleGraph) {
-  const newNodes: IConsoleGraphNode[] = graph.nodes.map(n => ({
-    entry: {...n.entry},
-    state: {...n.state}
-  }));
+  const newNodes: IConsoleGraphNode[] = [];
+  for (let value of graph.NodesById.values()) {
+    newNodes.push({
+      order: value.order,
+      entry: value.entry.Clone(),
+      state: value.state.Clone(),
+    });
+  }
 
-  const rv: IConsoleGraph ={
-    nodes: newNodes,
-    nodesById: new Map<string, IConsoleGraphNode>(newNodes.map(n => [n.entry.id, n])),
-    state: newNodes.map(n => n.state),
+  const rv: IConsoleGraph = {
+    NodesById: new Map<string, IConsoleGraphNode>(newNodes.map(n => [n.entry.id, n])),
+    Clone: function () { return CloneConsoleGraph(this); },
+    FocusedNodeId: graph.FocusedNodeId
   };
 
   return rv;
 };
 
-export function SetConsoleGraphState(graph: IConsoleGraph, state: IConsoleEntryState[]) {
-  graph.state = state;
-  graph.nodes.forEach((n, i) => n.state = state[i]);
-};
-
 export function UpdateConsoleGraph(graph: IConsoleGraph) {
-  for (const node of graph.nodes) {
+  for (let node of graph.NodesById.values()) {
     switch (node.entry.type) {
       case ConsoleEntryType.InfoConfirm:
         UpdateInfoConfirm(graph, node);
@@ -103,30 +102,46 @@ export function UpdateConsoleGraph(graph: IConsoleGraph) {
 };
 
 export function FindConsoleGraphNode(graph: IConsoleGraph, entryId: string) {
-  return graph.nodesById.get(entryId);
+  return graph.NodesById.get(entryId);
 };
 
 export function ConsoleGraphUpdateAllEntries(graph: IConsoleGraph, updateFunc: (state: IConsoleEntryState, entry: IConsoleEntry) => void) {
-  const newGraph = CloneConsoleGraph(graph);
-  newGraph.nodes.forEach(n => updateFunc(n.state, n.entry));
-  UpdateConsoleGraph(newGraph);
-  return newGraph;
+  for (let value of graph.NodesById.values()) {
+    updateFunc(value.state, value.entry)
+  }
+  UpdateConsoleGraph(graph);
+  return graph;
 };
 
 export function ConsoleGraphUpdateEntry<E extends IConsoleEntry, S extends IConsoleEntryState>(
   entryId: string, graph: IConsoleGraph, updateFunc: (state: S, entry: E) => void)
 {
-  const newGraph = CloneConsoleGraph(graph);
-  const newNode = FindConsoleGraphNode(newGraph, entryId);
+  const newNode = FindConsoleGraphNode(graph, entryId);
   if (newNode) {
     updateFunc(newNode.state as S, newNode.entry as E);
-    UpdateConsoleGraph(newGraph);
+    UpdateConsoleGraph(graph);
   }
 
-  return newGraph;
+  return graph;
 };
 
 export function EntrySetFocus(entryId: string, graph: IConsoleGraph, focus: boolean) {
+  if (focus) {
+    ConsoleGraphClearFocus(graph);
+    graph.FocusedNodeId = entryId;
+  }
   return ConsoleGraphUpdateEntry<IConsoleEntry, IConsoleEntryState>(
     entryId, graph, state => { state.isFocused = focus; });
 };
+
+export function ConsoleGraphClearFocus(graph: IConsoleGraph) {
+  const nodeId = graph.FocusedNodeId;
+  graph.FocusedNodeId = undefined;
+  if (nodeId) {
+    return ConsoleGraphUpdateEntry<IConsoleEntry, IConsoleEntryState>(
+      nodeId, graph, state => { state.isFocused = false; });
+  }
+  else {
+    return graph;
+  }
+}

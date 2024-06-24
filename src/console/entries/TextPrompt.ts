@@ -28,7 +28,8 @@ export function CreateTextPrompt(id: string, promptText: string, formType: FormT
     promptText: promptText,
     requirement: requirement,
     isFocusable: true,
-    formType: formType
+    formType: formType,
+    Clone: function() { return {...this}; }
   };
 
   return newEntry;
@@ -57,7 +58,8 @@ export function CreateTextPromptState(id: string) {
     visible: true,
     userInputText: '',
     continued: false,
-    isFocused: false
+    isFocused: false,
+    Clone: function() { return {...this}; }
   };
 
   return rv;
