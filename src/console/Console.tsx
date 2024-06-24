@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import './Console.css';
-import { IConsoleEntry } from './IConsoleEntry';
-import { CloneConsoleGraph, CreateNewConsoleGraph, FindConsoleGraphNode, IConsoleGraph, SetConsoleGraphState, UpdateConsoleGraph } from './IConsoleGraph';
+import { CloneConsoleGraph, FindConsoleGraphNode, IConsoleGraph, EntrySetFocus, ConsoleGraphUpdateAllEntries } from './ConsoleGraph';
 import { ConsoleEntryType } from './ConsoleEntryType';
 import { IConsoleGraphNode } from './IConsoleGraphNode';
 import { Output } from './components/Output';
@@ -15,11 +14,12 @@ import { IConsoleEntryInfoConfirm, IConsoleEntryStateInfoConfirm, InfoConfirmTyp
 import { InfoConfirm, InfoConfirmPropsRenderType } from './components/InfoConfirm';
 import { TextPrompt } from './components/TextPrompt';
 import { IConsoleEntryStateTextPrompt, IConsoleEntryTextPrompt, TextPromptSetContinued, TextPromptSetInputText } from './entries/TextPrompt';
-import { EntrySetFocus } from './IConsoleEntryState';
+import { IConsoleEntryState } from './IConsoleEntryState';
 import { GetEntryKeyboardConfig, IEntryKeyboardConfig } from './EntryKeyboardConfig';
 
 interface IConsoleProps {
-  entries: IConsoleEntry[];
+  graph: IConsoleGraph;
+  onGraphStateChange(state: IConsoleEntryState[]): void;
   onEntryFocus(keyboardConfig: IEntryKeyboardConfig): void;
 }
 
@@ -60,16 +60,9 @@ function RenderEntry(graph: IConsoleGraph, node: IConsoleGraphNode, onUpdate: (n
             focusedMenuItem={stateCast.focusedItem ? stateCast.focusedItem : undefined}
             isFocused={stateCast.isFocused}
             onMenuItemSelect={(id: string) => {
-              const newGraph = CloneConsoleGraph(graph);
-              const newNode = FindConsoleGraphNode(newGraph, node.entry.id);
-              if (newNode) {
-                const stateCast = newNode.state as IConsoleEntryStateRadioMenu;
-                if (stateCast) {
-                  RadioMenuFocusItem(stateCast, id);
-                  RadioMenuSelectItem(stateCast, id);
-                  onUpdate(newGraph, true);
-                }
-              }
+              let newGraph = RadioMenuFocusItem(node.entry.id, graph, id);
+              newGraph = RadioMenuSelectItem(node.entry.id, graph, id);
+              onUpdate(newGraph, true);
             }}/>;
         }
       }
@@ -88,22 +81,12 @@ function RenderEntry(graph: IConsoleGraph, node: IConsoleGraphNode, onUpdate: (n
           promptText={entryCast.promptText}
           inputText={stateCast.userInputText}
           onTextChange={text => {
-            const newGraph = CloneConsoleGraph(graph);
-            const newNode = FindConsoleGraphNode(newGraph, node.entry.id);
-            if (newNode) {
-              const stateCast = newNode.state as IConsoleEntryStateTextPrompt;
-              TextPromptSetInputText(stateCast, text);
-              onUpdate(newGraph, false);
-            }
+            const newGraph = TextPromptSetInputText(node.entry.id, graph, text);
+            onUpdate(newGraph, false);
           }}
           onContinue={() => {
-            const newGraph = CloneConsoleGraph(graph);
-            const newNode = FindConsoleGraphNode(newGraph, node.entry.id);
-            if (newNode) {
-              const stateCast = newNode.state as IConsoleEntryStateTextPrompt;
-              TextPromptSetContinued(stateCast, true);
-              onUpdate(newGraph, true);
-            }
+            const newGraph = TextPromptSetContinued(node.entry.id, graph, true);
+            onUpdate(newGraph, true);
           }}/>;
       }
       break;
@@ -119,28 +102,14 @@ function RadioMenuOnKeyDown(key: string, graph: IConsoleGraph, node: IConsoleGra
   const stateCast = node.state as IConsoleEntryStateRadioMenu;
 
   const onMenuItemFocus = (id: string) => {
-    const newGraph = CloneConsoleGraph(graph);
-    const newNode = FindConsoleGraphNode(newGraph, node.entry.id);
-    if (newNode) {
-      const stateCast = newNode.state as IConsoleEntryStateRadioMenu;
-      if (stateCast) {
-        RadioMenuFocusItem(stateCast, id);
-        onUpdate(newGraph, false);
-      }
-    }
+    const newGraph = RadioMenuFocusItem(node.entry.id, graph, id);
+    onUpdate(newGraph, false);
   };
 
   const onMenuItemSelect = (id: string) => {
-    const newGraph = CloneConsoleGraph(graph);
-    const newNode = FindConsoleGraphNode(newGraph, node.entry.id);
-    if (newNode) {
-      const stateCast = newNode.state as IConsoleEntryStateRadioMenu;
-      if (stateCast) {
-        RadioMenuFocusItem(stateCast, id);
-        RadioMenuSelectItem(stateCast, id);
-        onUpdate(newGraph, true);
-      }
-    }
+    let newGraph = RadioMenuFocusItem(node.entry.id, graph, id);
+    newGraph = RadioMenuSelectItem(node.entry.id, graph, id);
+    onUpdate(newGraph, true);
   };
 
   switch (key) {
@@ -217,19 +186,14 @@ function OnKeyDown(key: string, graph: IConsoleGraph, node: IConsoleGraphNode, o
 }
 
 export function Console(props: IConsoleProps) {
+  const graph = props.graph;
 
-  const graph = CreateNewConsoleGraph(props.entries);
-
-  const [graphState, setGraphState] = useState(graph.state);
   const [needsRefocus, setNeedsRefocus] = useState(false);
-
-  SetConsoleGraphState(graph, graphState);
 
   const visibleNodes = graph.nodes.filter(n => n.state.visible);
 
-  const onUpdate = (newGraph: IConsoleGraph, focusEnd: boolean = false) => {
-    UpdateConsoleGraph(newGraph);
-    setGraphState(newGraph.state);
+  function onUpdate(newGraph: IConsoleGraph, focusEnd: boolean = false) {
+    props.onGraphStateChange(newGraph.state);
     setNeedsRefocus(focusEnd);
   };
 
@@ -240,15 +204,17 @@ export function Console(props: IConsoleProps) {
       if (element) {
         element.focus({ preventScroll: true });
         element.scrollIntoView({ behavior: 'smooth'});
-        const newGraph = CloneConsoleGraph(graph);
-        newGraph.nodes.forEach(n => n.state.isFocused = n.entry.id === focusedId);
+
+        const newGraph = ConsoleGraphUpdateAllEntries(graph, (state, entry) => { 
+          state.isFocused = entry.id === focusedId;
+        });
         onUpdate(newGraph, false);
       }
     }
   }, [needsRefocus, visibleNodes, document, onUpdate]);
 
   return (
-    <div className="div__entries-area" role="presentation">
+    <div id='console' className="div__entries-area" role="presentation">
       {visibleNodes.map((n, i) => <div
         id={n.entry.id}
         className={n.state.isFocused ?
@@ -258,25 +224,15 @@ export function Console(props: IConsoleProps) {
         role="presentation"
         tabIndex={n.entry.isFocusable ? 0 : undefined}
         onFocus={() => {
-          const newGraph = CloneConsoleGraph(graph);
-          const newNode = FindConsoleGraphNode(newGraph, n.entry.id);
-          if (newNode) {
-            EntrySetFocus(newNode.state, true);
-            onUpdate(newGraph);
-            props.onEntryFocus(GetEntryKeyboardConfig(newNode.entry));
-          }
-          
+          const newGraph = EntrySetFocus(n.entry.id, graph, true);
+          onUpdate(newGraph);
+          props.onEntryFocus(GetEntryKeyboardConfig(n.entry));
         }}
         onBlur={() => {
-          const newGraph = CloneConsoleGraph(graph);
-          const newNode = FindConsoleGraphNode(newGraph, n.entry.id);
-          if (newNode) {
-            EntrySetFocus(newNode.state, false);
-            onUpdate(newGraph);
-          }
+          const newGraph = EntrySetFocus(n.entry.id, graph, false);
+          onUpdate(newGraph);
         }}
         onKeyDown={e => {
-          console.log(e.key);
           OnKeyDown(e.key, graph, n, onUpdate);
         }}>
           {n.state.isFocused && <div className="div__focus-indicator" aria-hidden={true}></div>}

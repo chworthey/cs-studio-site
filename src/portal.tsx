@@ -15,6 +15,7 @@ import { AllowedActionMask, AllowedKeyMask, DisallowedActionMask, DisallowedKeyM
 import { Toolbar } from "./Toolbar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { CreateNewConsoleGraph, SetConsoleGraphState } from "./console/ConsoleGraph";
 
 const consoleEntries: IConsoleEntry[] =
   [
@@ -48,8 +49,9 @@ const consoleEntries: IConsoleEntry[] =
     CreateOutput('new-student-response', 'That is so awesome! Let\'s get started with some basic information...',
       CreateRequirementRadioMenuItem('intent-menu', 'new-student')
     ),
-    CreateTextPrompt('input-name', 'What is the student\'s preferred first name?', FormType.Name, CreateRequirementRecursive('new-student-response')),
-    CreateScheduleMenus('consult-schedule', CreateRequirementPromptContinued('input-name')),
+    CreateScheduleMenus('consult-schedule', CreateRequirementRecursive('new-student-response')),
+    //CreateTextPrompt('input-name', 'What is the student\'s preferred first name?', FormType.Name, CreateRequirementRecursive('new-student-response')),
+    //CreateScheduleMenus('consult-schedule', CreateRequirementPromptContinued('input-name')),
     CreateOutput('consult-schedule-msg', 'Wowee!!! That time works for me!', CreateRequirementRecursive('consult-schedule')),
     CreateInfoConfirm('consult-schedule-msg2',
       () => consultationInfo, InfoConfirmType.Markdown,
@@ -79,6 +81,11 @@ export function PortalPage() {
     { MaskModeType: MaskModeType.Allowed, Actions: [] }
   );
 
+  const graph = CreateNewConsoleGraph(consoleEntries);
+  const [graphState, setGraphState] = useState(graph.state);
+
+  SetConsoleGraphState(graph, graphState);
+
   return (
     <div className="div__portal-page" role="presentation">
       <div className="div__console-area-wrapper" role="presentation">
@@ -88,16 +95,17 @@ export function PortalPage() {
               Portal Utility - Copyright (C) 2024 Charlotte Worthey
             </h1>
           </aside>
-          <aside>
+          <header>
             <Toolbar
               KeyboardShown={keyboardShown}
               OnShowKeyboardToggle={(value: boolean) => setKeyboardShown(value)}
               OnGoHomeClick={() => navigate('/')}
             />
-          </aside>
+          </header>
           <main className="main__console-wrapper">
             <Console
-              entries={consoleEntries}
+              graph={graph}
+              onGraphStateChange={state => setGraphState(state)}
               onEntryFocus={keyboardConfig => 
                 {
                   setIsActionEnabled(keyboardConfig.IsActionEnabled);
@@ -133,8 +141,18 @@ export function PortalPage() {
               OnUp={() => {}}
               OnEnd={() => {}}
               OnHome={() => {}}
-              OnPageUp={() => {}}
-              OnPageDown={() => {}}
+              OnPageUp={() => {
+                const e = document.getElementById('console');
+                if (e) {
+                  e.scrollBy(0, Math.floor(e.clientHeight * -0.9));
+                }
+              }}
+              OnPageDown={() => {
+                const e = document.getElementById('console');
+                if (e) {
+                  e.scrollBy(0, Math.floor(e.clientHeight * 0.9));
+                }
+              }}
               OnSpace={() => {}}
               OnTab={() => { setShiftOn(false); }}
               IsActionEnabled={isActionEnabled}

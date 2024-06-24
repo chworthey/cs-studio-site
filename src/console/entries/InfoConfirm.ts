@@ -1,7 +1,7 @@
 import { ConsoleEntryType } from "../ConsoleEntryType";
 import { IConsoleEntry } from "../IConsoleEntry";
 import { IConsoleEntryState } from "../IConsoleEntryState";
-import { IConsoleGraph } from "../IConsoleGraph";
+import { ConsoleGraphUpdateEntry, IConsoleGraph } from "../ConsoleGraph";
 import { IConsoleGraphNode } from "../IConsoleGraphNode";
 import { IRequirement } from "../IRequirement";
 
@@ -37,8 +37,12 @@ export function CreateInfoConfirm(id: string, inputFunc: (graph: IConsoleGraph) 
   return newEntry;
 };
 
-export function InfoConfirmSetConfirm(state: IConsoleEntryStateInfoConfirm, isConfirmed: boolean) {
-  state.isConfirmed = isConfirmed;
+export function InfoConfirmSetConfirm(entryId: string, graph: IConsoleGraph, isConfirmed: boolean) {
+  return ConsoleGraphUpdateEntry<IConsoleEntryInfoConfirm, IConsoleEntryStateInfoConfirm>(
+    entryId,
+    graph,
+    state => { state.isConfirmed = isConfirmed; }
+  );
 }
 
 export function UpdateInfoConfirm(graph: IConsoleGraph, node: IConsoleGraphNode) {

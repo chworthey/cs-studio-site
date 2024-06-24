@@ -1,4 +1,4 @@
-import { FindConsoleGraphNode, IConsoleGraph } from "../IConsoleGraph";
+import { FindConsoleGraphNode, IConsoleGraph } from "../ConsoleGraph";
 import { IRequirement } from "../IRequirement";
 import { RequirementType } from "../RequirementType";
 

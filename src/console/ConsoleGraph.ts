@@ -100,8 +100,33 @@ export function UpdateConsoleGraph(graph: IConsoleGraph) {
       node.state.visible = true;
     }
   }
-}
+};
 
 export function FindConsoleGraphNode(graph: IConsoleGraph, entryId: string) {
   return graph.nodesById.get(entryId);
-}
+};
+
+export function ConsoleGraphUpdateAllEntries(graph: IConsoleGraph, updateFunc: (state: IConsoleEntryState, entry: IConsoleEntry) => void) {
+  const newGraph = CloneConsoleGraph(graph);
+  newGraph.nodes.forEach(n => updateFunc(n.state, n.entry));
+  UpdateConsoleGraph(newGraph);
+  return newGraph;
+};
+
+export function ConsoleGraphUpdateEntry<E extends IConsoleEntry, S extends IConsoleEntryState>(
+  entryId: string, graph: IConsoleGraph, updateFunc: (state: S, entry: E) => void)
+{
+  const newGraph = CloneConsoleGraph(graph);
+  const newNode = FindConsoleGraphNode(newGraph, entryId);
+  if (newNode) {
+    updateFunc(newNode.state as S, newNode.entry as E);
+    UpdateConsoleGraph(newGraph);
+  }
+
+  return newGraph;
+};
+
+export function EntrySetFocus(entryId: string, graph: IConsoleGraph, focus: boolean) {
+  return ConsoleGraphUpdateEntry<IConsoleEntry, IConsoleEntryState>(
+    entryId, graph, state => { state.isFocused = focus; });
+};

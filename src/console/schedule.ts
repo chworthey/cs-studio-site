@@ -1,6 +1,6 @@
 import { ConsoleEntryType } from "./ConsoleEntryType";
 import { IConsoleEntry } from "./IConsoleEntry";
-import { FindConsoleGraphNode, IConsoleGraph } from "./IConsoleGraph";
+import { FindConsoleGraphNode, IConsoleGraph } from "./ConsoleGraph";
 import { IRequirement } from "./IRequirement";
 import { CreateDynamicOutput } from "./entries/DynamicOutput";
 import { CreateRadioMenu, IConsoleEntryRadioMenu, IConsoleEntryStateRadioMenu, IFactoryMenuItem } from "./entries/RadioMenu";

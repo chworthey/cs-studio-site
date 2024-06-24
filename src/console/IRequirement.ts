@@ -1,4 +1,4 @@
-import { IConsoleGraph } from "./IConsoleGraph";
+import { IConsoleGraph } from "./ConsoleGraph";
 import { RequirementType } from "./RequirementType";
 
 export interface IRequirement {

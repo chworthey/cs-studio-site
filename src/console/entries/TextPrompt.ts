@@ -1,4 +1,5 @@
 import { ConsoleEntryType } from "../ConsoleEntryType";
+import { ConsoleGraphUpdateEntry, IConsoleGraph } from "../ConsoleGraph";
 import { IConsoleEntry } from "../IConsoleEntry";
 import { IConsoleEntryState } from "../IConsoleEntryState";
 import { IRequirement } from "../IRequirement";
@@ -33,12 +34,20 @@ export function CreateTextPrompt(id: string, promptText: string, formType: FormT
   return newEntry;
 };
 
-export function TextPromptSetInputText(state: IConsoleEntryStateTextPrompt, text: string) {
-  state.userInputText = text;
+export function TextPromptSetInputText(entryId: string, graph: IConsoleGraph, text: string) {
+  return ConsoleGraphUpdateEntry<IConsoleEntryTextPrompt, IConsoleEntryStateTextPrompt>(
+    entryId,
+    graph,
+    state => { state.userInputText = text; }
+  );
 };
 
-export function TextPromptSetContinued(state: IConsoleEntryStateTextPrompt, continued: boolean) {
-  state.continued = continued;
+export function TextPromptSetContinued(entryId: string, graph: IConsoleGraph, continued: boolean) {
+  return ConsoleGraphUpdateEntry<IConsoleEntryTextPrompt, IConsoleEntryStateTextPrompt>(
+    entryId,
+    graph,
+    state => { state.continued = continued; }
+  );
 };
 
 export function CreateTextPromptState(id: string) {

@@ -1,7 +1,7 @@
 import { ConsoleEntryType } from "../ConsoleEntryType";
 import { IConsoleEntry } from "../IConsoleEntry";
 import { IConsoleEntryState } from "../IConsoleEntryState";
-import { IConsoleGraph } from "../IConsoleGraph";
+import { IConsoleGraph } from "../ConsoleGraph";
 import { IConsoleGraphNode } from "../IConsoleGraphNode";
 import { IRequirement } from "../IRequirement";
 
