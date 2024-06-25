@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import './Console.css';
-import { IConsoleGraph, EntrySetFocus, ConsoleGraphUpdateAllEntries } from './ConsoleGraph';
+import { IConsoleGraph, EntrySetFocus } from './ConsoleGraph';
 import { ConsoleEntryType } from './ConsoleEntryType';
 import { IConsoleGraphNode } from './IConsoleGraphNode';
 import { Output } from './components/Output';
@@ -14,13 +14,15 @@ import { IConsoleEntryInfoConfirm, IConsoleEntryStateInfoConfirm, InfoConfirmTyp
 import { InfoConfirm, InfoConfirmPropsRenderType } from './components/InfoConfirm';
 import { TextPrompt } from './components/TextPrompt';
 import { IConsoleEntryStateTextPrompt, IConsoleEntryTextPrompt, TextPromptSetContinued, TextPromptSetInputText } from './entries/TextPrompt';
+import { GlobalInsertOn, IKeyPress, KeysByKeyCode, ToggleGlobalInsert } from '../keyboard/VirtualKeyboardTypes';
+import { RadioMenuOnKeyDown } from './ConsoleInput';
 
 interface IConsoleProps {
   graph: IConsoleGraph;
   onGraphUpdate(newGraph: IConsoleGraph): void;
 }
 
-function RenderEntry(graph: IConsoleGraph, node: IConsoleGraphNode, onUpdate: (newGraph: IConsoleGraph, focusEnd: boolean) => void) {
+function RenderEntry(graph: IConsoleGraph, node: IConsoleGraphNode, onUpdate: (newGraph: IConsoleGraph, focusNext: boolean) => void) {
   let rv = <></>;
   switch (node.entry.type) {
     case ConsoleEntryType.InfoConfirm:
@@ -97,87 +99,10 @@ function RenderEntry(graph: IConsoleGraph, node: IConsoleGraphNode, onUpdate: (n
   return rv;
 }
 
-function RadioMenuOnKeyDown(key: string, graph: IConsoleGraph, node: IConsoleGraphNode, onUpdate: (newGraph: IConsoleGraph, focusEnd: boolean) => void) {
-  const entryCast = node.entry as IConsoleEntryRadioMenu;
-  const stateCast = node.state as IConsoleEntryStateRadioMenu;
-
-  const onMenuItemFocus = (id: string) => {
-    const newGraph = graph.Clone();
-    RadioMenuFocusItem(node.entry.id, newGraph, id);
-    onUpdate(newGraph, false);
-  };
-
-  const onMenuItemSelect = (id: string) => {
-    let newGraph = graph.Clone();
-    RadioMenuFocusItem(node.entry.id, newGraph, id);
-    RadioMenuSelectItem(node.entry.id, newGraph, id);
-    onUpdate(newGraph, true);
-  };
-
-  switch (key) {
-    case 'ArrowDown':
-    case 'ArrowRight':
-      {
-        const i = entryCast.items.findIndex(i => i.id === stateCast.focusedItem);
-        if (i >= 0) {
-          onMenuItemFocus(entryCast.items[(i + 1) % entryCast.items.length].id);
-        }
-      }
-      break;
-    case 'ArrowUp':
-    case 'ArrowLeft':
-      {
-        const i = entryCast.items.findIndex(i => i.id === stateCast.focusedItem);
-        if (i >= 0) {
-          onMenuItemFocus(entryCast.items[
-            (i - 1 + entryCast.items.length) % entryCast.items.length
-          ].id);
-        }
-      }
-      break;
-    case 'Enter':
-    case 'Spacebar':
-    case ' ':
-      if (stateCast.focusedItem) {
-        onMenuItemSelect(stateCast.focusedItem);
-      }
-      break;
-    case '1':
-    case '2':
-    case '3':
-    case '4':
-    case '5':
-    case '6':
-    case '7':
-    case '8':
-    case '9':
-      {
-        const i = parseInt(key) - 1;
-        if (i < entryCast.items.length) {
-          onMenuItemSelect(entryCast.items[i].id);
-        }
-      }
-      break;
-    default:
-      break;
-  }
-}
-
-function TextPromptOnKeyDown(key: string, graph: IConsoleGraph, node: IConsoleGraphNode, onUpdate: (newGraph: IConsoleGraph, focusEnd: boolean) => void) {
-  switch (key) {
-    case 'Enter':
-      break;
-    case '':
-      break;
-    default:
-      break;
-  }
-}
-
-function OnKeyDown(key: string, graph: IConsoleGraph, node: IConsoleGraphNode, onUpdate: (newGraph: IConsoleGraph, focusEnd: boolean) => void) {
+function OnKeyDown(keyPress: IKeyPress, graph: IConsoleGraph, node: IConsoleGraphNode, onUpdate: (newGraph: IConsoleGraph, focusNext: boolean) => void) {
   switch (node.entry.type) {
     case ConsoleEntryType.RadioMenu:
-      RadioMenuOnKeyDown(key, graph, node, onUpdate);
+      RadioMenuOnKeyDown(keyPress, graph, node, onUpdate);
       break;
     case ConsoleEntryType.TextPrompt:
 
@@ -190,37 +115,37 @@ function OnKeyDown(key: string, graph: IConsoleGraph, node: IConsoleGraphNode, o
 export function Console(props: IConsoleProps) {
   const graph = props.graph;
 
-  const [needsRefocus, setNeedsRefocus] = useState(false);
-
-  const visibleNodes: IConsoleGraphNode[] = [];
-  for (let value of graph.NodesById.values()) {
-    if (value.state.visible) {
-      visibleNodes.push(value);
+  const getVisibleNodes = (graph: IConsoleGraph) => {
+    const visibleNodes: IConsoleGraphNode[] = [];
+    for (let value of graph.NodesById.values()) {
+      if (value.state.visible) {
+        visibleNodes.push(value);
+      }
     }
+
+    return visibleNodes;
   }
 
-  function onUpdate(newGraph: IConsoleGraph, focusEnd: boolean = false) {
+  const visibleNodes = getVisibleNodes(graph);
+
+  function onUpdate(newGraph: IConsoleGraph, focusNext: boolean = false) {
+    const visibleNodes = getVisibleNodes(newGraph);
+    if (focusNext && visibleNodes.length > 0) {
+      const focusedId = visibleNodes[visibleNodes.length - 1].entry.id;
+      EntrySetFocus(focusedId, newGraph, true);
+    }
     props.onGraphUpdate(newGraph);
-    setNeedsRefocus(focusEnd);
   };
 
   useEffect(() => {
-    if (needsRefocus && visibleNodes.length > 0) {
-      const focusedId = visibleNodes[visibleNodes.length - 1].entry.id;
-      const element = document.getElementById(focusedId);
+    if (graph.FocusedNodeId) {
+      const element = document.getElementById(graph.FocusedNodeId);
       if (element) {
         element.focus({ preventScroll: true });
         element.scrollIntoView({ behavior: 'smooth'});
-
-        const newGraph = graph.Clone();
-        ConsoleGraphUpdateAllEntries(newGraph, (state, entry) => { 
-          state.isFocused = entry.id === focusedId;
-        });
-        onUpdate(newGraph, false);
       }
     }
-  }, [needsRefocus, visibleNodes, document, onUpdate]);
-  console.log(graph);
+  }, [graph.FocusedNodeId]);
 
   return (
     <div id='console' className="div__entries-area" role="presentation">
@@ -239,10 +164,27 @@ export function Console(props: IConsoleProps) {
           onUpdate(newGraph);
         }}
         onKeyDown={e => {
-          OnKeyDown(e.key, graph, n, onUpdate);
+          if (e.key === 'Insert') {
+            ToggleGlobalInsert();
+          }
+          const key = KeysByKeyCode.get(e.key);
+          if (key) {
+            const caps = e.getModifierState('CapsLock');
+            const shift = e.shiftKey;
+            const control = e.ctrlKey;
+            const insert = GlobalInsertOn;
+            const keyPress: IKeyPress = {
+              IsCapsDown: caps,
+              IsShiftDown: shift,
+              IsControlDown: control,
+              IsInsertDown: insert,
+              Key: key
+            };
+            OnKeyDown(keyPress, graph, n, onUpdate);
+          }
           e.preventDefault();
         }}>
-          {n.state.isFocused && <div className="div__focus-indicator" aria-hidden={true}></div>}
+          <div className={n.state.isFocused ? "div__focus-indicator" : "div__focus-indicator div__focus-indicator--hidden"} aria-hidden={true}></div>
           <div className="div__console-entry" role="presentation">
             {RenderEntry(graph, n, onUpdate)}
           </div>

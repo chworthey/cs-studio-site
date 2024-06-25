@@ -2,7 +2,9 @@
   overflow: hidden;
   display: flex;
   min-width: 100vw;
+  min-width: 100dvw;
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .div__console-area-wrapper {
@@ -21,7 +23,9 @@
   font-family: 'IBMBIOS';
   font-size: medium;
   width: 99vmin;
+  width: 99dvmin;
   height: 99vh;
+  height: 99dvh;
   padding: 20px;
   display: flex;
   flex-direction: column;

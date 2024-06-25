@@ -14,7 +14,7 @@ export class BaseVirtualKeyboard implements IVirtualKeyboard {
     this.CurrentPage = config.DefaultPage;
     this.Config = config;
   }
-  Clone(): IVirtualKeyboard {
+  Clone(): BaseVirtualKeyboard {
     const clone = new BaseVirtualKeyboard(this.Config.Clone());
 
     clone.IsShiftOn = this.IsShiftOn;

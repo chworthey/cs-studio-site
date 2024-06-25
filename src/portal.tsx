@@ -7,14 +7,14 @@ import { CreateTitleOutput } from "./console/entries/TitleOutput";
 import { CreateRequirementRadioMenuItem } from "./console/requirements/RadioMenuItem";
 import { CreateRequirementRecursive } from "./console/requirements/Recursive";
 import { CreateScheduleMenus } from "./console/schedule";
-import "./portal.css";
-import consultationInfo from "./info/consultationInfo.md?raw";
 import { Toolbar } from "./Toolbar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CreateNewConsoleGraph } from "./console/ConsoleGraph";
 import { ConsoleKeyboard } from "./console/ConsoleKeyboard";
 import { VirtualKeyboard } from "./keyboard/VirtualKeyboard";
+import consultationInfo from "./info/consultationInfo.md?raw";
+import "./portal.css";
 
 const consoleEntries: IConsoleEntry[] =
   [
@@ -67,7 +67,7 @@ export function PortalPage() {
   const navigate = useNavigate();
 
   const [graph, setGraph] = useState(CreateNewConsoleGraph(consoleEntries));
-  const [keyboard, setKeyboard] = useState(new ConsoleKeyboard(graph));
+  const [keyboard, setKeyboard] = useState(new ConsoleKeyboard(graph, setGraph));
 
   return (
     <div className="div__portal-page" role="presentation">
@@ -88,10 +88,17 @@ export function PortalPage() {
           <main className="main__console-wrapper">
             <Console
               graph={graph}
-              onGraphUpdate={graph => setGraph(graph)}/>
+              onGraphUpdate={graph => {
+                setGraph(graph);
+                const newKeyboard = keyboard.Clone();
+                newKeyboard.Graph = graph;
+                setKeyboard(newKeyboard);
+              }}/>
           </main>
           {keyboardShown && <aside>
-            <VirtualKeyboard Keyboard={keyboard} OnKeyboardUpdate={setKeyboard}/>
+            <VirtualKeyboard
+              Keyboard={keyboard}
+              OnKeyboardUpdate={keyboard => setKeyboard(keyboard as ConsoleKeyboard)}/>
           </aside>}
         </div>
       </div>

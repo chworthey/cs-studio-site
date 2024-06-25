@@ -54,6 +54,13 @@ h2 {
   margin-right: 10px;
 }
 
+.div__focus-indicator--hidden {
+  min-width: 5px;
+  min-height: 100%;
+  background-color: transparent;
+  margin-right: 10px;
+}
+
 .div__prompt-yes-no--selected {
   background-color: white;
   color:black;
