@@ -18,7 +18,8 @@ export function CreateOutput(id: string, text: string, requirement: IRequirement
     id: id,
     text: text,
     requirement: requirement,
-    isFocusable: false
+    isFocusable: false,
+    Clone: function() { return {...this}; }
   };
 
   return newEntry;
@@ -29,7 +30,8 @@ export function CreateOutputState(id: string) {
     id: id,
     type: ConsoleEntryType.Output,
     visible: true,
-    isFocused: false
+    isFocused: false,
+    Clone: function() { return {...this}; }
   };
   return rv;
 }

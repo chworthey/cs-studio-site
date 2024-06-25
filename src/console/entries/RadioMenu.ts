@@ -1,10 +1,12 @@
+import { IClonable } from "../../shared/IClonable";
 import { ConsoleEntryType } from "../ConsoleEntryType";
+import { ConsoleGraphUpdateEntry, IConsoleGraph } from "../ConsoleGraph";
 import { IConsoleEntry } from "../IConsoleEntry";
 import { IConsoleEntryState } from "../IConsoleEntryState";
 import { IConsoleGraphNode } from "../IConsoleGraphNode";
 import { IRequirement } from "../IRequirement";
 
-export interface IRadioMenuItem {
+export interface IRadioMenuItem extends IClonable<IFactoryMenuItem> {
   id: string;
   text: string;
   additionalData: string | null;
@@ -28,16 +30,28 @@ export interface IConsoleEntryStateRadioMenu extends IConsoleEntryState {
   focusedItem: string | null;
 }
 
-export function RadioMenuSelectItem(state: IConsoleEntryStateRadioMenu, itemId: string) {
-  state.activeItem = itemId;
+export function RadioMenuSelectItem(entryId: string, graph: IConsoleGraph, itemId: string) {
+  return ConsoleGraphUpdateEntry<IConsoleEntryRadioMenu, IConsoleEntryStateRadioMenu>(
+    entryId,
+    graph,
+    state => { state.activeItem = itemId; }
+  );
 };
 
-export function RadioMenuFocusItem(state: IConsoleEntryStateRadioMenu, itemId: string) {
-  state.focusedItem = itemId;
+export function RadioMenuFocusItem(entryId: string, graph: IConsoleGraph, itemId: string) {
+  return ConsoleGraphUpdateEntry<IConsoleEntryRadioMenu, IConsoleEntryStateRadioMenu>(
+    entryId,
+    graph,
+    state => { state.focusedItem = itemId; }
+  );
 }
 
-export function RadioMenuClear(state: IConsoleEntryStateRadioMenu) {
-  state.activeItem = null;
+export function RadioMenuClear(entryId: string, graph: IConsoleGraph) {
+  return ConsoleGraphUpdateEntry<IConsoleEntryRadioMenu, IConsoleEntryStateRadioMenu>(
+    entryId,
+    graph,
+    state => { state.activeItem = null; }
+  );
 };
 
 export function CreateRadioMenu(id: string, text: string, items: IFactoryMenuItem[], requirement: IRequirement | undefined = undefined) {
@@ -50,9 +64,11 @@ export function CreateRadioMenu(id: string, text: string, items: IFactoryMenuIte
       id: i.id,
       text: i.text,
       activated: false,
-      additionalData: i.additionalData ? i.additionalData : null
-    })),
-    isFocusable: true
+      additionalData: i.additionalData ? i.additionalData : null,
+      Clone: function() { return {...this}; }
+    } as IRadioMenuItem)),
+    isFocusable: true,
+    Clone: function() { return {...this, items: this.items.map(i => i.Clone())}; }
   };
 
   return newEntry;
@@ -77,7 +93,8 @@ export function CreateRadioMenuState(id: string) {
     visible: true,
     activeItem: null,
     focusedItem: null,
-    isFocused: false
+    isFocused: false,
+    Clone: function() { return {...this}; }
   };
 
   return rv;

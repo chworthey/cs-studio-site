@@ -1,11 +1,19 @@
+.div__portal-page {
+  overflow: hidden;
+  display: flex;
+  min-width: 100vw;
+  min-width: 100dvw;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
 .div__console-area-wrapper {
   background-color: #0000AA;
-  width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: auto;
+  flex-grow: 1;
 }
 
 .div__console-area {
@@ -15,7 +23,9 @@
   font-family: 'IBMBIOS';
   font-size: medium;
   width: 99vmin;
+  width: 99dvmin;
   height: 99vh;
+  height: 99dvh;
   padding: 20px;
   display: flex;
   flex-direction: column;

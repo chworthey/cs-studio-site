@@ -1,11 +1,18 @@
 import { ConsoleEntryType } from "../ConsoleEntryType";
+import { ConsoleGraphUpdateEntry, IConsoleGraph } from "../ConsoleGraph";
 import { IConsoleEntry } from "../IConsoleEntry";
 import { IConsoleEntryState } from "../IConsoleEntryState";
 import { IRequirement } from "../IRequirement";
 
+export enum FormType {
+  General,
+  Name
+};
+
 export interface IConsoleEntryTextPrompt extends IConsoleEntry {
   type: ConsoleEntryType.TextPrompt;
   promptText: string;
+  formType: FormType;
 };
 
 export interface IConsoleEntryStateTextPrompt extends IConsoleEntryState {
@@ -14,24 +21,34 @@ export interface IConsoleEntryStateTextPrompt extends IConsoleEntryState {
   continued: boolean;
 }
 
-export function CreateTextPrompt(id: string, promptText: string, requirement: IRequirement | undefined = undefined) {
+export function CreateTextPrompt(id: string, promptText: string, formType: FormType = FormType.General, requirement: IRequirement | undefined = undefined) {
   const newEntry: IConsoleEntryTextPrompt = {
     type: ConsoleEntryType.TextPrompt,
     id: id,
     promptText: promptText,
     requirement: requirement,
-    isFocusable: true
+    isFocusable: true,
+    formType: formType,
+    Clone: function() { return {...this}; }
   };
 
   return newEntry;
 };
 
-export function TextPromptSetInputText(state: IConsoleEntryStateTextPrompt, text: string) {
-  state.userInputText = text;
+export function TextPromptSetInputText(entryId: string, graph: IConsoleGraph, text: string) {
+  return ConsoleGraphUpdateEntry<IConsoleEntryTextPrompt, IConsoleEntryStateTextPrompt>(
+    entryId,
+    graph,
+    state => { state.userInputText = text; }
+  );
 };
 
-export function TextPromptSetContinued(state: IConsoleEntryStateTextPrompt, continued: boolean) {
-  state.continued = continued;
+export function TextPromptSetContinued(entryId: string, graph: IConsoleGraph, continued: boolean) {
+  return ConsoleGraphUpdateEntry<IConsoleEntryTextPrompt, IConsoleEntryStateTextPrompt>(
+    entryId,
+    graph,
+    state => { state.continued = continued; }
+  );
 };
 
 export function CreateTextPromptState(id: string) {
@@ -41,7 +58,8 @@ export function CreateTextPromptState(id: string) {
     visible: true,
     userInputText: '',
     continued: false,
-    isFocused: false
+    isFocused: false,
+    Clone: function() { return {...this}; }
   };
 
   return rv;

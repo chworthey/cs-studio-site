@@ -1,0 +1,61 @@
+.div__keyboard {
+  display: flex;
+  flex-direction: column;
+  border-style: double;
+  border-width: 7px;
+  overflow: auto;
+  width: 100%;
+  min-width: 200px;
+  background-color: white;
+}
+
+.div__keyboard-col-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.div__keyboard-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.div__key {
+  border: solid;
+  cursor: pointer;
+  background-color: #0000AA;
+  user-select: none;
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.div__key:hover {
+  background-color: #AA0000;
+  color: white;
+}
+
+.div__key--active {
+  background-color: #AA0000;
+  color: white;
+}
+
+.div__key--disabled {
+  background-color: grey;
+  border-color: white;
+  color: darkgrey;
+  cursor: not-allowed;
+}
+
+.div__key--disabled:hover {
+  background-color: grey;
+  border-color: white;
+  color: darkgrey;
+}
+
+.div__space-key {
+  flex-grow: 1;
+}

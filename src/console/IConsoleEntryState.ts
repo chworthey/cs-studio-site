@@ -1,12 +1,9 @@
+import { IClonable } from "../shared/IClonable";
 import { ConsoleEntryType } from "./ConsoleEntryType";
 
-export interface IConsoleEntryState {
+export interface IConsoleEntryState extends IClonable<IConsoleEntryState> {
   id: string;
   type: ConsoleEntryType;
   visible: boolean;
   isFocused: boolean;
 };
-
-export function EntrySetFocus(state: IConsoleEntryState, focus: boolean) {
-  state.isFocused = focus;
-}
