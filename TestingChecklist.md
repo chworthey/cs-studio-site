@@ -24,3 +24,8 @@ https://www.macincloud.com/
 - Chrome
 - Opera Mini
 - Opera
+
+## Checklist
+- Set browser custom font size
+- zoom in and out
+- try to scroll past the bottom (outermost div)

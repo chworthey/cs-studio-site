@@ -21,11 +21,11 @@
   font: 1.3rem Inconsolata, monospace;
   color: white;
   font-family: 'IBMBIOS';
-  font-size: medium;
-  width: 99vmin;
-  width: 99dvmin;
-  height: 99vh;
-  height: 99dvh;
+  font-size: 1rem;
+  width: 45ch;
+  width: 45ch;
+  height: 100vh;
+  height: 100dvh;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -33,7 +33,7 @@
 
 .h1__console-header {
   margin: 10px;
-  font-size: medium;
+  font-size: 1rem;
 }
 
 .aside__console-header-wrapper {

@@ -3,22 +3,19 @@
   src: url(ibm_bios/Web437_IBM_BIOS.woff) format('woff');
 }
 
-::-webkit-scrollbar {
+.div__entries-area::-webkit-scrollbar {
   width: 15px;
 }
 
-/* Track */
-::-webkit-scrollbar-track {
+.div__entries-area::-webkit-scrollbar-track {
   background: #0000AA; 
 }
  
-/* Handle */
-::-webkit-scrollbar-thumb {
+.div__entries-area::-webkit-scrollbar-thumb {
   background: white; 
 }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
+.div__entries-area::-webkit-scrollbar-thumb:hover {
   background: white; 
 }
 
@@ -29,11 +26,6 @@
   display: flex;
   width: 100%;
   flex-direction: column;
-}
-
-h2 {
-  font-family: 'IBMBIOS';
-  font-size: medium;
 }
 
 .div__console-entry-wrapper {
@@ -137,7 +129,7 @@ h2 {
 .h2__title-output-container {
   display: flex;
   flex-wrap: wrap;
-  font-size: large;
+  font-size: 1rem;
 }
 
 .form__text-prompt-input-button-container {
@@ -171,6 +163,6 @@ h2 {
   border: solid;
   background-color: transparent;
   font-family: 'IBMBIOS';
-  font-size: large;
+  font-size: 1rem;
   caret-shape: underscore;
 }
