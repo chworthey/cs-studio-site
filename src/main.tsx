@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
+import { App } from './main/components/App.tsx'
 import './index.css'
 
 enum CatDirection {
@@ -36,17 +36,16 @@ let targetX = 0;
 let targetY = 0;
 
 document.onmousemove = (ev: MouseEvent) => {
-  const circle = document.getElementById('cursor');
+  // const circle = document.getElementById('cursor');
   const knownHalfWidth = 50;
   const knownHalfHeight = 50;
   const stylishOffsetX = -1;
   const stylishOffsetY = 3;
   targetX = ev.pageX - knownHalfWidth + stylishOffsetX;
   targetY = ev.pageY - knownHalfHeight + stylishOffsetY;
-  if (circle) {
-    circle.style.left = `${targetX}px`;
-    circle.style.top = `${targetY}px`;
-  }
+  // if (circle) {
+    // circle.style.transform = `translate(${targetX}px, ${targetY}px)`;
+  // }
 };
 
 const root = document.getElementById('root')!;
@@ -267,8 +266,7 @@ function step(timestamp: DOMHighResTimeStamp) {
   catElement.textContent = task;
 
   
-  catElement.style.left = `${catX}px`;
-  catElement.style.top = `${catY}px`;
+  catElement.style.transform = `translate(${catX}px, ${catY}px)`;
 
   const sc = `neko/${hasDir ? dir : ''}${task}${altStr}.png`;
   if (catElement.src !== sc) {
@@ -289,89 +287,3 @@ playStartTime = now;
 sitStartTime = now;
 wakeUpStartTime = now;
 window.requestAnimationFrame(step);
-
-const debugFns = {
-  checkScrollingAncestor(elem: HTMLElement): boolean {
-    if (!elem.parentElement || elem.parentElement.tagName.toLowerCase() === 'body') {
-        return false;
-    }
-
-    const computedStyle = window.getComputedStyle(elem.parentElement);
-
-    if (computedStyle.overflowX == 'auto') {
-        return true;
-    } else {
-        return debugFns.checkScrollingAncestor(elem.parentElement);
-    }
-  },
-  getSizedAncestor(elem: HTMLElement): HTMLElement | null {
-    if (!elem.parentElement) {
-        return null;
-    }
-
-    if (elem.parentElement.offsetWidth > 0) {
-        return elem.parentElement;
-    } else {
-        return debugFns.getSizedAncestor(elem.parentElement);
-    }
-  },
-  dompath(element: HTMLElement)
-  {
-    var path = `${element.nodeName}:${element.className}`;
-    for (let e: HTMLElement | null = element.parentElement; e && e.nodeType == 1; e = e.parentElement)
-    {
-      path = `${e.nodeName}:${e.className}` + '.' + path;
-    }
-    return path;
-  },
-  checkElement(element: Element) {
-    const issues: HTMLElement[] = [];
-    const el = element as HTMLElement;
-    const hasScrollingAncestor = debugFns.checkScrollingAncestor(el);
-    if (hasScrollingAncestor) {
-        return;
-    }
-
-    const isHidden = (el.offsetParent === null);
-    if (isHidden) {
-      return;
-    }
-
-    // Find elements that overflow the document width
-    if (el.offsetWidth > document.documentElement.offsetWidth) {
-        issues.push(el);
-    }
-
-    const ancestor = debugFns.getSizedAncestor(el);
-    const info = window.getComputedStyle(el);
-
-    // Find any negative margins (deliberate outflow)
-    const adjustment = 
-        (info.marginLeft.startsWith('-') ? parseFloat(info.marginLeft) * -1 : 0)
-        +
-        (info.marginRight.startsWith('-') ? parseFloat(info.marginRight) * -1 : 0);
-
-    if (ancestor && (el.offsetWidth - adjustment) > ancestor.offsetWidth) {
-      issues.push(el);
-    }
-
-    if (issues.length > 0) {
-      console.log(issues.map(i => debugFns.dompath(i)));
-    }
-  },
-  isScroller(el: Element) {
-    const hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
-    const hasVerticalScrollbar = el.scrollHeight > el.clientHeight;
-    return hasHorizontalScrollbar || hasVerticalScrollbar;
-  }
-};
-
-function LogScrollbars() {
-  for (let el of document.querySelectorAll('*')) {
-    if (debugFns.isScroller(el)) {
-      console.log(debugFns.dompath(el as HTMLElement));
-    }
-  }
-}
-
-(window as any).LogScrollbars = LogScrollbars;
