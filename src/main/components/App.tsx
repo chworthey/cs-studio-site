@@ -53,7 +53,6 @@ export function App() {
   useEffect(() => {
     const handleResize = () => {
       if (appRef.current) {
-        console.log('setting size')
         setDocumentSize({
           Width: appRef.current.scrollWidth,
           Height: appRef.current.scrollHeight
