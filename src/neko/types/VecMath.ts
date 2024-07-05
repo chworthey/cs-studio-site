@@ -36,3 +36,8 @@ export function DotVec2(vec1: IVec2, vec2: IVec2) {
 export function DistanceVec2(vec1: IVec2, vec2: IVec2) {
   return Math.sqrt(Math.pow(vec2.X - vec1.X, 2) + Math.pow(vec2.Y - vec1.Y, 2));
 };
+
+export function CloneVec2(vec: IVec2) {
+  const rv: IVec2 = { X: vec.X, Y: vec.Y };
+  return rv;
+};

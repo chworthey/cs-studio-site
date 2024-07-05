@@ -14,20 +14,3 @@ html, body {
   min-height: 100dvh;
   background-color: black;
 }
-
-.img__cat {
-  width: 100px;
-  height: 100px;
-  z-index: 999;
-  position: absolute;
-  pointer-events: none;
-  image-rendering: pixelated;
-}
-
-.div__cat-container {
-  overflow:hidden;
-  position:absolute;
-  min-width: 100%;
-  min-height: 100%;
-  pointer-events: none;
-}

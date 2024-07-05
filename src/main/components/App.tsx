@@ -8,6 +8,13 @@ import { FrontPageFeatures } from "../data/objects/FrontPageFeatures";
 import { MenuItems } from "../data/objects/MenuItems";
 import { Articles } from "../data/objects/Articles";
 import "../styles/App.css";
+import { NekoOverlay } from "../../neko/components/NekoOverlay";
+import { useEffect, useRef, useState } from "react";
+
+interface IDocumentSize {
+  Width: number;
+  Height: number;
+}
 
 export function App() {
   const routes = [
@@ -36,8 +43,44 @@ export function App() {
   ].flat();
 
   const router = createBrowserRouter(routes);
+  const [documentSize, setDocumentSize] = useState<IDocumentSize>({
+    Width: document.documentElement.clientWidth,
+    Height: document.documentElement.clientHeight
+  });
+
+  const appRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (appRef.current) {
+        console.log('setting size')
+        setDocumentSize({
+          Width: appRef.current.scrollWidth,
+          Height: appRef.current.scrollHeight
+        });
+      }
+    };
+
+    let observer: ResizeObserver | undefined = undefined;
+
+    if (appRef.current) {
+      observer = new ResizeObserver(handleResize);
+      observer.observe(appRef.current);
+    }
+
+    return () => {
+      if (observer && appRef.current) {
+        observer.unobserve(appRef.current);
+      }
+    }
+  }, [appRef.current])
 
   return (
-    <RouterProvider router={router}/>
+    <>
+      <div ref={appRef} className="div__app">
+        <RouterProvider router={router}/>
+      </div>
+      <NekoOverlay Width={documentSize.Width} Height={documentSize.Height}/>
+    </>
   );
 };

@@ -1,0 +1,22 @@
+.div__neko {
+  position: absolute;
+  pointer-events: none;
+}
+
+.img__neko {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  image-rendering: pixelated;
+  z-index: 999;
+}
+
+.div__neko-container {
+  overflow:hidden;
+  position:absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+}
