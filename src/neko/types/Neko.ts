@@ -106,7 +106,7 @@ const animationAwake: INekoAnimationParameters = {
 
 const animationSleep: INekoAnimationParameters = {
   FrameCount: 2,
-  Duration: 1500,
+  Duration: 750,
   RepeatCount: 1,
   FrameOffset: 11
 };
