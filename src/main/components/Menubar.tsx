@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import studioLogo from "/cairns.gif";
+// import studioLogo from "/cairns.gif";
 import { ToggleSwitch } from "./ToggleSwitch";
 import { IMenuItem } from "../types/IMenuItem";
 import { useState } from "react";
@@ -30,7 +30,9 @@ export function Menubar(props: IMenuBarProps) {
         </div>
       </div>
       <div className={burgerMenuActive ? "div__menu-items" : "div__menu-items div__menu-items--hidden"}>
-        {props.Items.map((i, index) => <Link key={index} className={linkClass} to={i.LinkTo}>{i.LinkText}</Link>)}
+        <div className="div__menu-item-links">
+          {props.Items.map((i, index) => <Link key={index} className={linkClass} to={i.LinkTo}>{i.LinkText}</Link>)}
+        </div>
         <ToggleSwitch LabelText="Party Mode Toggle" On={props.IsPartyModeOn} OnClick={props.OnPartyModeSet}/>
       </div>
     </nav>

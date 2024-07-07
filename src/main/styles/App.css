@@ -162,6 +162,13 @@ html, body {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
+}
+
+.div__menu-item-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .div__menu-top-items {
@@ -241,6 +248,10 @@ html, body {
     transition: opacity 0.3s ease-in-out;
     height: 100%;
     opacity: 1;
+  }
+
+  .div__menu-item-links {
+    flex-direction: column;
   }
 
   .div__menu-items--hidden {
