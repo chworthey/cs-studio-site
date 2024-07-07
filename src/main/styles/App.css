@@ -543,7 +543,7 @@ html, body {
   background-color: white;
   /* align-items: center; */
   justify-content: center;
-  height: 100%;
+  flex-grow: 1;
   background-color: rgb(255, 255, 255);
   /* max-width: calc(800px - (30px * 2)); */
   /* margin-right: auto;

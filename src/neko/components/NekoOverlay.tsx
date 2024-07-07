@@ -2,55 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import '../styles/neko.css';
 import { Neko, NekoSprite } from "../types/Neko";
 import { CreateVec2 } from "../types/VecMath";
-
-interface IPointerLocation {
-  X: number | undefined;
-  Y: number | undefined;
-}
-
-function useMouseMove() {
-  const pointerLocation = useRef<IPointerLocation>({
-    X: undefined,
-    Y: undefined,
-  });
-
-  useEffect(() => {
-    function handleMove(e: MouseEvent) {
-      pointerLocation.current = {
-        X: e.pageX - 50 - 1,
-        Y: e.pageY - 50 + 3,
-      };
-    }
-    window.addEventListener('mousemove', handleMove, { passive: true });
-    return () => window.removeEventListener('mousemove', handleMove);
-  }, []);
-
-  return pointerLocation;
-}
-
-function useAnimate(animateFunc: (deltaTime: number) => void) {
-  const requestRef = useRef<number>();
-  const previousTimeRef = useRef<number>();
-  
-  const animate = (time: DOMHighResTimeStamp) => {
-    if (previousTimeRef.current != undefined) {
-      const deltaTime = time - previousTimeRef.current;
-      
-      animateFunc(deltaTime);
-    }
-    previousTimeRef.current = time;
-    requestRef.current = requestAnimationFrame(animate);
-  }
-  
-  useEffect(() => {
-    requestRef.current = requestAnimationFrame(animate);
-    return () => {
-      if (requestRef.current) {
-        cancelAnimationFrame(requestRef.current);
-      }
-    };
-  }, []);
-}
+import { Herring } from "./Herring";
+import { useMouseMove, useAnimate } from "./WindowEvents";
 
 interface INekoOverlayProps {
   Width: number;
@@ -88,7 +41,6 @@ export function NekoOverlay(props: INekoOverlayProps) {
       className="div__neko-container"
       aria-hidden={true}
       onMouseMove={e => {
-        console.log('here');
         if (nekoRef.current) {
           const newPos = CreateVec2();
           newPos.X = e.pageX;
@@ -96,6 +48,7 @@ export function NekoOverlay(props: INekoOverlayProps) {
           nekoRef.current.TargetPosition = newPos;
         }
       }}>
+      <Herring Width={props.Width} Height={props.Height}/>
       <div style={{transform: `translate(${x}px, ${y}px)`}} id="neko" className='div__neko'>
         <img hidden={sprite !== NekoSprite.Wash1} id="neko-wash1" src="neko/wash1.png" className='img__neko'/>
         <img hidden={sprite !== NekoSprite.Wash2} id="neko-wash2" src="neko/wash2.png" className='img__neko'/>

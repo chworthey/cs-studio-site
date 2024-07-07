@@ -41,3 +41,7 @@ export function CloneVec2(vec: IVec2) {
   const rv: IVec2 = { X: vec.X, Y: vec.Y };
   return rv;
 };
+
+export function LengthVec2(vec: IVec2) {
+  return Math.sqrt(Math.pow(vec.X, 2) + Math.pow(vec.Y, 2));
+}
