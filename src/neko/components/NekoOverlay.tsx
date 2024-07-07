@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import '../styles/neko.css';
 import { Neko, NekoSprite } from "../types/Neko";
 import { CreateVec2 } from "../types/VecMath";
-import { Herring } from "./Herring";
 import { useMouseMove, useAnimate } from "./WindowEvents";
 
 interface INekoOverlayProps {
@@ -48,7 +47,6 @@ export function NekoOverlay(props: INekoOverlayProps) {
           nekoRef.current.TargetPosition = newPos;
         }
       }}>
-      <Herring Width={props.Width} Height={props.Height}/>
       <div style={{transform: `translate(${x}px, ${y}px)`}} id="neko" className='div__neko'>
         <img hidden={sprite !== NekoSprite.Wash1} id="neko-wash1" src="neko/wash1.png" className='img__neko'/>
         <img hidden={sprite !== NekoSprite.Wash2} id="neko-wash2" src="neko/wash2.png" className='img__neko'/>
