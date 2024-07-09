@@ -746,11 +746,6 @@ html, body {
   padding: 0.3em 0;
   background-color: #1f1f1f;
   overflow: hidden;
-  box-shadow:
-        inset 0 0 2px 0 rgba(255,255,255,.1),
-        inset 0 0 3px 0 rgba(0,0,0,.4),
-        inset 0 0 3px 5px rgba(0,0,0,.05),
-        2px 2px 4px 0 rgba(0,0,0,.25);
 }
 
 .span__marquee-spacer {
@@ -766,8 +761,6 @@ html, body {
 
 .p__marquee-text {
   position:absolute;
-  left: 0;
-  right: 0;
   height: 1em;
   margin: 0;
   color: rgb(244, 239, 226);
@@ -777,6 +770,21 @@ html, body {
   font-size: 1rem;
   text-transform:uppercase;
   cursor: default;
+  animation: marquee-scroll 100s linear infinite;
+}
+
+.span__marquee-text-part {
+  transform: translate3d(0, 0, 0); /* Fixes iOS bug where text would disappear */
+  display: inline-block;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(100vw);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }
 
 .div__switch-container {
