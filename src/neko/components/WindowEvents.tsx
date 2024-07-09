@@ -42,8 +42,11 @@ export function useMouseMove() {
         Y: e.pageY - 50 + 3,
       };
     }
+
     window.addEventListener('mousemove', handleMove, { passive: true });
-    return () => window.removeEventListener('mousemove', handleMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMove);
+    }
   }, []);
 
   return pointerLocation;

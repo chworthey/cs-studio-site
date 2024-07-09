@@ -1,18 +1,19 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import '../styles/neko.css';
 import { Neko, NekoSprite } from "../types/Neko";
 import { CreateVec2 } from "../types/VecMath";
 import { useMouseMove, useAnimate } from "./WindowEvents";
 
 interface INekoOverlayProps {
-  Width: number;
-  Height: number;
+  IsTouchScreen: boolean;
 }
 
 export function NekoOverlay(props: INekoOverlayProps) {
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
   const [sprite, setSprite] = useState(NekoSprite.Wash1);
+  const [targetX, setTargetX] = useState(0);
+  const [targetY, setTargetY] = useState(0);
 
   const nekoRef = useRef<Neko>(new Neko());
   
@@ -26,6 +27,16 @@ export function NekoOverlay(props: INekoOverlayProps) {
         targetPos.X = pointerLocation.current.X;
         targetPos.Y = pointerLocation.current.Y;
         neko.TargetPosition = targetPos;
+        setTargetX(targetPos.X);
+        setTargetY(targetPos.Y);
+      }
+      else {
+        const targetPos = CreateVec2();
+        targetPos.X = 0;
+        targetPos.Y = 270;
+        neko.TargetPosition = targetPos;
+        setTargetX(targetPos.X);
+        setTargetY(targetPos.Y);
       }
       neko.Update({ DeltaTime: deltaTime });
       setX(neko.Position.X);
@@ -35,7 +46,7 @@ export function NekoOverlay(props: INekoOverlayProps) {
   });
 
   return (
-    <div style={{width: `${props.Width}px`, height: `${props.Height}px`}}
+    <div
       id="neko-container"
       className="div__neko-container"
       aria-hidden={true}
@@ -47,6 +58,10 @@ export function NekoOverlay(props: INekoOverlayProps) {
           nekoRef.current.TargetPosition = newPos;
         }
       }}>
+      {props.IsTouchScreen && <img
+        style={{transform: `translate(${targetX + 25}px, ${targetY + 25}px)`}}
+        className="img__fish" src="fish.png"
+      />}
       <div style={{transform: `translate(${x}px, ${y}px)`}} id="neko" className='div__neko'>
         <img hidden={sprite !== NekoSprite.Wash1} id="neko-wash1" src="neko/wash1.png" className='img__neko'/>
         <img hidden={sprite !== NekoSprite.Wash2} id="neko-wash2" src="neko/wash2.png" className='img__neko'/>

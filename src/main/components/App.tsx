@@ -9,11 +9,15 @@ import { MenuItems } from "../data/objects/MenuItems";
 import { Articles } from "../data/objects/Articles";
 import "../styles/App.css";
 import { NekoOverlay } from "../../neko/components/NekoOverlay";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 interface IDocumentSize {
   Width: number;
   Height: number;
+}
+
+function isTouchScreen() {
+  return window.matchMedia("(pointer: coarse)").matches;
 }
 
 export function App() {
@@ -43,43 +47,15 @@ export function App() {
   ].flat();
 
   const router = createBrowserRouter(routes);
-  const [documentSize, setDocumentSize] = useState<IDocumentSize>({
-    Width: document.documentElement.clientWidth,
-    Height: document.documentElement.clientHeight
-  });
 
   const appRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (appRef.current) {
-        setDocumentSize({
-          Width: appRef.current.scrollWidth,
-          Height: appRef.current.scrollHeight
-        });
-      }
-    };
-
-    let observer: ResizeObserver | undefined = undefined;
-
-    if (appRef.current) {
-      observer = new ResizeObserver(handleResize);
-      observer.observe(appRef.current);
-    }
-
-    return () => {
-      if (observer && appRef.current) {
-        observer.unobserve(appRef.current);
-      }
-    }
-  }, [appRef.current])
-
   return (
-    <>
+    <div className="div__app-wrapper">
       <div ref={appRef} className="div__app">
         <RouterProvider router={router}/>
       </div>
-      <NekoOverlay Width={documentSize.Width} Height={documentSize.Height}/>
-    </>
+      <NekoOverlay IsTouchScreen={isTouchScreen()}/>
+    </div>
   );
 };

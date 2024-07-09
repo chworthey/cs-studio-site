@@ -1,6 +1,7 @@
 .div__neko {
   position: absolute;
   pointer-events: none;
+  z-index: 999;
 }
 
 .img__neko {
@@ -9,14 +10,39 @@
   height: 100px;
   image-rendering: pixelated;
   z-index: 999;
+  outline: 5px solid transparent; /* Fixes iOS bug with trailing pixels */
+}
+
+.div__neko-container-outer {
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  pointer-events: none;
+}
+
+.div__neko-container-inner {
+  position: initial !important;
+  pointer-events: none;
 }
 
 .div__neko-container {
   overflow:hidden;
-  position:absolute;
+  position: absolute;
+  width: 100%;
+  height: 100%;
   left: 0;
-  right: 0;
   top: 0;
-  bottom: 0;
   pointer-events: none;
+}
+
+.img__fish {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  image-rendering: pixelated;
+  z-index: 998;
+  outline: 5px solid transparent; /* Fixes iOS bug with trailing pixels */
 }
