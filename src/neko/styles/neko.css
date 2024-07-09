@@ -13,21 +13,6 @@
   outline: 5px solid transparent; /* Fixes iOS bug with trailing pixels */
 }
 
-.div__neko-container-outer {
-  overflow: hidden;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  pointer-events: none;
-}
-
-.div__neko-container-inner {
-  position: initial !important;
-  pointer-events: none;
-}
-
 .div__neko-container {
   overflow:hidden;
   position: absolute;
