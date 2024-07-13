@@ -740,6 +740,8 @@ html, body {
 .button__back-to-top--hidden {
   color: transparent;
   text-shadow: none;
+  cursor: default;
+  user-select: none;
 }
 
 .div__marquee-container {
@@ -770,7 +772,7 @@ html, body {
   font-size: 1rem;
   text-transform:uppercase;
   cursor: default;
-  animation: marquee-scroll 100s linear infinite;
+  animation: marquee-scroll 160s linear infinite;
 }
 
 .span__marquee-text-part {

@@ -4,8 +4,8 @@ export const FrontPageFeatures: IFeature[] = [
   {
     Title: 'Student-Centered Learning',
     BodyText: 'Classes consist of 3-5 students. Students choose projects that are aligned with their own interests, values, and needs. Any skill-level, any language. Ages 13 and up.',
-    LinkText: 'View Learning Pillars',
-    LinkTo: '/'
+    LinkText: 'View My Teaching Style',
+    LinkTo: '/teaching'
   },
   {
     Title: 'Remote Instruction',

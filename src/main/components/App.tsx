@@ -11,11 +11,6 @@ import "../styles/App.css";
 import { NekoOverlay } from "../../neko/components/NekoOverlay";
 import { useRef } from "react";
 
-interface IDocumentSize {
-  Width: number;
-  Height: number;
-}
-
 function isTouchScreen() {
   return window.matchMedia("(pointer: coarse)").matches;
 }
