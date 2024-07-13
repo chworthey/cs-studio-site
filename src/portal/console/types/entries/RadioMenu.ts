@@ -1,4 +1,4 @@
-import { IClonable } from "../../shared/IClonable";
+import { IClonable } from "../../../shared/IClonable";
 import { ConsoleEntryType } from "../ConsoleEntryType";
 import { ConsoleGraphUpdateEntry, IConsoleGraph } from "../ConsoleGraph";
 import { IConsoleEntry } from "../IConsoleEntry";
