@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'IBMBIOS';
-  src: url(ibm_bios/Web437_IBM_BIOS.woff) format('woff');
+  src: url(/ibm_bios/Web437_IBM_BIOS.woff) format('woff');
 }
 
 .div__entries-area::-webkit-scrollbar {
