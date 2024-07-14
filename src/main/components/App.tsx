@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom";
 import { PortalPage } from "../../portal/main/components/PortalPage";
 import { MarkdownPage } from "./MarkdownPage";
 import { ArticlesPage } from "./ArticlesPage";
@@ -10,6 +10,7 @@ import { Articles } from "../data/objects/Articles";
 import "../styles/App.css";
 import { NekoOverlay } from "../../neko/components/NekoOverlay";
 import { useRef } from "react";
+import { NotFound } from "./NotFound";
 
 function isTouchScreen() {
   return window.matchMedia("(pointer: coarse)").matches;
@@ -38,7 +39,15 @@ export function App() {
     Articles.map(a => ({
       path: `/${a.ID}`,
       element: <MarkdownPage MenuItems={MenuItems} MarkdownText={a.MarkdownText} Title={a.Title}/>
-    }))
+    })),
+    {
+      path: '/404',
+      element: <NotFound MenuItems={MenuItems}/>
+    },
+    {
+      path: '*',
+      element: <Navigate to="/404"/>
+    }
   ].flat();
 
   const router = createBrowserRouter(routes);
