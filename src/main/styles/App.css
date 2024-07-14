@@ -713,6 +713,16 @@ html, body {
   width: 100%;
 }
 
+.div__page th {
+  text-align: center;
+}
+
+.div__page td {
+  text-align: center;
+}
+
+.div__page tr:nth-child(even) {background-color: #f2f2f2;}
+
 .div__page-bottom {
   display: flex;
   justify-content: center;

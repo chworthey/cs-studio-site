@@ -11,6 +11,8 @@ import "../styles/App.css";
 import { NekoOverlay } from "../../neko/components/NekoOverlay";
 import { useRef } from "react";
 import { NotFound } from "./NotFound";
+import { SchedulePage } from "./Schedule";
+import { ProjectsPage } from "./ProjectsPage";
 
 function isTouchScreen() {
   return window.matchMedia("(pointer: coarse)").matches;
@@ -26,6 +28,14 @@ export function App() {
       {
         path: '/portal',
         element: <PortalPage/>
+      },
+      {
+        path: '/schedule',
+        element: <SchedulePage MenuItems={MenuItems}/>
+      },
+      {
+        path: '/projects',
+        element: <ProjectsPage MenuItems={MenuItems}/>
       },
       {
         path: '/articles',

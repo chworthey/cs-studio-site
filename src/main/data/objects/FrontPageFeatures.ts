@@ -11,7 +11,7 @@ export const FrontPageFeatures: IFeature[] = [
     Title: 'Remote Instruction',
     BodyText: 'Weekly 45-minute classes from the comfort of home. Additional support for students will be available through email or the adult-only Discord.',
     LinkText: 'View Schedule',
-    LinkTo: '/'
+    LinkTo: '/schedule'
   },
   {
     Title: 'Career Guidance',
@@ -23,7 +23,7 @@ export const FrontPageFeatures: IFeature[] = [
     Title: 'Team Experiences',
     BodyText: 'Students work together on class projects to build interpersonal skills necessary for the software discipline. Group up with your friends if you have any that would be interested.',
     LinkText: 'View Student Projects',
-    LinkTo: '/'
+    LinkTo: '/projects'
   },
   // {
   //   Title: 'Asynchronous Learning',
@@ -41,7 +41,7 @@ export const FrontPageFeatures: IFeature[] = [
     Title: 'Colorado Local Events',
     BodyText: 'That\'s right! I\'m based in Littleton, CO. For those of us nearby, we will be doing hackathon get-togethers.',
     LinkText: 'View Events',
-    LinkTo: '/'
+    LinkTo: '/schedule'
   },
   {
     Title: 'Really Nice Value!',
