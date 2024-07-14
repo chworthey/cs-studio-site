@@ -1,4 +1,4 @@
-Imagine what it was like to be a person born in another time with different technology. The only constant for technology has always been change. People throughout history have instigated change as well as managed changed. All of us seem to flow with the change like water.
+Imagine what it was like to be a person born in another time with different technology. The only constant for technology has always been change.
 
 ## Human Computers
 

@@ -4,7 +4,18 @@ Hello, my name is Charlotte Worthey. I use she/her/hers pronouns, and I'm based 
 
 I am a Software Engineer and Data Engineer with 16 years of software development excellence and multiple top-selling video game title credits.
 
-Games I worked on:
+I grew up in a teaching family. Teaching is in my blood!
+
+I am a programming language polyglot and have worked with dozens of languages. I will most likely be able to adapt to anything my students wish to learn.
+
+**My favorite languages right now are:**
+- TypeScript
+- C#
+- Rust
+- C++
+- Python
+
+**Games I worked on:**
 - Minecraft
 - Minecraft Education
 - Minecraft Dungeons
@@ -18,9 +29,21 @@ Games I worked on:
 - Microsoft Solitaire Collection (mobile)
 - Age of Empires: Definitive Edition
 
-I am a programming language polyglot and have worked with dozens of languages. My favorite programming languages (in no particular order) are:
-- TypeScript
-- C#
-- Rust
-- C++
-- Python
+**A handful of my favorite tools:**
+- Unreal Engine
+- Blender
+- Perforce
+- Git
+- VS Code
+
+**New things I would like to learn with my students:**
+- Godot game engine
+- Robotics
+- ML
+
+Enough about me, I hope you get the chance to check out the rest of my site!
+
+## Links for More Information
+- [Career Overview](/career)
+- [Teaching Style](/teaching)
+- [Policies](/policies)
