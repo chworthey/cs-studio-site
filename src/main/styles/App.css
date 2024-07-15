@@ -142,11 +142,13 @@ html, body {
 }
 }
 
-.a__logo-title:hover {
-  color: white;
-  transform: scale(1.1);
-  padding-left: 1em;
-  padding-right: 1em;
+@media (hover: hover) {
+  .a__logo-title:hover {
+    color: white;
+    transform: scale(1.1);
+    padding-left: 1em;
+    padding-right: 1em;
+  }
 }
 
 .img__logo {
@@ -166,6 +168,7 @@ html, body {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  min-width: 100%;
   justify-content: space-between;
 }
 
@@ -196,12 +199,14 @@ html, body {
   transition: all 0.1s ease-in-out;
 }
 
-.a__navbar__page:hover {
-  color: white;
-  text-decoration: underline;
-  transform: scale(1.1);
-  padding-left: 1.2em;
-  padding-right: 1.2em;
+@media (hover: hover) {
+  .a__navbar__page:hover {
+    color: white;
+    text-decoration: underline;
+    transform: scale(1.1);
+    padding-left: 1.2em;
+    padding-right: 1.2em;
+  }
 }
 
 .div__burger-menu {
@@ -218,10 +223,12 @@ html, body {
   /* flex-shrink: 0; */
 }
 
-.div__burger-menu:hover {
-  transform: scale(1.2);
-  margin-left: 0.75em;
-  margin-right: 0.75em;
+@media (hover: hover) {
+  .div__burger-menu:hover {
+    transform: scale(1.2);
+    margin-left: 0.75em;
+    margin-right: 0.75em;
+  }
 }
 
 .div__burger-menu-line {
@@ -273,16 +280,17 @@ html, body {
     padding-left: 1em;
     padding-right: 1em;
   }
-
-  .a__navbar__page:hover {
-    color: black;
-    text-decoration: underline;
-    transform: none;
-    padding-left: 1em;
-    padding-right: 1em;
-    /* transform: scale(1.1); */
-    /* padding-left: 1.2em; */
-    /* padding-right: 1.2em; */
+  @media (hover: hover) {
+    .a__navbar__page:hover {
+      color: black;
+      text-decoration: underline;
+      transform: none;
+      padding-left: 1em;
+      padding-right: 1em;
+      /* transform: scale(1.1); */
+      /* padding-left: 1.2em; */
+      /* padding-right: 1.2em; */
+    }
   }
 
   .nav__navbar {
@@ -382,8 +390,10 @@ html, body {
   font-size: calc(1rem + 1vw);
 }
 
-.div__actionable-offer__item:hover {
-  transform: scale(1.05);
+@media (hover: hover) {
+  .div__actionable-offer__item:hover {
+    transform: scale(1.05);
+  }
 }
 
 .a__start-lessons:link, .a__start-lessons:visited {
@@ -410,11 +420,13 @@ html, body {
   text-shadow: 0 0 0em #e7378f, 0 0 0.5em #e60073, 0 0 1em #e60073;
 }
 
-.a__start-lessons:hover {
-  /* transform: scale(1.05); */
-  text-decoration: underline;
-  text-underline-offset: 0.5em;
-  text-decoration-thickness: 0.2em;
+@media (hover: hover) {
+  .a__start-lessons:hover {
+    /* transform: scale(1.05); */
+    text-decoration: underline;
+    text-underline-offset: 0.5em;
+    text-decoration-thickness: 0.2em;
+  }
 }
 
 .party-mode {
@@ -607,8 +619,10 @@ html, body {
   transform: scale(0.97);
 }
 
-.div__feature:hover {
-  transform: none;
+@media (hover: hover) {
+  .div__feature:hover {
+    transform: none;
+  }
 }
 
 .img__feature__arrow-bullet {
@@ -645,11 +659,13 @@ html, body {
   /* transition: all 0.1s ease-in-out; */
 }
 
-.a__feature-button:hover, .a__feature-button:active {
-  color: white;
-  text-decoration: underline;
-  text-underline-offset: 0.5em;
-  text-decoration-thickness: 0.2em;
+@media (hover: hover) {
+  .a__feature-button:hover, .a__feature-button:active {
+    color: white;
+    text-decoration: underline;
+    text-underline-offset: 0.5em;
+    text-decoration-thickness: 0.2em;
+  }
 }
 
 @keyframes rainbow {
@@ -742,9 +758,11 @@ html, body {
   cursor: pointer;
 }
 
-.button__back-to-top:hover {
-  letter-spacing: 0.05rem;
-  /* transform: scale(1.1); */
+@media (hover: hover) {
+  .button__back-to-top:hover {
+    letter-spacing: 0.05rem;
+    /* transform: scale(1.1); */
+  }
 }
 
 .button__back-to-top--hidden {

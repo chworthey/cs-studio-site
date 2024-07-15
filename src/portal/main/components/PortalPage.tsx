@@ -12,7 +12,7 @@ import { CreateTitleOutput } from "../../console/types/entries/TitleOutput";
 import { IConsoleEntry } from "../../console/types/IConsoleEntry";
 import { CreateRequirementRadioMenuItem } from "../../console/types/requirements/RadioMenuItem";
 import { CreateRequirementRecursive } from "../../console/types/requirements/Recursive";
-import { VirtualKeyboard } from "../../keyboard/components/VirtualKeyboard";
+// import { VirtualKeyboard } from "../../keyboard/components/VirtualKeyboard";
 import { ConsoleKeyboard } from "../types/ConsoleKeyboard";
 import { Toolbar } from "./Toolbar";
 import { CreateScheduleMenus } from "../types/Schedule";
@@ -59,12 +59,12 @@ const consoleEntries: IConsoleEntry[] =
       CreateRequirementRecursive('consult-schedule-msg'))
   ].flat();
 
-function IsTouchScreen() {
-  return window.matchMedia("(pointer: coarse)").matches;
-}
+// function IsTouchScreen() {
+//   return window.matchMedia("(pointer: coarse)").matches;
+// }
 
 export function PortalPage() {
-  const [keyboardShown, setKeyboardShown] = useState(IsTouchScreen());
+  // const [keyboardShown, setKeyboardShown] = useState(IsTouchScreen());
   const navigate = useNavigate();
 
   const [graph, setGraph] = useState(CreateNewConsoleGraph(consoleEntries));
@@ -81,8 +81,8 @@ export function PortalPage() {
           </aside>
           <header>
             <Toolbar
-              KeyboardShown={keyboardShown}
-              OnShowKeyboardToggle={(value: boolean) => setKeyboardShown(value)}
+              // KeyboardShown={keyboardShown}
+              // OnShowKeyboardToggle={(value: boolean) => setKeyboardShown(value)}
               OnGoHomeClick={() => navigate('/')}
             />
           </header>
@@ -96,11 +96,11 @@ export function PortalPage() {
                 setKeyboard(newKeyboard);
               }}/>
           </main>
-          {keyboardShown && <aside>
+          {/* {keyboardShown && <aside>
             <VirtualKeyboard
               Keyboard={keyboard}
               OnKeyboardUpdate={keyboard => setKeyboard(keyboard as ConsoleKeyboard)}/>
-          </aside>}
+          </aside>} */}
         </div>
       </div>
     </div>

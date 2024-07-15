@@ -14,15 +14,15 @@ interface IRadioMenuProps {
 
 export function RadioMenu(props: IRadioMenuProps) {
   return (
-    <div className="div__menu" role="radiogroup">
-      <div className="div__menu-header">
+    <div className="div__radio-menu" role="radiogroup">
+      <div className="div__radio-menu-header">
         {props.text}
       </div>
-      <div className="div__menu-items" role="presentation">
+      <div className="div__radio-menu-items" role="presentation">
         {props.menuItems.map((item, i) => <div
           className={props.selectedItemId === item.id ?
-            "div__menu-item div__menu-item--activated" :
-            "div__menu-item"
+            "div__radio-menu-item div__radio-menu-item--activated" :
+            "div__radio-menu-item"
           }
           key={i}
           onClick={() => {props.onMenuItemSelect(item.id)}}
@@ -30,8 +30,8 @@ export function RadioMenu(props: IRadioMenuProps) {
           aria-checked={props.focusedMenuItem === item.id}>
             <div aria-hidden={true} className={
               props.isFocused && props.focusedMenuItem === item.id ?
-              "div__menu-item-bullet div__menu-item-bullet--focused" :
-              "div__menu-item-bullet"}>&#x25BA;</div>
+              "div__radio-menu-item-bullet div__radio-menu-item-bullet--focused" :
+              "div__radio-menu-item-bullet"}>&#x25BA;</div>
             <div>{item.text}</div>
           </div>)}
       </div>

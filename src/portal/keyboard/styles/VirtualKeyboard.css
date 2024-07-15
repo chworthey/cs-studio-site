@@ -33,9 +33,11 @@
   font-size: 12px;
 }
 
-.div__key:hover {
-  background-color: #AA0000;
-  color: white;
+@media (hover: hover) {
+  .div__key:hover {
+    background-color: #AA0000;
+    color: white;
+  }
 }
 
 .div__key--active {
@@ -50,10 +52,12 @@
   cursor: not-allowed;
 }
 
-.div__key--disabled:hover {
-  background-color: grey;
-  border-color: white;
-  color: darkgrey;
+@media (hover: hover) {
+  .div__key--disabled:hover {
+    background-color: grey;
+    border-color: white;
+    color: darkgrey;
+  }
 }
 
 .div__space-key {

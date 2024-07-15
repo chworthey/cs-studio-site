@@ -13,9 +13,11 @@
   padding: 6px;
 }
 
-.div__tool:hover {
-  background-color: #AA0000;
-  color: white;
+@media (hover: hover) {
+  .div__tool:hover {
+    background-color: #AA0000;
+    color: white;
+  }
 }
 
 .div__tool--active {
