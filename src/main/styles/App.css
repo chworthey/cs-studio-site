@@ -168,7 +168,8 @@ html, body {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  min-width: 100%;
+  /* min-width: 100%; */
+  width: 100%;
   justify-content: space-between;
 }
 
