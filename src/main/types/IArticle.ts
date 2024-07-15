@@ -3,4 +3,5 @@ export interface IArticle {
   ID: string;
   Description: string;
   MarkdownText: string;
+  WhatToReadNextIds?: string[];
 };

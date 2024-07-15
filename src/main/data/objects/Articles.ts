@@ -9,7 +9,12 @@ export const Articles: IArticle[] = [
     Title: 'About Your Instructor',
     ID: 'about',
     Description: 'Learn about your instructor.',
-    MarkdownText: aboutPage
+    MarkdownText: aboutPage,
+    WhatToReadNextIds: [
+      'career',
+      'teaching',
+      'policies'
+    ]
   },
   {
     Title: 'Career Overview',
@@ -27,6 +32,9 @@ export const Articles: IArticle[] = [
     Title: 'Teaching Style',
     ID: 'teaching',
     Description: 'Learn about my teaching style!',
-    MarkdownText: teachingPage
+    MarkdownText: teachingPage,
+    WhatToReadNextIds: [
+      'policies'
+    ]
   }
 ];

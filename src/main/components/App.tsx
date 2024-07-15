@@ -1,6 +1,6 @@
 import { Navigate, RouterProvider, createBrowserRouter, useLocation } from "react-router-dom";
 import { PortalPage } from "../../portal/main/components/PortalPage";
-import { MarkdownPage } from "./MarkdownPage";
+import { IWhatToReadNext, MarkdownPage } from "./MarkdownPage";
 import { ArticlesPage } from "./ArticlesPage";
 import { FrontPage } from "./FrontPage";
 import { MarqueeTexts } from "../data/objects/MarqueeTexts";
@@ -27,6 +27,7 @@ function Route(props: PropsWithChildren<IRouteProps>) {
   const location = useLocation();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (location.pathname !== '/portal') {
       props.SetNekoShown(true);
     }
@@ -44,6 +45,11 @@ function Route(props: PropsWithChildren<IRouteProps>) {
 
 export function App() {
   const [nekoShown, setNekoShown] = useState(true);
+
+  const articleTitlesByID = new Map<string, string>(Articles.map(a => [a.ID, a.Title]));
+  const articlesWithWhatToReadNextSections = Articles.filter(a => a.WhatToReadNextIds);
+  const whatToReadNextItemsByID = new Map<String, IWhatToReadNext[]>(articlesWithWhatToReadNextSections.map(a => [
+    a.ID, a.WhatToReadNextIds!.map(a => ({ ID: a, Title: articleTitlesByID.get(a)!}))]));
 
   const routes = [
     [
@@ -74,7 +80,7 @@ export function App() {
     ],
     Articles.map(a => ({
       path: `/${a.ID}`,
-      element: <MarkdownPage MenuItems={MenuItems} MarkdownText={a.MarkdownText} Title={a.Title}/>
+      element: <MarkdownPage MenuItems={MenuItems} MarkdownText={a.MarkdownText} Title={a.Title} WhatToReadNext={whatToReadNextItemsByID.get(a.ID)}/>
     })),
     {
       path: '/404',

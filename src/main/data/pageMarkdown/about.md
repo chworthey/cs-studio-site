@@ -42,8 +42,3 @@ I am a programming language polyglot and have worked with dozens of languages. I
 - ML
 
 Enough about me, I hope you get the chance to check out the rest of my site!
-
-## Links for More Information
-- [Career Overview](/career)
-- [Teaching Style](/teaching)
-- [Policies](/policies)

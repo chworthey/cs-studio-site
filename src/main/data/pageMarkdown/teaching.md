@@ -66,7 +66,3 @@ Hackathons are a bit of a tradition these days in the tech world. The format of 
 The hackathons I host are non-competitive and happen twice a year, once in November, and once in April. Every team will have a chance to present their hackathon projects at the end. There are other hackathons going on too throughout the year, I will do my best to keep students informed of those.
 
 We will be getting local employers involved with our hackathons, so this will be the time to get on their radar if you're looking for work. I myself got noticed by my first employer after doing well at a hackathon. Participating in one always looks great on a resume.
-
-## Policies
-
-For more information, see [Policies](/policies).
