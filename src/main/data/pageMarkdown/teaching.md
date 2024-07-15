@@ -16,7 +16,7 @@ Each group class will also have a project referred to as the **learning group pr
 
 The learning group project is shared between all of the students in that group. When a new student joins, an entirely new project must be created in order to accommodate them. For some of you, letting go of a previously-existing project may be challenging, but remember that the objective here is to learn as a group in an inclusive manner.
 
-Working through all of the stages of project repeatedly is good to practice as well. Choosing projects of fitting length will become more natural to you as time goes on. Eventually you will be able to tackle that RPG of yours too.
+Working through project phases repeatedly is good to practice as well. Choosing projects of fitting length will become more natural to you as time goes on.
 
 ## Self-Reliance First
 
@@ -32,7 +32,7 @@ For example: **The Ship of Theseus problem**. Say there is a ship. If, after hun
 
 What if the ship was instead a personal computer, and the user plugs in a mouse adding a new hardware device. Is that now the same computer? This is a particularly important topic when you talk about operating system licensing which relies on a license being attached to a particular device. Quite a conundrum!
 
-Being side-tracked by a philosophical maze while writing software is far more common than one would think. In fact, when one asks even the simplest questions, that is when you are most bound to be humbled. It may be difficult at times to communicate to your stakeholders why you are unable to fulfill their request. Imagine being told by your boss to set up license checks on an operating system, only to retort with the Ship of Theseus? That is the role of a software developer. And as a person responsible that software project, this is only the beginning of where the challenges are.
+Being side-tracked by a philosophical maze while writing software is far more common than one would think. In fact, when one asks even the simplest questions, that is when you are most bound to be humbled. It may be difficult at times to communicate to your stakeholders why you are unable to fulfill their request. Imagine being told by your boss to set up license checks on an operating system, only to retort with the Ship of Theseus? That is what a software developer might do. And as a person responsible that software project, this is only the beginning of where the challenges are.
 
 ## Challenges of Software Development
 

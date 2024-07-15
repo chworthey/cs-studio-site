@@ -45,7 +45,7 @@ export const FrontPageFeatures: IFeature[] = [
   },
   {
     Title: 'Really Nice Value!',
-    BodyText: '$125/month/student, and no long-term commitments. The initial consultation is free.',
+    BodyText: '$128/month/student, and no long-term commitments. The initial consultation is free.',
     LinkText: 'Schedule Consultation',
     LinkTo: '/portal'
   }

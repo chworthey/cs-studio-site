@@ -36,7 +36,7 @@ I am a programming language polyglot and have worked with dozens of languages. I
 - Git
 - VS Code
 
-**New things I would like to learn with my students:**
+**New things I would like to learn alongside my students:**
 - Godot game engine
 - Robotics
 - ML
