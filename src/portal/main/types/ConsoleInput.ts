@@ -4,6 +4,7 @@ import { IConsoleGraphNode } from "../../console/types/IConsoleGraphNode";
 import { IConsoleEntryRadioMenu, IConsoleEntryStateRadioMenu, RadioMenuFocusItem, RadioMenuSelectItem } from "../../console/types/entries/RadioMenu";
 import { IKeyPress } from "../../shared/KeyPress";
 import { KeyboardKey } from "../../shared/KeyboardKey";
+import { IConsoleEntryStateTextPrompt, IConsoleEntryTextPrompt, TextPromptTrySetContinued } from "../../console/types/entries/TextPrompt";
 
 export function RadioMenuOnKeyDown(keyPress: IKeyPress, graph: IConsoleGraph, node: IConsoleGraphNode, onUpdate: (newGraph: IConsoleGraph, focusNext: boolean) => void) {
   const key = keyPress.Key;
@@ -31,6 +32,9 @@ export function RadioMenuOnKeyDown(keyPress: IKeyPress, graph: IConsoleGraph, no
         if (i >= 0) {
           onMenuItemFocus(entryCast.items[(i + 1) % entryCast.items.length].id);
         }
+        else if (entryCast.items.length > 0) {
+          onMenuItemFocus(entryCast.items[0].id);
+        }
       }
       break;
     case KeyboardKey.Up:
@@ -41,6 +45,9 @@ export function RadioMenuOnKeyDown(keyPress: IKeyPress, graph: IConsoleGraph, no
           onMenuItemFocus(entryCast.items[
             (i - 1 + entryCast.items.length) % entryCast.items.length
           ].id);
+        }
+        else if (entryCast.items.length > 0) {
+          onMenuItemFocus(entryCast.items[0].id);
         }
       }
       break;
@@ -68,5 +75,16 @@ export function RadioMenuOnKeyDown(keyPress: IKeyPress, graph: IConsoleGraph, no
       break;
     default:
       break;
+  }
+};
+
+export function TextPromptOnKeyDown(keyPress: IKeyPress, graph: IConsoleGraph, node: IConsoleGraphNode, onUpdate: (newGraph: IConsoleGraph, focusNext: boolean) => void) {
+  const key = keyPress.Key;
+  const entryCast = node.entry as IConsoleEntryTextPrompt;
+
+  if (key === KeyboardKey.Enter && graph.FocusedElementId === `${entryCast.id}-text-input`) {
+    const newGraph = graph.Clone();
+    TextPromptTrySetContinued(node.entry.id, newGraph, true);
+    onUpdate(newGraph, true);
   }
 };

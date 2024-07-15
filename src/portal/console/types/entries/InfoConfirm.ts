@@ -12,9 +12,11 @@ export enum InfoConfirmType {
 
 export interface IConsoleEntryInfoConfirm extends IConsoleEntry {
   type: ConsoleEntryType.InfoConfirm;
+  title: string;
   inputFunc: (graph: IConsoleGraph) => string;
   inputType: InfoConfirmType;
   confirmButtonText: string;
+  confirmButtonConfirmedText: string;
 }
 
 export interface IConsoleEntryStateInfoConfirm extends IConsoleEntryState {
@@ -23,15 +25,17 @@ export interface IConsoleEntryStateInfoConfirm extends IConsoleEntryState {
   isConfirmed: boolean;
 }
 
-export function CreateInfoConfirm(id: string, inputFunc: (graph: IConsoleGraph) => string, inputType: InfoConfirmType, confirmButtonText: string, requirement: IRequirement | undefined = undefined) {
+export function CreateInfoConfirm(id: string, title: string, inputFunc: (graph: IConsoleGraph) => string, inputType: InfoConfirmType, confirmButtonText: string, confirmButtonConfirmedText: string, requirement: IRequirement | undefined = undefined) {
   const newEntry: IConsoleEntryInfoConfirm = { 
     type: ConsoleEntryType.InfoConfirm,
     id: id,
+    title: title,
     inputFunc: inputFunc,
     inputType: inputType,
     confirmButtonText: confirmButtonText,
+    confirmButtonConfirmedText: confirmButtonConfirmedText,
     requirement: requirement,
-    isFocusable: true,
+    isFocusable: false,
     Clone: function() { return {...this}; }
   };
 

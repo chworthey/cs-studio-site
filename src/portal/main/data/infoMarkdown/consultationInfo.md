@@ -1,7 +1,6 @@
-Here is some important information about the consultation:
-- The consultation is free
-- There is a chance the consultation will overlap with a lesson. This is so you can observe the teaching process and decide if my style of teaching is right for you.
-- If your consultation time overlaps with a lesson, you may stay up to 15 minutes after the lesson to ask all of your questions. The lesson lengths are 45 minutes so you will have a whole hour on the call.
-- Zoom links will be sent out before the meeting on the day-of.
-- Guests are allowed.
-- If the prospective student is under 18, they MUST bring an adult family member to the consultation.
+- Consultation calls can be up to an hour long.
+- The first 45 minutes overlap with a lesson time so that you can watch the lesson.
+- The last 15 minutes are just for us to talk.
+- If there are no students slotted for the scheduled time, it will just be us with no lesson to watch.
+- The consultation is free. Woohoo!
+- If the prospective student is under 18, an adult family member must be present in the call.

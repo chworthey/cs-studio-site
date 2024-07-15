@@ -4,5 +4,6 @@ export enum ConsoleEntryType {
   DynamicOutput,
   TitleOutput,
   InfoConfirm,
-  TextPrompt
+  TextPrompt,
+  RequestButton
 };

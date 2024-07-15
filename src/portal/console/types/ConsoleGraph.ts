@@ -6,12 +6,15 @@ import { IConsoleGraphNode } from "./IConsoleGraphNode";
 import { CreateDyanamicOutputState, UpdateDynamicOutput } from "./entries/DynamicOutput";
 import { CreateInfoConfirmState, UpdateInfoConfirm } from "./entries/InfoConfirm";
 import { CreateOutputState } from "./entries/Output";
-import { CreateRadioMenuState, UpdateRadioMenu } from "./entries/RadioMenu";
+import { CreateRadioMenuState } from "./entries/RadioMenu";
+import { CreateRequestButtonState } from "./entries/RequestButton";
 import { CreateTextPromptState } from "./entries/TextPrompt";
+import { CreateTitleOutputState } from "./entries/TitleOutput";
 
 export interface IConsoleGraph extends IClonable<IConsoleGraph> {
   NodesById: Map<string, IConsoleGraphNode>;
   FocusedNodeId?: string;
+  FocusedElementId?: string;
 };
 
 function CreateEntryState(entry: IConsoleEntry) {
@@ -28,6 +31,12 @@ function CreateEntryState(entry: IConsoleEntry) {
       break;
     case ConsoleEntryType.TextPrompt:
       rv = CreateTextPromptState(entry.id);
+      break;
+    case ConsoleEntryType.RequestButton:
+      rv = CreateRequestButtonState(entry.id);
+      break;
+    case ConsoleEntryType.TitleOutput:
+      rv = CreateTitleOutputState(entry.id);
       break;
     case ConsoleEntryType.Output:
     default:
@@ -70,7 +79,8 @@ export function CloneConsoleGraph(graph: IConsoleGraph) {
   const rv: IConsoleGraph = {
     NodesById: new Map<string, IConsoleGraphNode>(newNodes.map(n => [n.entry.id, n])),
     Clone: function () { return CloneConsoleGraph(this); },
-    FocusedNodeId: graph.FocusedNodeId
+    FocusedNodeId: graph.FocusedNodeId,
+    FocusedElementId: graph.FocusedElementId
   };
 
   return rv;
@@ -84,9 +94,6 @@ export function UpdateConsoleGraph(graph: IConsoleGraph) {
         break;
       case ConsoleEntryType.DynamicOutput:
         UpdateDynamicOutput(graph, node);
-        break;
-      case ConsoleEntryType.RadioMenu:
-        UpdateRadioMenu(node);
         break;
       default:
         break;
@@ -125,18 +132,20 @@ export function ConsoleGraphUpdateEntry<E extends IConsoleEntry, S extends ICons
   return graph;
 };
 
-export function EntrySetFocus(entryId: string, graph: IConsoleGraph, focus: boolean) {
+export function EntrySetFocus(entryId: string, focusElementId: string | undefined, graph: IConsoleGraph, focus: boolean) {
   if (focus) {
     ConsoleGraphClearFocus(graph);
     graph.FocusedNodeId = entryId;
+    graph.FocusedElementId = focusElementId;
   }
   return ConsoleGraphUpdateEntry<IConsoleEntry, IConsoleEntryState>(
-    entryId, graph, state => { state.isFocused = focus; });
+    entryId, graph, (state, entry) => { state.isFocused = entry.isFocusable ? focus : false; });
 };
 
 export function ConsoleGraphClearFocus(graph: IConsoleGraph) {
   const nodeId = graph.FocusedNodeId;
   graph.FocusedNodeId = undefined;
+  graph.FocusedElementId = undefined;
   if (nodeId) {
     return ConsoleGraphUpdateEntry<IConsoleEntry, IConsoleEntryState>(
       nodeId, graph, state => { state.isFocused = false; });

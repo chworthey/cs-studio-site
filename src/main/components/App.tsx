@@ -1,4 +1,4 @@
-import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Navigate, RouterProvider, createBrowserRouter, useLocation } from "react-router-dom";
 import { PortalPage } from "../../portal/main/components/PortalPage";
 import { MarkdownPage } from "./MarkdownPage";
 import { ArticlesPage } from "./ArticlesPage";
@@ -9,7 +9,7 @@ import { MenuItems } from "../data/objects/MenuItems";
 import { Articles } from "../data/objects/Articles";
 import "../styles/App.css";
 import { NekoOverlay } from "../../neko/components/NekoOverlay";
-import { useRef } from "react";
+import { PropsWithChildren, useEffect, useRef, useState } from "react";
 import { NotFound } from "./NotFound";
 import { SchedulePage } from "./Schedule";
 import { ProjectsPage } from "./ProjectsPage";
@@ -18,7 +18,33 @@ function isTouchScreen() {
   return window.matchMedia("(pointer: coarse)").matches;
 }
 
+interface IRouteProps {
+  NekoShown: boolean;
+  SetNekoShown(show: boolean): void;
+}
+
+function Route(props: PropsWithChildren<IRouteProps>) {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname !== '/portal') {
+      props.SetNekoShown(true);
+    }
+    else {
+      props.SetNekoShown(!isTouchScreen());
+    }
+  }, [location]);
+
+  return (
+    <>
+      {props.children}
+    </>
+  );
+}
+
 export function App() {
+  const [nekoShown, setNekoShown] = useState(true);
+
   const routes = [
     [
       {
@@ -27,7 +53,7 @@ export function App() {
       },
       {
         path: '/portal',
-        element: <PortalPage/>
+        element: <PortalPage NekoShown={nekoShown} OnShowNekoToggle={show => setNekoShown(show)}/>
       },
       {
         path: '/schedule',
@@ -58,7 +84,10 @@ export function App() {
       path: '*',
       element: <Navigate to="/404"/>
     }
-  ].flat();
+  ].flat().map(r => ({
+    path: r.path,
+    element: <Route NekoShown={nekoShown} SetNekoShown={setNekoShown}>{r.element}</Route>
+  }));
 
   const router = createBrowserRouter(routes);
 
@@ -69,7 +98,7 @@ export function App() {
       <div ref={appRef} className="div__app">
         <RouterProvider router={router}/>
       </div>
-      <NekoOverlay IsTouchScreen={isTouchScreen()}/>
+      {nekoShown && <NekoOverlay IsTouchScreen={isTouchScreen()}/>}
     </div>
   );
 };

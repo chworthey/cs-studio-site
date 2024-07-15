@@ -31,6 +31,12 @@
   flex-direction: row;
 }
 
+.div__console-entry-wrapper:focus {
+  outline-style: solid;
+  outline-width: 2px;
+  outline-color: #FFFF55;
+}
+
 .div__console-entry {
   flex-grow: 1;
 }
@@ -139,7 +145,7 @@
   }
 }
 
-.form__text-prompt-input-button-container {
+.div__text-prompt-input-button-container {
   display: flex;
   flex-direction: row;
   padding: 15px 0px;
@@ -150,7 +156,28 @@
   background-color: transparent;
   border: solid;
   border-radius: 0;
-  height: 50px;
+  font-family: 'IBMBIOS';
+  color: white;
+  border-width: 2px;
+  outline-width: 2px;
+  outline-color: #FFFF55;
+  padding: 1em;
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .button__text-prompt-button:hover {
+    background-color: #AA0000;
+    color: white;
+  }
+}
+
+.button__text-prompt-button:focus {
+  outline-style: solid;
+}
+
+.div__text-prompt-error {
+  color: #FFFF55;
 }
 
 .div__text-prompt-button {
@@ -165,11 +192,94 @@
 }
 
 .input__text-prompt-input {
-  height: 50px;
   width: 100%;
-  border: solid;
+  padding: 1em;
+  border-style: solid;
   background-color: transparent;
   font-family: 'IBMBIOS';
   font-size: 1rem;
-  caret-shape: underscore;
+  border-width: 2px;
+  border-color: white;
+  color: white;
+  border-radius: 0;
+  /* caret-shape: underscore; */
+}
+
+.input__text-prompt-input:focus {
+  outline-style: solid;
+  outline-width: 2px;
+  outline-color: #FFFF55;
+}
+
+.div__info-confirm-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.div__info-confirm-info {
+  background-color: rgb(241, 241, 241);
+  color: black;
+  padding: 1em;
+  font-size: 1.2rem;
+  max-height: 20em;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  overflow-y: scroll;
+}
+
+.button__info-confirm {
+  background-color: transparent;
+  border: solid;
+  border-radius: 0;
+  font-family: 'IBMBIOS';
+  color: white;
+  border-width: 2px;
+  outline-width: 2px;
+  outline-color: #FFFF55;
+  padding: 1em;
+  cursor: pointer;
+}
+
+.button__info-confirm--confirmed {
+  background-color: #AA0000;
+  color: white;
+}
+
+@media (hover: hover) {
+  .button__info-confirm:hover {
+    background-color: #AA0000;
+    color: white;
+  }
+}
+
+.div__request-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button__request-button {
+  background-color: transparent;
+  border: solid;
+  border-radius: 0;
+  font-family: 'IBMBIOS';
+  color: white;
+  border-width: 2px;
+  outline-width: 2px;
+  outline-color: #FFFF55;
+  padding: 1em;
+  cursor: pointer;
+}
+
+.div__request-button-message--error {
+  padding: 1em;
+  color: #FFFF55;
+}
+
+@media (hover: hover) {
+  .button__request-button:hover {
+    background-color: #AA0000;
+    color: white;
+  }
 }

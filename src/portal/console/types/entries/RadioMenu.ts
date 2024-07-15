@@ -74,18 +74,6 @@ export function CreateRadioMenu(id: string, text: string, items: IFactoryMenuIte
   return newEntry;
 };
 
-export function UpdateRadioMenu(node: IConsoleGraphNode) {
-  if (node.entry.type === ConsoleEntryType.RadioMenu &&
-    node.state.type === ConsoleEntryType.RadioMenu
-  ) {
-    const entryCast = node.entry as IConsoleEntryRadioMenu;
-    const stateCast = node.state as IConsoleEntryStateRadioMenu;
-    if (!stateCast.focusedItem && entryCast.items.length > 0) {
-      stateCast.focusedItem = entryCast.items[0].id;
-    }
-  }
-}
-
 export function CreateRadioMenuState(id: string) {
   const rv: IConsoleEntryStateRadioMenu = {
     id: id,

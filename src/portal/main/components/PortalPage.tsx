@@ -4,18 +4,28 @@ import { useNavigate } from "react-router-dom";
 import consultationInfo from "../data/infoMarkdown/consultationInfo.md?raw";
 import "../styles/PortalPage.css";
 import { Console } from "../../console/components/Console";
-import { CreateNewConsoleGraph } from "../../console/types/ConsoleGraph";
+import { CreateNewConsoleGraph, FindConsoleGraphNode, IConsoleGraph } from "../../console/types/ConsoleGraph";
 import { CreateInfoConfirm, InfoConfirmType } from "../../console/types/entries/InfoConfirm";
 import { CreateOutput } from "../../console/types/entries/Output";
-import { CreateRadioMenu } from "../../console/types/entries/RadioMenu";
+import { CreateRadioMenu, IConsoleEntryStateRadioMenu } from "../../console/types/entries/RadioMenu";
 import { CreateTitleOutput } from "../../console/types/entries/TitleOutput";
 import { IConsoleEntry } from "../../console/types/IConsoleEntry";
 import { CreateRequirementRadioMenuItem } from "../../console/types/requirements/RadioMenuItem";
 import { CreateRequirementRecursive } from "../../console/types/requirements/Recursive";
 // import { VirtualKeyboard } from "../../keyboard/components/VirtualKeyboard";
-import { ConsoleKeyboard } from "../types/ConsoleKeyboard";
+// import { ConsoleKeyboard } from "../types/ConsoleKeyboard";
 import { Toolbar } from "./Toolbar";
-import { CreateScheduleMenus } from "../types/Schedule";
+import { CreateScheduleMenus, GetScheduledTimeString, NowDateInMST, UpcomingDatesNoService } from "../types/Schedule";
+import { CreateRequirementPromptContinued } from "../../console/types/requirements/PromptContinued";
+import { CreateTextPrompt, FormType, IConsoleEntryStateTextPrompt } from "../../console/types/entries/TextPrompt";
+import { CreateRequirementOR } from "../../console/types/requirements/Or";
+import { CreateRequirementRadioMenuActive } from "../../console/types/requirements/RadioMenuActive";
+import { CreateDynamicOutput } from "../../console/types/entries/DynamicOutput";
+import { CreateRequirementInfoConfirmed } from "../../console/types/requirements/InfoConfirmed";
+import { CreateRequestButton } from "../../console/types/entries/RequestButton";
+import { SendMessage } from "../types/Backend";
+
+const upcomingDates = UpcomingDatesNoService(NowDateInMST());
 
 const consoleEntries: IConsoleEntry[] =
   [
@@ -49,26 +59,173 @@ const consoleEntries: IConsoleEntry[] =
     CreateOutput('new-student-response', 'That is so awesome! Let\'s get started with some basic information...',
       CreateRequirementRadioMenuItem('intent-menu', 'new-student')
     ),
-    CreateScheduleMenus('consult-schedule', CreateRequirementRecursive('new-student-response')),
-    //CreateTextPrompt('input-name', 'What is the student\'s preferred first name?', FormType.Name, CreateRequirementRecursive('new-student-response')),
-    //CreateScheduleMenus('consult-schedule', CreateRequirementPromptContinued('input-name')),
+    CreateRadioMenu('country-split', 'Do you live in the United States?', [
+      {
+        id: 'us-yes',
+        text: 'Yes'
+      },
+      {
+        id: 'us-no',
+        text: 'No'
+      }
+    ], CreateRequirementRecursive('new-student-response')),
+    CreateOutput('us-no', 'Understood. I\'m sorry, but I only take students from the United States at this time.',
+      CreateRequirementRadioMenuItem('country-split', 'us-no')
+    ),
+    CreateRadioMenu('age-split-menu', 'Which age group best describes the student?', [
+      {
+        id: 'child',
+        text: 'Child (Age less than 13)'
+      },
+      {
+        id: 'teen',
+        text: 'Teen (Age 13+)'
+      },
+      {
+        id: 'adult',
+        text: 'Adult (Age 18+)'
+      }
+    ], CreateRequirementRadioMenuItem('country-split', 'us-yes')),
+    CreateOutput('child-no', 'Understood. I\'m sorry, but I don\'t take students under the age of 13 at this time. Parents- feel free to send me a message if you have any questions.',
+      CreateRequirementRadioMenuItem('age-split-menu', 'child')
+    ),
+    CreateRadioMenu('grade-menu', 'Which K-12 grade is the student in?', [
+      {
+        id: 'grade-7',
+        text: '7'
+      },
+      {
+        id: 'grade-8',
+        text: '8'
+      },
+      {
+        id: 'grade-9',
+        text: '9'
+      },
+      {
+        id: 'grade-10',
+        text: '10'
+      },
+      {
+        id: 'grade-11',
+        text: '11'
+      },
+      {
+        id: 'grade-12',
+        text: '12'
+      }
+    ], CreateRequirementRadioMenuItem('age-split-menu', 'teen')),
+    CreateTextPrompt('input-name', 'What is the student\'s preferred first name?', FormType.Name,
+      CreateRequirementOR(
+        CreateRequirementRadioMenuItem('age-split-menu', 'adult'),
+        CreateRequirementRadioMenuActive('grade-menu')
+      )
+    ),
+    CreateDynamicOutput('name-greeting', graph => {
+      const node = FindConsoleGraphNode(graph, 'input-name');
+      if (node) {
+        const stateCast = node.state as IConsoleEntryStateTextPrompt;
+        return `It's great to meet you, ${stateCast.userInputText}!`;
+      }
+      else {
+        return '';
+      }
+    }, CreateRequirementPromptContinued('input-name')),
+    CreateTextPrompt('input-email', 'What email address may I send the initial Zoom invite to?', FormType.Email, CreateRequirementRecursive('name-greeting')),
+    CreateOutput('email-ok', 'Okay, I will send the link there some time before the meeting, whenever I get around to it.', CreateRequirementPromptContinued('input-email')),
+    CreateOutput('time-to-schedule', 'Now for the consultation scheduling...', CreateRequirementRecursive('email-ok')),
+    CreateScheduleMenus('consult-schedule', upcomingDates, CreateRequirementRecursive('time-to-schedule')),
     CreateOutput('consult-schedule-msg', 'Wowee!!! That time works for me!', CreateRequirementRecursive('consult-schedule')),
     CreateInfoConfirm('consult-schedule-msg2',
+      'Important Consultation Information:',
       () => consultationInfo, InfoConfirmType.Markdown,
       'I understand.',
-      CreateRequirementRecursive('consult-schedule-msg'))
+      'I understood!',
+      CreateRequirementRecursive('consult-schedule-msg')),
+    CreateDynamicOutput('summary', graph => {
+      let rv = '';
+      const data = GetConsultationScheduleData(graph);
+      if (!data) {
+        rv = 'An Error Occurred';
+      }
+      else {
+        rv = 'In Summary...\n\n' +
+          `Adult: ${data.AgeGroupSplit === 'adult' ? 'Yes' : 'No'}\n` +
+          (data.Grade ? `Grade: ${data.Grade?.substring(6)}\n` : '') +
+          `Preferred First Name: ${data.PreferredFirstName}\n` +
+          `Email Address: ${data.EmailAddress}\n` +
+          `Scheduled Time: ${data.Time}`;
+      }
+
+      return rv;
+    }, CreateRequirementInfoConfirmed('consult-schedule-msg2')),
+    CreateRequestButton('consultation-submit', 'Submit!',
+      (graph: IConsoleGraph, onComplete: (success: boolean) => void) => {
+        const data = GetConsultationScheduleData(graph);
+        const json = JSON.stringify(data, null, 2);
+        SendMessage(json, 'New Student Sign Up', true, onComplete);
+      },
+      CreateRequirementRecursive('summary')
+    )
   ].flat();
 
 // function IsTouchScreen() {
 //   return window.matchMedia("(pointer: coarse)").matches;
 // }
 
-export function PortalPage() {
+interface IConsultationScheduleData {
+  AgeGroupSplit: string;
+  Grade?: string;
+  PreferredFirstName: string;
+  EmailAddress: string;
+  Time: string;
+}
+
+function GraphTryGet<S, T>(graph: IConsoleGraph, entryId: string, onGet: (state: S) => T) {
+  const node = FindConsoleGraphNode(graph, entryId);
+  if (node) {
+    const stateCast = node.state as S;
+    return onGet(stateCast);
+  }
+  else {
+    return undefined;
+  }
+}
+
+function GetConsultationScheduleData(graph: IConsoleGraph) {
+  const ageGroupSplit = GraphTryGet<IConsoleEntryStateRadioMenu, string | null>(graph, 'age-split-menu', s => s.activeItem);
+  const isAdult = ageGroupSplit === 'adult'
+  const grade = isAdult ? undefined :  GraphTryGet<IConsoleEntryStateRadioMenu, string | null>(graph, 'grade-menu', s => s.activeItem);
+  const preferredFirstName = GraphTryGet<IConsoleEntryStateTextPrompt, string>(graph, 'input-name', s => s.userInputText);
+  const emailAddress = GraphTryGet<IConsoleEntryStateTextPrompt, string>(graph, 'input-email', s => s.userInputText);
+  const time = GetScheduledTimeString(graph, upcomingDates, 'consult-schedule');
+
+  if (!ageGroupSplit || !preferredFirstName || !emailAddress || !time) {
+    return undefined;
+  }
+
+  const rv: IConsultationScheduleData = {
+    AgeGroupSplit: ageGroupSplit,
+    Grade: grade ? grade : undefined,
+    PreferredFirstName: preferredFirstName,
+    EmailAddress: emailAddress,
+    Time: time
+  };
+
+  return rv;
+}
+
+interface IPortalProps {
+  NekoShown: boolean;
+  OnShowNekoToggle(show: boolean): void;
+}
+
+export function PortalPage(props: IPortalProps) {
   // const [keyboardShown, setKeyboardShown] = useState(IsTouchScreen());
   const navigate = useNavigate();
 
   const [graph, setGraph] = useState(CreateNewConsoleGraph(consoleEntries));
-  const [keyboard, setKeyboard] = useState(new ConsoleKeyboard(graph, setGraph));
+  // const [keyboard, setKeyboard] = useState(new ConsoleKeyboard(graph, setGraph));
 
   return (
     <div className="div__portal-page" role="presentation">
@@ -83,6 +240,8 @@ export function PortalPage() {
             <Toolbar
               // KeyboardShown={keyboardShown}
               // OnShowKeyboardToggle={(value: boolean) => setKeyboardShown(value)}
+              NekoShown={props.NekoShown}
+              OnShowNekoToggle={props.OnShowNekoToggle}
               OnGoHomeClick={() => navigate('/')}
             />
           </header>
@@ -91,9 +250,9 @@ export function PortalPage() {
               graph={graph}
               onGraphUpdate={graph => {
                 setGraph(graph);
-                const newKeyboard = keyboard.Clone();
-                newKeyboard.Graph = graph;
-                setKeyboard(newKeyboard);
+                // const newKeyboard = keyboard.Clone();
+                // newKeyboard.Graph = graph;
+                // setKeyboard(newKeyboard);
               }}/>
           </main>
           {/* {keyboardShown && <aside>
