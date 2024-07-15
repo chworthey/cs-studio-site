@@ -4,7 +4,7 @@ import { IConsoleGraphNode } from "../../console/types/IConsoleGraphNode";
 import { IConsoleEntryRadioMenu, IConsoleEntryStateRadioMenu, RadioMenuFocusItem, RadioMenuSelectItem } from "../../console/types/entries/RadioMenu";
 import { IKeyPress } from "../../shared/KeyPress";
 import { KeyboardKey } from "../../shared/KeyboardKey";
-import { IConsoleEntryStateTextPrompt, IConsoleEntryTextPrompt, TextPromptTrySetContinued } from "../../console/types/entries/TextPrompt";
+import { IConsoleEntryTextPrompt, TextPromptTrySetContinued } from "../../console/types/entries/TextPrompt";
 
 export function RadioMenuOnKeyDown(keyPress: IKeyPress, graph: IConsoleGraph, node: IConsoleGraphNode, onUpdate: (newGraph: IConsoleGraph, focusNext: boolean) => void) {
   const key = keyPress.Key;

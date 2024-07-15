@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import '../styles/Console.css';
-import { IConsoleGraph, EntrySetFocus, ConsoleGraphClearFocus, FindConsoleGraphNode } from '../types/ConsoleGraph';
+import { IConsoleGraph, EntrySetFocus, ConsoleGraphClearFocus } from '../types/ConsoleGraph';
 import { ConsoleEntryType } from '../types/ConsoleEntryType';
 import { Output } from './Output';
 import { RadioMenu } from './RadioMenu';

@@ -3,7 +3,6 @@ import { ConsoleEntryType } from "../ConsoleEntryType";
 import { ConsoleGraphUpdateEntry, IConsoleGraph } from "../ConsoleGraph";
 import { IConsoleEntry } from "../IConsoleEntry";
 import { IConsoleEntryState } from "../IConsoleEntryState";
-import { IConsoleGraphNode } from "../IConsoleGraphNode";
 import { IRequirement } from "../IRequirement";
 
 export interface IRadioMenuItem extends IClonable<IFactoryMenuItem> {
