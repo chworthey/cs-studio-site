@@ -88,6 +88,12 @@ function RenderEntry(graph: IConsoleGraph, node: IConsoleGraphNode, onUpdate: (n
         rv = <RequestButton
           ButtonText={entryCast.buttonText}
           State={stateMap(stateCast.state)}
+          idPrefix={entryCast.id}
+          OnChildFocus={(focus, id) => {
+            const newGraph = graph.Clone();
+            EntrySetFocus(node.entry.id, id, newGraph, focus);
+            onUpdate(newGraph, false);
+          }}
           OnRequestButtonClick={() => {
             let newGraph = graph.Clone();
             RequestButtonStartRequest(node.entry.id, newGraph);
@@ -139,6 +145,7 @@ function RenderEntry(graph: IConsoleGraph, node: IConsoleGraphNode, onUpdate: (n
         const stateCast = node.state as IConsoleEntryStateTextPrompt;
         rv = <TextPrompt
           idPrefix={entryCast.id}
+          isMultiline={entryCast.isMultiline}
           promptText={entryCast.promptText}
           inputText={stateCast.userInputText}
           onTextChange={text => {
@@ -180,7 +187,9 @@ function OnKeyDown(keyPress: IKeyPress, graph: IConsoleGraph, node: IConsoleGrap
       }
       break;
     case ConsoleEntryType.TextPrompt:
-      TextPromptOnKeyDown(keyPress, graph, node, onUpdate);
+      if (TextPromptOnKeyDown(keyPress, graph, node, onUpdate)) {
+        preventDefault = true;
+      }
       break;
     default:
       break;
@@ -215,7 +224,21 @@ export function Console(props: IConsoleProps) {
         focusedElementId = focusedId;
       }
       else if (focusedEntry.type === ConsoleEntryType.TextPrompt) {
-        focusedElementId = `${focusedEntry.id}-text-input`;
+        const entryCast = focusedEntry as IConsoleEntryTextPrompt;
+        if (entryCast.isMultiline) {
+          focusedElementId = `${focusedEntry.id}-textarea-input`
+        }
+        else {
+          focusedElementId = `${focusedEntry.id}-text-input`;
+        }
+      }
+      else if (focusedEntry.type === ConsoleEntryType.InfoConfirm) {
+        focusedElementId = `${focusedEntry.id}-button`;
+        console.log('shoulda been here');
+        console.log(focusedElementId);
+      }
+      else if (focusedEntry.type === ConsoleEntryType.RequestButton) {
+        focusedElementId = `${focusedEntry.id}-button`;
       }
       EntrySetFocus(focusedId, focusedElementId, newGraph, true);
     }

@@ -29,6 +29,7 @@ export function InfoConfirm(props: IInfoConfirmProps) {
           <article><Markdown>{props.input}</Markdown></article>}
       </div>
       <button
+        id={buttonId}
         className={props.isConfirmed ?
           "button__info-confirm button__info-confirm--confirmed" :
           "button__info-confirm"

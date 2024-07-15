@@ -56,6 +56,33 @@ const consoleEntries: IConsoleEntry[] =
         text: 'I would like to send a message to Charlotte.'
       }
     ]),
+    CreateTextPrompt('contact-input-email', 'What email address may I send a reply to?', FormType.Email, 
+      CreateRequirementRadioMenuItem('intent-menu', 'contact')
+    ),
+    CreateTextPrompt('contact-input-name', 'What name may I refer to you by?', FormType.Name,
+      CreateRequirementPromptContinued('contact-input-email')
+    ),
+    CreateTextPrompt('contact-input-subject', 'What is the subject line for your message?', FormType.NotEmpty, 
+      CreateRequirementPromptContinued('contact-input-name')
+    ),
+    CreateTextPrompt('contact-input-body', 'Please write your message below:', FormType.NotEmpty, 
+      CreateRequirementPromptContinued('contact-input-subject'),
+      true
+    ),
+    CreateOutput('contact-done-output', 'Looks good!',
+      CreateRequirementPromptContinued('contact-input-body')
+    ),
+    CreateRequestButton('contact-submit', 'Submit!',
+      (graph: IConsoleGraph, onComplete: (success: boolean) => void) => {
+        const data = GetSendMessageData(graph);
+        if (!data) {
+          onComplete(false);
+          return;
+        }
+        SendMessage(`From: ${data.Name}\nEmail: ${data.EmailAddress}\n\n${data.Body}`,data.SubjectLine, false, onComplete);
+      },
+      CreateRequirementRecursive('contact-done-output')
+    ),
     CreateOutput('new-student-response', 'That is so awesome! Let\'s get started with some basic information...',
       CreateRequirementRadioMenuItem('intent-menu', 'new-student')
     ),
@@ -162,6 +189,10 @@ const consoleEntries: IConsoleEntry[] =
     CreateRequestButton('consultation-submit', 'Submit!',
       (graph: IConsoleGraph, onComplete: (success: boolean) => void) => {
         const data = GetConsultationScheduleData(graph);
+        if (!data) {
+          onComplete(false);
+          return;
+        }
         const json = JSON.stringify(data, null, 2);
         SendMessage(json, 'New Student Sign Up', true, onComplete);
       },
@@ -172,6 +203,13 @@ const consoleEntries: IConsoleEntry[] =
 // function IsTouchScreen() {
 //   return window.matchMedia("(pointer: coarse)").matches;
 // }
+
+interface ISendMessageData {
+  EmailAddress: string;
+  Name: string;
+  SubjectLine: string;
+  Body: string;
+}
 
 interface IConsultationScheduleData {
   AgeGroupSplit: string;
@@ -190,6 +228,26 @@ function GraphTryGet<S, T>(graph: IConsoleGraph, entryId: string, onGet: (state:
   else {
     return undefined;
   }
+}
+
+function GetSendMessageData(graph: IConsoleGraph) {
+  const name = GraphTryGet<IConsoleEntryStateTextPrompt, string>(graph, 'contact-input-name', s => s.userInputText);
+  const emailAddress = GraphTryGet<IConsoleEntryStateTextPrompt, string>(graph, 'contact-input-email', s => s.userInputText);
+  const subject = GraphTryGet<IConsoleEntryStateTextPrompt, string>(graph, 'contact-input-subject', s => s.userInputText);
+  const body = GraphTryGet<IConsoleEntryStateTextPrompt, string>(graph, 'contact-input-body', s => s.userInputText);
+
+  if (!name || !emailAddress || !subject || !body) {
+    return undefined;
+  }
+
+  const rv: ISendMessageData = {
+    Name: name,
+    EmailAddress: emailAddress,
+    SubjectLine: subject,
+    Body: body
+  };
+
+  return rv;
 }
 
 function GetConsultationScheduleData(graph: IConsoleGraph) {

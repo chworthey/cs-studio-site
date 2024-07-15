@@ -1,5 +1,6 @@
 interface ITextPromptProps {
   idPrefix: string;
+  isMultiline: boolean;
   promptText: string;
   onContinue: () => void;
   onTextChange: (text: string) => void;
@@ -10,6 +11,7 @@ interface ITextPromptProps {
 
 export function TextPrompt(props: ITextPromptProps) {
   const textInputId = `${props.idPrefix}-text-input`;
+  const textAreaInputId = `${props.idPrefix}-textarea-input`
   const buttonId = `${props.idPrefix}-button`;
 
   return (
@@ -17,16 +19,31 @@ export function TextPrompt(props: ITextPromptProps) {
       <div className="div__text-prompt">
         {props.promptText}
       </div>
-      <div className="div__text-prompt-input-button-container">
+      <div className={props.isMultiline ?
+        "div__text-prompt-input-button-container div__text-prompt-input-button-container--multiline" : 
+        "div__text-prompt-input-button-container"}>
         <div className="div__text-prompt-input" role="presentation">
-          <input className="input__text-prompt-input" 
-            id={textInputId}
-            type="text"
-            value={props.inputText}
-            onChange={t => props.onTextChange(t.target.value)}
-            onFocus={() => props.onChildFocus(true, textInputId)}
-            onBlur={() => props.onChildFocus(false)}
-          />
+          {props.isMultiline ? 
+            <textarea
+              className="textarea__text-prompt-input"
+              id={textAreaInputId}
+              value={props.inputText}
+              onChange={t => props.onTextChange(t.target.value)}
+              onFocus={() => props.onChildFocus(true, textInputId)}
+              onBlur={() => props.onChildFocus(false)}
+              maxLength={5000}
+            /> :
+            <input
+              className="input__text-prompt-input" 
+              id={textInputId}
+              type="text"
+              value={props.inputText}
+              onChange={t => props.onTextChange(t.target.value)}
+              onFocus={() => props.onChildFocus(true, textInputId)}
+              onBlur={() => props.onChildFocus(false)}
+              maxLength={500}
+            />
+          }
         </div>
         <div className="div__text-prompt-button" role="presentation">
           <button

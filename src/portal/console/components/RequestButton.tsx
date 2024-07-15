@@ -8,9 +8,11 @@ export enum RequestButtonElementState {
 };
 
 interface IRequestButtonProps {
+  idPrefix: string;
   ButtonText: string;
   State: RequestButtonElementState;
   OnRequestButtonClick: () => void;
+  OnChildFocus: (focused: boolean, focusElementId?: string) => void;
 }
 
 function DotString(num: number) {
@@ -31,10 +33,17 @@ export function RequestButton(props: IRequestButtonProps) {
     return () => clearInterval(interval);
   }, [numDots]);
 
+  const buttonId = `${props.idPrefix}-button`;
+
   return (
     <div className="div__request-button-container">
       {(props.State === RequestButtonElementState.NotStarted || props.State === RequestButtonElementState.Failed) &&
-        <button className="button__request-button" onClick={props.OnRequestButtonClick}>{props.State === RequestButtonElementState.Failed ? 'Submit Again' : props.ButtonText}</button>
+        <button
+          id={buttonId}
+          className="button__request-button"
+          onClick={props.OnRequestButtonClick}
+          onFocus={() => props.OnChildFocus(true, buttonId)}
+          onBlur={() => props.OnChildFocus(false)}>{props.State === RequestButtonElementState.Failed ? 'Submit Again' : props.ButtonText}</button>
       }
       {props.State === RequestButtonElementState.Started &&
         <div className="div__request-button-spinner">

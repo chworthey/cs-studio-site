@@ -6,6 +6,7 @@ import { IRequirement } from "../IRequirement";
 
 export enum FormType {
   General,
+  NotEmpty,
   Name,
   Email
 };
@@ -14,6 +15,7 @@ export interface IConsoleEntryTextPrompt extends IConsoleEntry {
   type: ConsoleEntryType.TextPrompt;
   promptText: string;
   formType: FormType;
+  isMultiline: boolean;
 };
 
 export interface IConsoleEntryStateTextPrompt extends IConsoleEntryState {
@@ -23,7 +25,7 @@ export interface IConsoleEntryStateTextPrompt extends IConsoleEntryState {
   errorText?: string;
 }
 
-export function CreateTextPrompt(id: string, promptText: string, formType: FormType = FormType.General, requirement: IRequirement | undefined = undefined) {
+export function CreateTextPrompt(id: string, promptText: string, formType: FormType = FormType.General, requirement: IRequirement | undefined = undefined, isMultiline: boolean = false) {
   const newEntry: IConsoleEntryTextPrompt = {
     type: ConsoleEntryType.TextPrompt,
     id: id,
@@ -31,6 +33,7 @@ export function CreateTextPrompt(id: string, promptText: string, formType: FormT
     requirement: requirement,
     isFocusable: false,
     formType: formType,
+    isMultiline: isMultiline,
     Clone: function() { return {...this}; }
   };
 
@@ -63,6 +66,18 @@ function validate(text: string, formType: FormType) {
 
   switch (formType) {
     case FormType.General:
+      break;
+    case FormType.NotEmpty:
+      {
+        const strippedText = text.trim();
+        if (strippedText !== text) {
+          rv.CorrectedText = strippedText;
+        }
+        if (strippedText === '') {
+          rv.Valid = false;
+          rv.ErrorMessage = 'This field must have at least one character.';
+        }
+      }
       break;
     case FormType.Name:
       {

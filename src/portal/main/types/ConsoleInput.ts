@@ -86,5 +86,7 @@ export function TextPromptOnKeyDown(keyPress: IKeyPress, graph: IConsoleGraph, n
     const newGraph = graph.Clone();
     TextPromptTrySetContinued(node.entry.id, newGraph, true);
     onUpdate(newGraph, true);
+    return true;
   }
+  return false;
 };

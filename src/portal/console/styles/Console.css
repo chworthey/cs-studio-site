@@ -152,6 +152,10 @@
   flex-wrap: wrap;
 }
 
+.div__text-prompt-input-button-container--multiline {
+  flex-direction: column;
+}
+
 .button__text-prompt-button {
   background-color: transparent;
   border: solid;
@@ -205,6 +209,25 @@
   /* caret-shape: underscore; */
 }
 
+.textarea__text-prompt-input {
+  width: 100%;
+  resize: none;
+  height: 15em;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  font-size: 1.2rem;
+  padding: 1em;
+  border-style: solid;
+  border-width: 2px;
+  border-color: white;
+}
+
+.textarea__text-prompt-input:focus {
+  outline-style: solid;
+  outline-width: 2px;
+  outline-color: #FFFF55;
+}
+
 .input__text-prompt-input:focus {
   outline-style: solid;
   outline-width: 2px;
@@ -253,6 +276,10 @@
   }
 }
 
+.button__info-confirm:focus {
+  outline-style: solid;
+}
+
 .div__request-button-container {
   display: flex;
   flex-direction: column;
@@ -282,4 +309,8 @@
     background-color: #AA0000;
     color: white;
   }
+}
+
+.button__request-button:focus {
+  outline-style: solid;
 }
