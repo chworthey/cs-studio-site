@@ -13,6 +13,7 @@ import { PropsWithChildren, useEffect, useRef, useState } from "react";
 import { NotFound } from "./NotFound";
 import { SchedulePage } from "./Schedule";
 import { ProjectsPage } from "./ProjectsPage";
+import { Warning } from "./Warning";
 
 function isTouchScreen() {
   return window.matchMedia("(pointer: coarse)").matches;
@@ -104,6 +105,7 @@ export function App() {
       <div ref={appRef} className="div__app">
         <RouterProvider router={router}/>
       </div>
+      <Warning Title="Heads up!" Text="Student sign-ups are not working right now... Azure is down... Email me at hello@chworthey.net if you would still like to sign up for lessons. Thanks. ~Charlotte"/>
       {nekoShown && <NekoOverlay IsTouchScreen={isTouchScreen()}/>}
     </div>
   );
