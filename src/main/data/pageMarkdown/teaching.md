@@ -32,7 +32,7 @@ For example: **The Ship of Theseus problem**. Say there is a ship. If, after hun
 
 What if the ship was instead a personal computer, and the user plugs in a mouse adding a new hardware device. Is that now the same computer? This is a particularly important topic when you talk about operating system licensing which relies on a license being attached to a particular device. Quite a conundrum!
 
-Being side-tracked by a philosophical maze while writing software is far more common than one would think. In fact, when one asks even the simplest questions, that is when you are most bound to be humbled. It may be difficult at times to communicate to your stakeholders why you are unable to fulfill their request. Imagine being told by your boss to set up license checks on an operating system, only to retort with the Ship of Theseus? That is what a software developer might do. And as a person responsible that software project, this is only the beginning of where the challenges are.
+Being side-tracked by a philosophical maze while writing software is far more common than one would think. In fact, when one asks even the simplest questions, that is when you are most bound to be humbled. It may be difficult at times to communicate to your stakeholders why you are unable to fulfill their request. Imagine being told by your boss to set up license checks on an operating system, only to retort with the Ship of Theseus? That is what a software developer might do. And as a person responsible for that software project, this is only the beginning of where the challenges are.
 
 ## Challenges of Software Development
 

@@ -13,11 +13,12 @@
 
 ## Student Eligibility
 1. I do not teach children below the age of 13.
-2. All students must be self-equipped with a computer, and that computer's hardware must meet the requirements for the student's projects. Most computers work for most software projects. Making games or training AI models requires gaming hardware in addition.
+2. I do not teach students who live outside of the United States. This is mainly because I am unfamiliar with the international tax landscape.
+3. All students must be self-equipped with an internet-connected computer, and that computer's hardware must meet the requirements for the student's projects. Most computers work for most software projects. Making games or training AI models requires gaming hardware in addition.
 
 ## Money-related Rules
 1. Each class costs $32 per student
-2. For now, we are using Cash-App to pay
+2. For now, we are using [Cash App](https://cash.app/) for lesson payments
 3. Pay for class on the day of or before, 3-strike rule
 4. NO refunds or reschedules for a student missing a class for any reason. The exception would be if the instructor charged the customer by accident.
 5. If the instructor needs to cancel a class, then money is not owed by the customer for that class.

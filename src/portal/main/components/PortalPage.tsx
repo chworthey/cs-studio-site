@@ -96,7 +96,7 @@ const consoleEntries: IConsoleEntry[] =
         text: 'No'
       }
     ], CreateRequirementRecursive('new-student-response')),
-    CreateOutput('us-no', 'Understood. I\'m sorry, but I only take students from the United States at this time.',
+    CreateOutput('us-no', 'Understood. I\'m sorry, but I only take students from the United States at this time. This is mainly because I am unfamiliar with the international tax landscape.',
       CreateRequirementRadioMenuItem('country-split', 'us-no')
     ),
     CreateRadioMenu('age-split-menu', 'Which age group best describes the student?', [
