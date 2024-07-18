@@ -1,10 +1,9 @@
 ## Class Structure
 1. Classes consist of 3-5 students.
 2. Classes are 45 minutes, remote over a Zoom call.
-3. In-Person special events are generally based in Littleton, CO.
-4. New prospective students may at times join classes 
-5. Groups will consist of students of similar ages.
-6. Prospective students may sit-in on a class for their initial consultations. Prospective students will stay on 15 minutes after the class ends.
+3. In-Person special events are generally based in Littleton, CO. **You do not need to live in Littleton, CO to be a student here.** Hackathons may be attended remotely.
+4. Groups will consist of students of similar ages.
+5. Prospective students may sit-in on a class for their initial consultations. Prospective students will stay on 15 minutes after the class ends.
 
 ## Student Projects
 1. Projects are shared between all students of a group class.
@@ -29,3 +28,10 @@
 1. Treat your peers with a learning-teaching mindset and be patient and respectful of all differences in ability levels and age.
 2. Try your best to be respectful and aware of boundaries anyone else might have.
 3. No disruptive behavior
+4. Camera- on! Please have a working camera and a quality microphone.
+
+## Instructor Contact
+1. I, Charlotte Worthey, am typically available for any questions by email. I encourage my students to reach out when they have questions about anything. I typically process my email inbox once per weekday.
+2. My contact information will not be revealed on this public-facing website. If you don't have my contact information, you may send a message through the [website portal here](/portal).
+3. My phone number is only for on-boarding and off-boarding students or student emergencies (such as being locked out of a building during a hackathon). For all other uses, including missing a lesson, please use email to contact me.
+4. For adult 18+ students only, we have a Discord group. I will be active there as well and can answer non-sensitive questions there on the text/voice channels.
