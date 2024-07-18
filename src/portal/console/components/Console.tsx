@@ -234,8 +234,6 @@ export function Console(props: IConsoleProps) {
       }
       else if (focusedEntry.type === ConsoleEntryType.InfoConfirm) {
         focusedElementId = `${focusedEntry.id}-button`;
-        console.log('shoulda been here');
-        console.log(focusedElementId);
       }
       else if (focusedEntry.type === ConsoleEntryType.RequestButton) {
         focusedElementId = `${focusedEntry.id}-button`;
