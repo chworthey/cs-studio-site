@@ -1,14 +1,13 @@
 import { ConsoleEntryType } from "../ConsoleEntryType";
 import { IConsoleEntry } from "../IConsoleEntry";
 import { IConsoleEntryState } from "../IConsoleEntryState";
-import { ConsoleGraphUpdateEntry, IConsoleGraph } from "../ConsoleGraph";
-import { IConsoleGraphNode } from "../IConsoleGraphNode";
-import { IRequirement } from "../IRequirement";
+import { IConsoleGraph } from "../ConsoleGraph";
+import { IConsoleGraphNode } from "../GraphNode";
 
 export enum InfoConfirmType {
   RawText,
   Markdown
-}
+};
 
 export interface IConsoleEntryInfoConfirm extends IConsoleEntry {
   type: ConsoleEntryType.InfoConfirm;
@@ -17,38 +16,40 @@ export interface IConsoleEntryInfoConfirm extends IConsoleEntry {
   inputType: InfoConfirmType;
   confirmButtonText: string;
   confirmButtonConfirmedText: string;
-}
+};
 
 export interface IConsoleEntryStateInfoConfirm extends IConsoleEntryState {
   type: ConsoleEntryType.InfoConfirm;
   input: string;
   isConfirmed: boolean;
-}
+};
 
-export function CreateInfoConfirm(id: string, title: string, inputFunc: (graph: IConsoleGraph) => string, inputType: InfoConfirmType, confirmButtonText: string, confirmButtonConfirmedText: string, requirement: IRequirement | undefined = undefined) {
+export interface IEntryInfoConfirmInit {
+  Id: string;
+  Title: string;
+  InputFunc: (graph: IConsoleGraph) => string;
+  InputType: InfoConfirmType;
+  ConfirmButtonText: string;
+  ConfirmButtonConfirmedText: string;
+  RequirementId?: string;
+};
+
+export function CreateInfoConfirm(init: IEntryInfoConfirmInit) {
   const newEntry: IConsoleEntryInfoConfirm = { 
     type: ConsoleEntryType.InfoConfirm,
-    id: id,
-    title: title,
-    inputFunc: inputFunc,
-    inputType: inputType,
-    confirmButtonText: confirmButtonText,
-    confirmButtonConfirmedText: confirmButtonConfirmedText,
-    requirement: requirement,
+    id: init.Id,
+    title: init.Title,
+    inputFunc: init.InputFunc,
+    inputType: init.InputType,
+    confirmButtonText: init.ConfirmButtonText,
+    confirmButtonConfirmedText: init.ConfirmButtonConfirmedText,
+    requirementId: init.RequirementId,
     isFocusable: false,
     Clone: function() { return {...this}; }
   };
 
   return newEntry;
 };
-
-export function InfoConfirmSetConfirm(entryId: string, graph: IConsoleGraph, isConfirmed: boolean) {
-  return ConsoleGraphUpdateEntry<IConsoleEntryInfoConfirm, IConsoleEntryStateInfoConfirm>(
-    entryId,
-    graph,
-    state => { state.isConfirmed = isConfirmed; }
-  );
-}
 
 export function UpdateInfoConfirm(graph: IConsoleGraph, node: IConsoleGraphNode) {
   if (node.entry.type === ConsoleEntryType.InfoConfirm &&

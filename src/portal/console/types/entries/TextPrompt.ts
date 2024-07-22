@@ -1,8 +1,7 @@
 import { ConsoleEntryType } from "../ConsoleEntryType";
-import { ConsoleGraphUpdateEntry, FindConsoleGraphNode, IConsoleGraph } from "../ConsoleGraph";
+import { IConsoleGraph } from "../ConsoleGraph";
 import { IConsoleEntry } from "../IConsoleEntry";
 import { IConsoleEntryState } from "../IConsoleEntryState";
-import { IRequirement } from "../IRequirement";
 
 export enum FormType {
   General,
@@ -23,29 +22,29 @@ export interface IConsoleEntryStateTextPrompt extends IConsoleEntryState {
   userInputText: string;
   continued: boolean;
   errorText?: string;
-}
+};
 
-export function CreateTextPrompt(id: string, promptText: string, formType: FormType = FormType.General, requirement: IRequirement | undefined = undefined, isMultiline: boolean = false) {
+export interface IEntryTextPromptInit {
+  Id: string;
+  PromptText: string;
+  FormType?: FormType;
+  RequirementId?: string;
+  IsMultiline?: boolean;
+};
+
+export function CreateTextPrompt(init: IEntryTextPromptInit) {
   const newEntry: IConsoleEntryTextPrompt = {
     type: ConsoleEntryType.TextPrompt,
-    id: id,
-    promptText: promptText,
-    requirement: requirement,
+    id: init.Id,
+    promptText: init.PromptText,
+    requirementId: init.RequirementId,
     isFocusable: false,
-    formType: formType,
-    isMultiline: isMultiline,
+    formType: init.FormType === undefined ? FormType.General : init.FormType,
+    isMultiline: init.IsMultiline === undefined ? false : init.IsMultiline,
     Clone: function() { return {...this}; }
   };
 
   return newEntry;
-};
-
-export function TextPromptSetInputText(entryId: string, graph: IConsoleGraph, text: string) {
-  return ConsoleGraphUpdateEntry<IConsoleEntryTextPrompt, IConsoleEntryStateTextPrompt>(
-    entryId,
-    graph,
-    state => { state.userInputText = text; }
-  );
 };
 
 export interface ITextPromptTrySetContinuedReturnValue {
@@ -53,13 +52,13 @@ export interface ITextPromptTrySetContinuedReturnValue {
   ValidationSuccess: boolean;
 }
 
-interface IValidateResult {
+export interface IValidateResult {
   Valid: boolean;
   CorrectedText?: string;
   ErrorMessage?: string;
-}
+};
 
-function validate(text: string, formType: FormType) {
+export function ValidateTextInput(text: string, formType: FormType) {
   const rv: IValidateResult = {
     Valid: true
   };
@@ -112,51 +111,6 @@ function validate(text: string, formType: FormType) {
   }
 
   return rv;
-}
-
-export function TextPromptTrySetContinued(entryId: string, graph: IConsoleGraph, continued: boolean): ITextPromptTrySetContinuedReturnValue {
-  if (continued) {
-    const node = FindConsoleGraphNode(graph, entryId);
-    if (node && node.entry.type === ConsoleEntryType.TextPrompt) {
-      const entryCast = node.entry as IConsoleEntryTextPrompt;
-      const stateCast = node.state as IConsoleEntryStateTextPrompt;
-      const result = validate(stateCast.userInputText, entryCast.formType);
-      const errorText = result.Valid ? undefined : result.ErrorMessage;
-      const continued = result.Valid;
-      let inputText = stateCast.userInputText;
-      if (result.CorrectedText !== undefined) {
-        inputText = result.CorrectedText;
-      }
-      return {
-        Graph: ConsoleGraphUpdateEntry<IConsoleEntryTextPrompt, IConsoleEntryStateTextPrompt>(
-          entryId,
-          graph,
-          state => {
-            state.continued = continued;
-            state.errorText = errorText;
-            state.userInputText = inputText;
-          }
-        ),
-        ValidationSuccess: result.Valid
-      };
-    }
-    else {
-      return {
-        Graph: graph,
-        ValidationSuccess: false
-      }
-    }
-  }
-  else {
-    return {
-      Graph: ConsoleGraphUpdateEntry<IConsoleEntryTextPrompt, IConsoleEntryStateTextPrompt>(
-        entryId,
-        graph,
-        state => { state.continued = continued; }
-      ),
-      ValidationSuccess: true
-    };
-  }
 };
 
 export function CreateTextPromptState(id: string) {

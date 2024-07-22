@@ -13,6 +13,7 @@ import { PropsWithChildren, useEffect, useRef, useState } from "react";
 import { NotFound } from "./NotFound";
 import { SchedulePage } from "./Schedule";
 import { ProjectsPage } from "./ProjectsPage";
+import { PublicClientApplication } from "@azure/msal-browser";
 // import { Warning } from "./Warning";
 
 function isTouchScreen() {
@@ -44,7 +45,11 @@ function Route(props: PropsWithChildren<IRouteProps>) {
   );
 }
 
-export function App() {
+interface IAppProps {
+  MSALInstance: PublicClientApplication;
+}
+
+export function App(props: IAppProps) {
   const [nekoShown, setNekoShown] = useState(true);
 
   const articleTitlesByID = new Map<string, string>(Articles.map(a => [a.ID, a.Title]));
@@ -60,7 +65,7 @@ export function App() {
       },
       {
         path: '/portal',
-        element: <PortalPage NekoShown={nekoShown} OnShowNekoToggle={show => setNekoShown(show)}/>
+        element: <PortalPage NekoShown={nekoShown} OnShowNekoToggle={show => setNekoShown(show)} MSALInstance={props.MSALInstance}/>
       },
       {
         path: '/schedule',

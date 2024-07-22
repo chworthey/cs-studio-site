@@ -1,5 +1,5 @@
 import { IConsoleGraph, FindConsoleGraphNode } from "../ConsoleGraph";
-import { IRequirement } from "../IRequirement";
+import { IRequirement } from "../Requirement";
 import { RequirementType } from "../RequirementType";
 
 export interface IRequirementRecursive  extends IRequirement {

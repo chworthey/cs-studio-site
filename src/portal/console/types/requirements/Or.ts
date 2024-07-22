@@ -1,5 +1,5 @@
 import { IConsoleGraph } from "../ConsoleGraph";
-import { IRequirement } from "../IRequirement";
+import { IRequirement } from "../Requirement";
 import { RequirementType } from "../RequirementType";
 
 

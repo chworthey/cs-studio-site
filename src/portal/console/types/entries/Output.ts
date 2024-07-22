@@ -1,7 +1,6 @@
 import { ConsoleEntryType } from "../ConsoleEntryType";
 import { IConsoleEntry } from "../IConsoleEntry";
 import { IConsoleEntryState } from "../IConsoleEntryState";
-import { IRequirement } from "../IRequirement";
 
 export interface IConsoleEntryOutput extends IConsoleEntry {
   type: ConsoleEntryType.Output;
@@ -10,14 +9,20 @@ export interface IConsoleEntryOutput extends IConsoleEntry {
 
 export interface IConsoleEntryStateOutput extends IConsoleEntryState {
   type: ConsoleEntryType.Output;
-}
+};
 
-export function CreateOutput(id: string, text: string, requirement: IRequirement | undefined = undefined) {
+export interface IEntryOutputInit {
+  Id: string;
+  Text: string;
+  RequirementId?: string;
+};
+
+export function CreateOutput(init: IEntryOutputInit) {
   const newEntry: IConsoleEntryOutput = { 
     type: ConsoleEntryType.Output,
-    id: id,
-    text: text,
-    requirement: requirement,
+    id: init.Id,
+    text: init.Text,
+    requirementId: init.RequirementId,
     isFocusable: false,
     Clone: function() { return {...this}; }
   };

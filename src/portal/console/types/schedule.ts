@@ -1,12 +1,7 @@
 import { ConsoleEntryType } from "./ConsoleEntryType";
-import { IConsoleEntry } from "./IConsoleEntry";
-import { FindConsoleGraphNode, IConsoleGraph } from "./ConsoleGraph";
-import { IRequirement } from "./IRequirement";
-import { CreateDynamicOutput } from "./entries/DynamicOutput";
-import { CreateRequirementOR } from "./requirements/Or";
-import { IFactoryMenuItem, CreateRadioMenu, IConsoleEntryStateRadioMenu, IConsoleEntryRadioMenu } from "./entries/RadioMenu";
-import { CreateRequirementRadioMenuActive } from "./requirements/RadioMenuActive";
-import { CreateRequirementRadioMenuItem } from "./requirements/RadioMenuItem";
+import { EntryData, IConsoleGraph } from "./ConsoleGraph";
+import { IFactoryMenuItem } from "./entries/RadioMenu";
+import { IConsoleGraphNodeRadioMenu } from "./GraphNode";
 
 export interface IUpcomingTime {
   timeString: string;
@@ -33,7 +28,7 @@ function AddDays(date: Date, days: number) {
   return result;
 }
 
-function UpcomingDatesNoService(today: Date) {
+export function UpcomingDatesNoService(today: Date) {
   const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   const dailyTimes = ['3:00PM', '4:00PM', '5:00PM', '6:00PM'];
@@ -133,9 +128,9 @@ function UpcomingDatesNoService(today: Date) {
   return rv;
 }
 
-function NowDateInMST() {
+export function NowDateInMST() {
   return new Date(new Date().toLocaleString("en-US", {timeZone: "America/Denver"})); 
-}
+};
 
 function WeekMenuItems(dates: IUpcomingDates) {
   let items: IFactoryMenuItem[] = [];
@@ -161,119 +156,174 @@ function WeekMenuItems(dates: IUpcomingDates) {
 }
 
 function DayMenus(dates: IUpcomingDates, idPrefix: string) {
-  const rv: IConsoleEntry[] = [];
+  const rv: EntryData[] = [];
   if (dates.daysThisWeek.length > 0) {
-    rv.push(CreateRadioMenu(`${idPrefix}-thisweek-day`, 'Which day?',
-    dates.daysThisWeek.filter(d => d.times.length > 0).map(d => ({ text: d.dayOfWeekString, id: d.id })),
-      CreateRequirementRadioMenuItem(`${idPrefix}-week`, 'this-week')));
+    rv.push({
+      Type: ConsoleEntryType.RadioMenu,
+      Data: {
+        Id: `${idPrefix}-thisweek-day`,
+        Text: 'Which day?',
+        Items: dates.daysThisWeek.filter(d => d.times.length > 0).map(d => ({ text: d.dayOfWeekString, id: d.id })),
+        RequirementId: `${idPrefix}-week-this-week`
+      }
+    });
   }
   if (dates.daysNextWeek.length > 0) {
-    rv.push(CreateRadioMenu(`${idPrefix}-nextweek-day`, 'Which day?',
-    dates.daysNextWeek.filter(d => d.times.length > 0).map(d => ({ text: d.dayOfWeekString, id: d.id })),
-      CreateRequirementRadioMenuItem(`${idPrefix}-week`, 'next-week')));
+    rv.push({
+      Type: ConsoleEntryType.RadioMenu,
+      Data: {
+        Id: `${idPrefix}-nextweek-day`,
+        Text: 'Which day?',
+        Items: dates.daysNextWeek.filter(d => d.times.length > 0).map(d => ({ text: d.dayOfWeekString, id: d.id })),
+        RequirementId: `${idPrefix}-week-next-week`
+      }
+    });
   }
   if (dates.daysNextNextWeek.length > 0) {
-    rv.push(CreateRadioMenu(`${idPrefix}-nextnextweek-day`, 'Which day?',
-    dates.daysNextNextWeek.filter(d => d.times.length > 0).map(d => ({ text: d.dayOfWeekString, id: d.id })),
-      CreateRequirementRadioMenuItem(`${idPrefix}-week`, 'next-next-week')));
+    rv.push({
+      Type: ConsoleEntryType.RadioMenu,
+      Data: {
+        Id: `${idPrefix}-nextnextweek-day`,
+        Text: 'Which day?',
+        Items: dates.daysNextNextWeek.filter(d => d.times.length > 0).map(d => ({ text: d.dayOfWeekString, id: d.id })),
+        RequirementId: `${idPrefix}-week-next-next-week`
+      }
+    });
   }
 
   return rv;
 }
 
-function ConsultScheduleOutput(dates: IUpcomingDates, prefix: string) {
+export function GetScheduledTimeString(graph: IConsoleGraph, upcomingDates: IUpcomingDates, prefix: string) {
+  let rv: string | undefined = undefined;
   let ids: string[] = [
-    dates.daysThisWeek.map(d => `${prefix}-${d.id}-time`),
-    dates.daysNextWeek.map(d => `${prefix}-${d.id}-time`),
-    dates.daysNextNextWeek.map(d => `${prefix}-${d.id}-time`)
+    upcomingDates.daysThisWeek.map(d => `${prefix}-${d.id}-time`),
+    upcomingDates.daysNextWeek.map(d => `${prefix}-${d.id}-time`),
+    upcomingDates.daysNextNextWeek.map(d => `${prefix}-${d.id}-time`)
   ].flat(1);
 
-  let currentReq: IRequirement | undefined = ids.length > 0 ?
-    CreateRequirementRadioMenuActive(ids[0]) : undefined;
+  const menuNodeId = ids.find(i => {
+    const node = graph.FindNode<IConsoleGraphNodeRadioMenu>(i);
+    let match = false;
+    if (node) {
+      if (node.state.visible && node.state.activeItem) {
+        return true;
+      }
+    }
+    return match;
+  });
 
-  for (let i = 1; i < ids.length; ++i) {
-    currentReq = CreateRequirementOR(
-      CreateRequirementRadioMenuActive(ids[i]),
-      currentReq!
-    );
+  if (menuNodeId) {
+    const menuNode = graph.FindNode<IConsoleGraphNodeRadioMenu>(menuNodeId);
+    if (menuNode && menuNode.state.activeItem) {
+      const item = menuNode.entry.items.find(i => i.id === menuNode.state.activeItem);
+      if (item && item.additionalData) {
+        rv = item.additionalData;
+      }
+    }
   }
+  return rv;
+}
 
-  return CreateDynamicOutput(prefix,
-    (graph: IConsoleGraph) => { 
-      const menuNodeId = ids.find(i => {
-        const node = FindConsoleGraphNode(graph, i);
-        let match = false;
-        if (node) {
-          if (node.state.visible && node.state.type === ConsoleEntryType.RadioMenu) {
-            const stateCast = node.state as IConsoleEntryStateRadioMenu;
-            if (stateCast) {
-              if (stateCast.activeItem) {
-                return true;
-              }
-            }
-          }
-        }
-        return match;
-      });
+function ConsultScheduleOutput(upcomingDates: IUpcomingDates, prefix: string): EntryData {
+  // let ids: string[] = [
+  //   upcomingDates.daysThisWeek.map(d => `${prefix}-${d.id}-time`),
+  //   upcomingDates.daysNextWeek.map(d => `${prefix}-${d.id}-time`),
+  //   upcomingDates.daysNextNextWeek.map(d => `${prefix}-${d.id}-time`)
+  // ].flat(1);
 
-      let rv = '';
+  // let currentReq: IRequirement | undefined = ids.length > 0 ?
+  //   CreateRequirementRadioMenuActive(ids[0]) : undefined;
 
-      if (menuNodeId) {
-        const menuNode = FindConsoleGraphNode(graph, menuNodeId);
-        if (menuNode) {
-          const stateCast = menuNode.state as IConsoleEntryStateRadioMenu;
-          const entryCast = menuNode.entry as IConsoleEntryRadioMenu;
-          if (stateCast.activeItem) {
-            const item = entryCast.items.find(i => i.id === stateCast.activeItem);
-            if (item && item.additionalData) {
-              rv = `You selected: ${item.additionalData}`;
-            }
-          }
-        }
+  // for (let i = 1; i < ids.length; ++i) {
+  //   currentReq = CreateRequirementOR(
+  //     CreateRequirementRadioMenuActive(ids[i]),
+  //     currentReq!
+  //   );
+  // }
+
+  const updateFunc = (graph: IConsoleGraph) => { 
+    let rv = '';
+      const selectedTime = GetScheduledTimeString(graph, upcomingDates, prefix);
+      if (selectedTime) {
+        rv = `You selected: ${selectedTime}`;
       }
 
       return rv; 
-    }, currentReq);
+  }
+
+  const rv: EntryData = {
+    Type: ConsoleEntryType.DynamicOutput,
+    Data: {
+      Id: prefix,
+      TextFunc: updateFunc,
+      RequirementId: `${prefix}-final`
+    }
+  };
+
+  return rv;
 }
 
 function TimeMenus(dates: IUpcomingDates, idPrefix: string) {
-  let rv: IConsoleEntry[] = [];
+  let rv: EntryData[] = [];
   if (dates.daysThisWeek.length > 0) {
     const menus = dates.daysThisWeek.filter(d => d.times.length > 0).map(
-      d => CreateRadioMenu(`${idPrefix}-${d.id}-time`, 'At which time? (MST)',
-        d.times.map(t => ({ text: t.timeString, id: t.id, additionalData: `${d.dayOfWeekString}, ${d.monthString} ${d.dayOfMonthString} @ ${t.timeString} MST`})),
-        CreateRequirementRadioMenuItem(`${idPrefix}-thisweek-day`, d.id)
-      ));
+      d => ({
+        Type: ConsoleEntryType.RadioMenu,
+        Data: {
+          Id: `${idPrefix}-${d.id}-time`,
+          Text: 'At which time? (MST)',
+          Items: d.times.map(t => ({ text: t.timeString, id: t.id, additionalData: `${d.dayOfWeekString}, ${d.monthString} ${d.dayOfMonthString} @ ${t.timeString} MST`})),
+          RequirementId: `${idPrefix}-thisweek-day-${d.id}`
+        }
+      } as EntryData));
     rv = rv.concat(menus);
   }
   if (dates.daysNextWeek.length > 0) {
     const menus = dates.daysNextWeek.filter(d => d.times.length > 0).map(
-      d => CreateRadioMenu(`${idPrefix}-${d.id}-time`, 'At which time? (MST)',
-        d.times.map(t => ({ text: t.timeString, id: t.id, additionalData: `${d.dayOfWeekString}, ${d.monthString} ${d.dayOfMonthString} @ ${t.timeString} MST`})),
-        CreateRequirementRadioMenuItem(`${idPrefix}-nextweek-day`, d.id)
-      ));
+      d => ({
+        Type: ConsoleEntryType.RadioMenu,
+        Data: {
+          Id: `${idPrefix}-${d.id}-time`,
+          Text: 'At which time? (MST)',
+          Items: d.times.map(t => ({ text: t.timeString, id: t.id, additionalData: `${d.dayOfWeekString}, ${d.monthString} ${d.dayOfMonthString} @ ${t.timeString} MST`})),
+          RequirementId: `${idPrefix}-nextweek-day-${d.id}`
+        }
+      } as EntryData));
     rv = rv.concat(menus);
   }
   if (dates.daysNextNextWeek.length > 0) {
     const menus = dates.daysNextNextWeek.filter(d => d.times.length > 0).map(
-      d => CreateRadioMenu(`${idPrefix}-${d.id}-time`, 'At which time? (MST)',
-        d.times.map(t => ({ text: t.timeString, id: t.id, additionalData: `${d.dayOfWeekString}, ${d.monthString} ${d.dayOfMonthString} @ ${t.timeString} MST`})),
-        CreateRequirementRadioMenuItem(`${idPrefix}-nextnextweek-day`, d.id)
-      ));
+      d => ({
+        Type: ConsoleEntryType.RadioMenu,
+        Data: {
+          Id: `${idPrefix}-${d.id}-time`,
+          Text: 'At which time? (MST)',
+          Items: d.times.map(t => ({ text: t.timeString, id: t.id, additionalData: `${d.dayOfWeekString}, ${d.monthString} ${d.dayOfMonthString} @ ${t.timeString} MST`})),
+          RequirementId: `${idPrefix}-nextnextweek-day-${d.id}`
+        }
+      } as EntryData));
     rv = rv.concat(menus);
   }
 
   return rv;
 }
 
-function WeekMenu(dates: IUpcomingDates, prefix: string, requirement: IRequirement | undefined) {
-  return CreateRadioMenu(`${prefix}-week`, 'Which week?', WeekMenuItems(dates), requirement);
+function WeekMenu(dates: IUpcomingDates, prefix: string, requirementId: string | undefined): EntryData {
+  return {
+    Type: ConsoleEntryType.RadioMenu,
+    Data: {
+      Id: `${prefix}-week`,
+      Text: 'Which week?',
+      Items: WeekMenuItems(dates),
+      RequirementId: requirementId
+    }
+  };
 }
 
-export function CreateScheduleMenus(prefix: string, requirement: IRequirement | undefined) {
-  const upcomingDates = UpcomingDatesNoService(NowDateInMST());
-  const rv: IConsoleEntry[] = [
-    WeekMenu(upcomingDates, prefix, requirement),
+export function CreateScheduleMenus(prefix: string, upcomingDates: IUpcomingDates, requirementId: string | undefined) {
+  const rv: EntryData[] = [
+    WeekMenu(upcomingDates, prefix, requirementId),
     DayMenus(upcomingDates, prefix),
     TimeMenus(upcomingDates, prefix),
     ConsultScheduleOutput(upcomingDates, prefix)

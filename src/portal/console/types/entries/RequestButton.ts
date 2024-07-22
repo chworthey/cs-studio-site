@@ -1,8 +1,7 @@
 import { ConsoleEntryType } from "../ConsoleEntryType";
-import { ConsoleGraphUpdateEntry, IConsoleGraph } from "../ConsoleGraph";
+import { IConsoleGraph } from "../ConsoleGraph";
 import { IConsoleEntry } from "../IConsoleEntry";
 import { IConsoleEntryState } from "../IConsoleEntryState";
-import { IRequirement } from "../IRequirement";
 
 export interface IConsoleEntryRequestButton extends IConsoleEntry {
   type: ConsoleEntryType.RequestButton;
@@ -20,15 +19,22 @@ export enum RequestButtonState {
 export interface IConsoleEntryStateRequestButton extends IConsoleEntryState {
   type: ConsoleEntryType.RequestButton;
   state: RequestButtonState;
-}
+};
 
-export function CreateRequestButton(id: string, buttonText: string, onStartRequest: (graph: IConsoleGraph, onComplete: (success: boolean) => void) => void, requirement: IRequirement | undefined = undefined) {
+export interface IEntryRequestButtonInit {
+  Id: string;
+  ButtonText: string;
+  OnStartRequest: (graph: IConsoleGraph, onComplete: (success: boolean) => void) => void;
+  RequirementId?: string;
+};
+
+export function CreateRequestButton(init: IEntryRequestButtonInit) {
   const newEntry: IConsoleEntryRequestButton = {
     type: ConsoleEntryType.RequestButton,
-    onStartRequest: onStartRequest,
-    id: id,
-    buttonText: buttonText,
-    requirement: requirement,
+    onStartRequest: init.OnStartRequest,
+    id: init.Id,
+    buttonText: init.ButtonText,
+    requirementId: init.RequirementId,
     isFocusable: false,
     
     Clone: function() { return {...this}; }
@@ -36,22 +42,6 @@ export function CreateRequestButton(id: string, buttonText: string, onStartReque
 
   return newEntry;
 };
-
-export function RequestButtonStartRequest(entryId: string, graph: IConsoleGraph) {
-  return ConsoleGraphUpdateEntry<IConsoleEntryRequestButton, IConsoleEntryStateRequestButton>(
-    entryId,
-    graph,
-    state => { state.state = RequestButtonState.Started; }
-  );
-}
-
-export function RequestButtonEndRequest(entryId: string, graph: IConsoleGraph, success: boolean) {
-  return ConsoleGraphUpdateEntry<IConsoleEntryRequestButton, IConsoleEntryStateRequestButton>(
-    entryId,
-    graph,
-    state => { state.state = success ? RequestButtonState.Succeeded : RequestButtonState.Failed }
-  );
-}
 
 export function CreateRequestButtonState(id: string) {
   const rv: IConsoleEntryStateRequestButton = {
@@ -65,4 +55,3 @@ export function CreateRequestButtonState(id: string) {
 
   return rv;
 };
-

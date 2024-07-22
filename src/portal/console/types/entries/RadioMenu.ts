@@ -1,9 +1,7 @@
 import { IClonable } from "../../../shared/IClonable";
 import { ConsoleEntryType } from "../ConsoleEntryType";
-import { ConsoleGraphUpdateEntry, IConsoleGraph } from "../ConsoleGraph";
 import { IConsoleEntry } from "../IConsoleEntry";
 import { IConsoleEntryState } from "../IConsoleEntryState";
-import { IRequirement } from "../IRequirement";
 
 export interface IRadioMenuItem extends IClonable<IFactoryMenuItem> {
   id: string;
@@ -27,39 +25,22 @@ export interface IConsoleEntryStateRadioMenu extends IConsoleEntryState {
   type: ConsoleEntryType.RadioMenu;
   activeItem: string | null;
   focusedItem: string | null;
-}
-
-export function RadioMenuSelectItem(entryId: string, graph: IConsoleGraph, itemId: string) {
-  return ConsoleGraphUpdateEntry<IConsoleEntryRadioMenu, IConsoleEntryStateRadioMenu>(
-    entryId,
-    graph,
-    state => { state.activeItem = itemId; }
-  );
 };
 
-export function RadioMenuFocusItem(entryId: string, graph: IConsoleGraph, itemId: string) {
-  return ConsoleGraphUpdateEntry<IConsoleEntryRadioMenu, IConsoleEntryStateRadioMenu>(
-    entryId,
-    graph,
-    state => { state.focusedItem = itemId; }
-  );
-}
-
-export function RadioMenuClear(entryId: string, graph: IConsoleGraph) {
-  return ConsoleGraphUpdateEntry<IConsoleEntryRadioMenu, IConsoleEntryStateRadioMenu>(
-    entryId,
-    graph,
-    state => { state.activeItem = null; }
-  );
+export interface IEntryRadioMenuInit {
+  Id: string;
+  Text: string;
+  Items: IFactoryMenuItem[];
+  RequirementId?: string;
 };
 
-export function CreateRadioMenu(id: string, text: string, items: IFactoryMenuItem[], requirement: IRequirement | undefined = undefined) {
+export function CreateRadioMenu(init: IEntryRadioMenuInit) {
   const newEntry: IConsoleEntryRadioMenu = {
     type: ConsoleEntryType.RadioMenu,
-    id: id,
-    requirement: requirement,
-    text: text,
-    items: items.map(i => ({
+    id: init.Id,
+    requirementId: init.RequirementId,
+    text: init.Text,
+    items: init.Items.map(i => ({
       id: i.id,
       text: i.text,
       activated: false,

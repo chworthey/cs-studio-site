@@ -1,6 +1,6 @@
 import { NumByKey } from "../../keyboard/types/VirtualKeyboardTypes";
 import { IConsoleGraph } from "../../console/types/ConsoleGraph";
-import { IConsoleGraphNode } from "../../console/types/IConsoleGraphNode";
+import { IConsoleGraphNode } from "../../console/types/GraphNode";
 import { IConsoleEntryRadioMenu, IConsoleEntryStateRadioMenu, RadioMenuFocusItem, RadioMenuSelectItem } from "../../console/types/entries/RadioMenu";
 import { IKeyPress } from "../../shared/KeyPress";
 import { KeyboardKey } from "../../shared/KeyboardKey";

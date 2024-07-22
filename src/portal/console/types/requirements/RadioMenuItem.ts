@@ -1,7 +1,7 @@
 
 import { ConsoleEntryType } from "../ConsoleEntryType";
 import { IConsoleGraph, FindConsoleGraphNode } from "../ConsoleGraph";
-import { IRequirement } from "../IRequirement";
+import { IRequirement } from "../Requirement";
 import { RequirementType } from "../RequirementType";
 import { IConsoleEntryStateRadioMenu } from "../entries/RadioMenu";
 

@@ -2,8 +2,7 @@ import { ConsoleEntryType } from "../ConsoleEntryType";
 import { IConsoleGraph } from "../ConsoleGraph";
 import { IConsoleEntry } from "../IConsoleEntry";
 import { IConsoleEntryState } from "../IConsoleEntryState";
-import { IConsoleGraphNode } from "../IConsoleGraphNode";
-import { IRequirement } from "../IRequirement";
+import { IConsoleGraphNode } from "../GraphNode";
 
 export interface IConsoleEntryDynamicOutput extends IConsoleEntry {
   type: ConsoleEntryType.DynamicOutput;
@@ -13,14 +12,20 @@ export interface IConsoleEntryDynamicOutput extends IConsoleEntry {
 export interface IConsoleEntryStateDynamicOutput extends IConsoleEntryState {
   type: ConsoleEntryType.DynamicOutput;
   text: string;
-}
+};
 
-export function CreateDynamicOutput(id: string, textFunc: (graph: IConsoleGraph) => string, requirement: IRequirement | undefined = undefined) {
+export interface IEntryDynamicOutputInit {
+  Id: string;
+  TextFunc: (graph: IConsoleGraph) => string;
+  RequirementId?: string;
+};
+
+export function CreateDynamicOutput(init: IEntryDynamicOutputInit) {
   const newEntry: IConsoleEntryDynamicOutput = {
     type: ConsoleEntryType.DynamicOutput,
-    id: id,
-    textFunc: textFunc,
-    requirement: requirement,
+    id: init.Id,
+    textFunc: init.TextFunc,
+    requirementId: init.RequirementId,
     isFocusable: false,
     Clone: function() { return {...this}; }
   };
@@ -35,9 +40,9 @@ export function UpdateDynamicOutput(graph: IConsoleGraph, node: IConsoleGraphNod
       const stateCast = node.state as IConsoleEntryStateDynamicOutput;
       stateCast.text = entryCast.textFunc(graph);
     }
-}
+};
 
-export function CreateDyanamicOutputState(id: string) {
+export function CreateDynamicOutputState(id: string) {
   const rv: IConsoleEntryStateDynamicOutput = {
     id: id,
     type: ConsoleEntryType.DynamicOutput,

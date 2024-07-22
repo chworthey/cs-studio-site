@@ -1,25 +1,31 @@
 import { ConsoleEntryType } from "../ConsoleEntryType";
 import { IConsoleEntry } from "../IConsoleEntry";
 import { IConsoleEntryState } from "../IConsoleEntryState";
-import { IRequirement } from "../IRequirement";
 
 export interface IConsoleEntryTitleOutput extends IConsoleEntry {
   type: ConsoleEntryType.TitleOutput;
   textParts: string[];
   accessibilityLabel: string;
-}
+};
 
 export interface IConsoleEntryStateTitleOutput extends IConsoleEntryState {
   type: ConsoleEntryType.TitleOutput;
-}
+};
 
-export function CreateTitleOutput(id: string, textParts: string[], accessibilityLabel: string, requirement: IRequirement | undefined = undefined) {
+export interface IEntryTitleOutputInit {
+  Id: string;
+  TextParts: string[];
+  AccessibilityLabel: string;
+  RequirementId?: string;
+};
+
+export function CreateTitleOutput(init: IEntryTitleOutputInit) {
   const newEntry: IConsoleEntryTitleOutput = { 
     type: ConsoleEntryType.TitleOutput,
-    id: id,
-    textParts: textParts,
-    accessibilityLabel: accessibilityLabel,
-    requirement: requirement,
+    id: init.Id,
+    textParts: init.TextParts,
+    accessibilityLabel: init.AccessibilityLabel,
+    requirementId: init.RequirementId,
     isFocusable: false,
     Clone: function() { return {...this}; }
   };

@@ -7,7 +7,7 @@ import { RadioMenu } from './RadioMenu';
 import { TitleOutput } from './TitleOutput';
 import { InfoConfirm, InfoConfirmPropsRenderType } from './InfoConfirm';
 import { TextPrompt } from './TextPrompt';
-import { IConsoleGraphNode } from '../types/IConsoleGraphNode';
+import { IConsoleGraphNode } from '../types/GraphNode';
 import { IConsoleEntryInfoConfirm, IConsoleEntryStateInfoConfirm, InfoConfirmSetConfirm, InfoConfirmType } from '../types/entries/InfoConfirm';
 import { IConsoleEntryStateDynamicOutput } from '../types/entries/DynamicOutput';
 import { IConsoleEntryOutput } from '../types/entries/Output';
