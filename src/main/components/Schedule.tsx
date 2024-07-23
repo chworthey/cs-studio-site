@@ -16,7 +16,7 @@ interface IEvent {
 
 const events: IEvent[] = [
   {
-    Name: 'Winter Hackathon',
+    Name: 'Fall Hackathon',
     DateString: 'Saturday, November 16, 2024',
     FromTime: '10:00AM MST',
     UntilTime: '10:00PM MST',
