@@ -32,11 +32,11 @@
   flex-direction: row;
 }
 
-.div__console-entry-wrapper:focus {
+.div__console-entry-wrapper:focus, .div__console-entry-wrapper:focus-within {
   outline-style: solid;
   outline-width: 2px;
   outline-color: #FFFF55;
-}
+} 
 
 .div__console-entry {
   flex-grow: 1;

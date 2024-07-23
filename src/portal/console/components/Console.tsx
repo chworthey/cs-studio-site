@@ -309,7 +309,6 @@ export function Console(props: IConsoleProps) {
             }
           }
         }}>
-          <div className={n.state.isFocused ? "div__focus-indicator" : "div__focus-indicator div__focus-indicator--hidden"} aria-hidden={true}></div>
           <div className="div__console-entry" role="presentation">
             {RenderEntry(graph, n, onUpdate)}
           </div>
