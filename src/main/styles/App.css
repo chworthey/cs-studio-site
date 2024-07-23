@@ -497,7 +497,7 @@ html, body {
 
 .div__layout-main-wrapper {
   background-color: black;
-  background-image: url(/server-racks.jpg);
+  background-image: url(/server-racks-opt.jpg);
   background-repeat: no-repeat;
   background-size: clamp(100%, 200%, 900px) ;
   /* background-size: contain; */
