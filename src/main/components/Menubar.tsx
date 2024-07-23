@@ -49,7 +49,7 @@ export function Menubar(props: IMenuBarProps) {
             Worthey Studios
             {/* <img className="img__logo" src={studioLogo} alt="An animation depicting stones falling onto a stack."></img> */}
           </Link>
-          <button tabIndex={burgerShown ? undefined : -1} className="div__burger-menu" onClick={() => setBurgerMenuActive(!burgerMenuActive)} aria-label="Show or hide menu">
+          <button aria-pressed={burgerMenuActive} tabIndex={burgerShown ? undefined : -1} className="div__burger-menu" onClick={() => setBurgerMenuActive(!burgerMenuActive)} aria-label="Show or hide menu">
             <div className="div__burger-menu-line" role="presentation"/>
             <div className="div__burger-menu-line" role="presentation"/>
             <div className="div__burger-menu-line" role="presentation"/>

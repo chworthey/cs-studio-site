@@ -19,7 +19,7 @@ export function ToggleSwitch(props: IToggleSwitchProps) {
       <svg aria-hidden={true} className={hovered ? "svg__switch-triangle svg__switch-triangle--hovered" : "svg__switch-triangle"} viewBox="0 0 100 100">
         <polygon points="0,100 0,0 100,50"/>
       </svg>
-      <button aria-labelledby={labelId} className="button__switch" onClick={() => {
+      <button aria-pressed={props.On} aria-labelledby={labelId} className="button__switch" onClick={() => {
         props.OnClick(!props.On);
       }} onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
         <div role="presentation" className={hovered ? "div__switch-slider div__switch-slider--hovered" : "div__switch-slider"}>
