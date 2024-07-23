@@ -50,6 +50,7 @@ export function Menubar(props: IMenuBarProps) {
             {/* <img className="img__logo" src={studioLogo} alt="An animation depicting stones falling onto a stack."></img> */}
           </Link>
           <div
+            role="button"
             aria-pressed={burgerMenuActive}
             tabIndex={burgerShown ? 0 : -1}
             className="div__burger-menu"
