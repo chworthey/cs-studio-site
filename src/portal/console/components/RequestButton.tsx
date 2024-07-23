@@ -36,7 +36,7 @@ export function RequestButton(props: IRequestButtonProps) {
   const buttonId = `${props.idPrefix}-button`;
 
   return (
-    <div className="div__request-button-container">
+    <div className="div__request-button-container" role="presentation">
       {(props.State === RequestButtonElementState.NotStarted || props.State === RequestButtonElementState.Failed) &&
         <button
           id={buttonId}
@@ -47,7 +47,7 @@ export function RequestButton(props: IRequestButtonProps) {
       }
       {props.State === RequestButtonElementState.Started &&
         <div className="div__request-button-spinner">
-          Please Wait{DotString(numDots)}
+          Please Wait<span aria-hidden={true}>{DotString(numDots)}</span>
         </div>
       }
       {props.State === RequestButtonElementState.Failed &&

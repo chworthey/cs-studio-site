@@ -176,7 +176,7 @@ const consoleEntries: IConsoleEntry[] =
         rv = 'An Error Occurred';
       }
       else {
-        rv = 'In Summary...\n\n' +
+        rv = 'In Summary...\n' +
           `Adult: ${data.AgeGroupSplit === 'adult' ? 'Yes' : 'No'}\n` +
           (data.Grade ? `Grade: ${data.Grade?.substring(6)}\n` : '') +
           `Preferred First Name: ${data.PreferredFirstName}\n` +
@@ -295,6 +295,19 @@ export function PortalPage(props: IPortalProps) {
             </h1>
           </aside>
           <header>
+            <p className="show-to-screen-readers-only">
+              Greetings screen-reader user.
+              The portal is an application I wrote that dynamically appends content in response to user input.
+              Currently the application is being used for form-filler purposes only.
+              Later, I plan to add more features that will be very unique to this website.
+              The application consists of a list of cells which are called console entries.
+              Some console entries only display text, while other console entries are interactable.
+              An important thing to be aware of is that the 
+              control focus will automatically be adjusted to the last focusable console entry cell of the document after 
+              any interaction has been completed.
+              Be sure to check above and below the focused element each time you complete an interaction to make sure
+              you aren't missing any content. I would very much love to hear feedback on this project!
+            </p>
             <Toolbar
               // KeyboardShown={keyboardShown}
               // OnShowKeyboardToggle={(value: boolean) => setKeyboardShown(value)}

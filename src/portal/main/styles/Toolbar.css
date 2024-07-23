@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'IBMBIOS';
+  src: url(/ibm_bios/Web437_IBM_BIOS.woff) format('woff');
+  font-display: swap;
+}
+
 .div__toolbar {
   background-color: white;
   display: flex;
@@ -11,6 +17,16 @@
   cursor: pointer;
   margin: 2px 4px;
   padding: 6px;
+  border-width: 0;
+  font-size: 1rem;
+  font-family: 'IBMBIOS';
+}
+
+.div__tool:focus {
+outline-color: #FFFF55;
+  outline-width: 2px;
+  outline-style: solid;
+  border-radius: 0;
 }
 
 @media (hover: hover) {

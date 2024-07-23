@@ -44,7 +44,7 @@ export function TextPromptSetInputText(entryId: string, graph: IConsoleGraph, te
   return ConsoleGraphUpdateEntry<IConsoleEntryTextPrompt, IConsoleEntryStateTextPrompt>(
     entryId,
     graph,
-    state => { state.userInputText = text; }
+    state => { state.userInputText = text; state.continued = false; }
   );
 };
 

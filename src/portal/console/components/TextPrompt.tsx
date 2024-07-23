@@ -21,7 +21,7 @@ export function TextPrompt(props: ITextPromptProps) {
       </div>
       <div className={props.isMultiline ?
         "div__text-prompt-input-button-container div__text-prompt-input-button-container--multiline" : 
-        "div__text-prompt-input-button-container"}>
+        "div__text-prompt-input-button-container"} role="presentation">
         <div className="div__text-prompt-input" role="presentation">
           {props.isMultiline ? 
             <textarea

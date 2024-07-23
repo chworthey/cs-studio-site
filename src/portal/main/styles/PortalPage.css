@@ -1,3 +1,20 @@
+@font-face {
+  font-family: 'IBMBIOS';
+  src: url(/ibm_bios/Web437_IBM_BIOS.woff) format('woff');
+  font-display: swap;
+}
+
+.show-to-screen-readers-only {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
 .div__portal-page {
   overflow: hidden;
   display: flex;
@@ -25,7 +42,7 @@
   max-width: 50ch;
   line-height: 1.3;
   min-width: 200px;
-  height: 100vh;
+  height: 100vh;  
   height: 100dvh;
   padding: 20px;
   display: flex;

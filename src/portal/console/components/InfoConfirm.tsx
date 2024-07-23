@@ -23,10 +23,10 @@ export function InfoConfirm(props: IInfoConfirmProps) {
   return (
     <div className="div__info-confirm-container" role="presentation">
       <div className="div__info-confirm-title">{props.title}</div>
-      <div className="div__info-confirm-info">
+      <div className="div__info-confirm-info" role="presentation">
         {props.renderType === InfoConfirmPropsRenderType.RawText ? 
           props.input :
-          <article><Markdown>{props.input}</Markdown></article>}
+          <section><Markdown>{props.input}</Markdown></section>}
       </div>
       <button
         id={buttonId}
