@@ -30,7 +30,7 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  font-display: optional;
+  font-display: swap;
 }
 
 .h1__console-header {

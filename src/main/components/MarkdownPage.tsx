@@ -20,7 +20,7 @@ export function MarkdownPage(props: IMarkdownPageProps) {
     <PageLayout MenuItems={props.MenuItems}>
       <h1>{props.Title}</h1>
       <Markdown>{props.MarkdownText}</Markdown>
-      {props.WhatToReadNext && <div>
+      {props.WhatToReadNext && <div role="presentation">
         <h2>What to Read Next</h2>
         <ul>
           {props.WhatToReadNext.map((r, i) => <li key={i}><Link to={`/${r.ID}`}>{r.Title}</Link></li>)}

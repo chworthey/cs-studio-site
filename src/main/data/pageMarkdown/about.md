@@ -1,4 +1,4 @@
-![image](char.jpeg)
+![Image of Charlotte.](char.jpeg)
 
 Hello, my name is Charlotte Worthey. I use she/her/hers pronouns, and I'm based in Littleton, Colorado.
 

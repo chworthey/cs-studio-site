@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'IBMBIOS';
   src: url(/ibm_bios/Web437_IBM_BIOS.woff) format('woff');
-  font-display: optional;
+  font-display: swap;
 }
 
 .div__entries-area::-webkit-scrollbar {

@@ -24,20 +24,20 @@ html, body {
   font-weight: 400;
   src: url(/ProtestGuerrilla/Qw3HZR5PDSL6K3irtrY-VJB2YzARHW0jqp4.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  font-display: optional;
+  font-display: block;
 }
 
 @font-face {
   font-family: 'FiveByFive';
   src: url(/FiveByFive/FiveByFive.woff2);
-  font-display: optional;
+  font-display: swap;
 }
 
 
 @font-face {
   font-family: 'IBMBIOS';
   src: url(/ibm_bios/Web437_IBM_BIOS.woff) format('woff');
-  font-display: optional;
+  font-display: swap;
 }
 
 @font-face {
@@ -46,7 +46,7 @@ html, body {
   font-weight: 500;
   src: url(/AlegreyaSC/taiTGmRtCJ62-O0HhNEa-ZZc-oU2SKo.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  font-display: optional;
+  font-display: swap;
 }
 
 @keyframes glow {
@@ -205,7 +205,6 @@ html, body {
 .div__burger-menu {
   display: none;
   width: 0;
-  cursor: pointer;
   margin-left: 0.5em;
   margin-right: 0.5em;
   display: flex;
@@ -213,6 +212,9 @@ html, body {
   transition: transform 0.1s ease-in-out;
   transition: margin-left 0.1s ease-in-out;
   transition: margin-right 0.1s ease-in-out;
+  background-color: transparent;
+  border-width: 0;
+  padding: 0;
   /* flex-shrink: 0; */
 }
 
@@ -262,6 +264,7 @@ html, body {
   }
 
   .div__menu-items--hidden {
+    display: none;
     transform: scaleY(0);
     height: 0;
     opacity: 0;
@@ -273,6 +276,11 @@ html, body {
     padding-left: 1em;
     padding-right: 1em;
   }
+
+  .a__navbar__page--hidden {
+    display: none;
+  }
+
   @media (hover: hover) {
     .a__navbar__page:hover {
       color: black;
@@ -623,7 +631,9 @@ html, body {
   image-rendering: pixelated;
 }
 
-.h2__feature-title {
+.h3__feature-title {
+  font-size: 1.5rem;
+  font-weight: 700;
   font-family: 'Alegreya SC';
   text-shadow: 0 0 0em #e7378f, 0 0 0.5em #e60073, 0 0 0.75em #e60073;
   text-align: center;
@@ -792,6 +802,7 @@ html, body {
   font-family: 'FiveByFive';
   font-size: 1rem;
   text-transform:uppercase;
+  user-select: none;
   cursor: default;
   animation: marquee-scroll 160s linear infinite;
 }
@@ -850,7 +861,10 @@ html, body {
   color: var(--switch-hover-color);
 }
 
-.div__switch {
+.button__switch {
+  background-color: transparent;
+  border-width: 0;
+  padding: 0;
   margin: 0.5em;
   cursor: pointer;
 }

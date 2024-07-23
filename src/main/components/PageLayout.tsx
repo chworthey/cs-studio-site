@@ -21,27 +21,31 @@ export function PageLayout(props: PropsWithChildren<IPageLayoutProps>) {
   return (
     <PartyModeWrapper IsPartyModeOn={partyMode}>
       <Menubar IsPartyModeOn={partyMode} OnPartyModeSet={setPartyMode} Items={props.MenuItems}/>
-      <div className="div__layout-main">
-        <div className="div__page-wrapper">
-          <div className="div__page">
-              <section>
-                {props.children}
-              </section>
+      <div className="div__layout-main" role="presentation">
+          <div className="div__page-wrapper" role="presentation">
+            <div className="div__page" role="presentation">
+              <main>
+                <article>
+                  {props.children}
+                </article>
+              </main>
+            </div>
           </div>
-        </div>
-        <div className="div__page-bottom">
-          <button disabled={!showBackToTop} className={showBackToTop ? "button__back-to-top" : "button__back-to-top button__back-to-top--hidden"} onClick={() => {
-            window.scrollTo({
-              top: 0,
-              left: 0,
-              behavior: 'smooth'
-            });
-          }}>
-            &#x25B4;
-            <br/>
-            Back to Top
-          </button>
-        </div>
+        <footer>
+          <div className="div__page-bottom" role="presentation">
+            <button disabled={!showBackToTop} aria-hidden={!showBackToTop} className={showBackToTop ? "button__back-to-top" : "button__back-to-top button__back-to-top--hidden"} onClick={() => {
+              window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+              });
+            }}>
+              <span aria-hidden={true}>&#x25B4;</span>
+              <br aria-hidden={true}/>
+              Back to Top
+            </button>
+          </div>
+        </footer>
       </div>
     </PartyModeWrapper>
   );

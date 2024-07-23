@@ -8,7 +8,7 @@ function Space() {
 
 export function Marquee(props: IMarqueeProps) {
   return (
-    <div className="div__marquee-container">
+    <div className="div__marquee-container" aria-hidden={true}>
       <div className="div__marquee">
         <div className="p__marquee-text">
           {props.MarqueeTexts.map((t, i) => <span key={i}>

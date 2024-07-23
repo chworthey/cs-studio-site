@@ -101,8 +101,8 @@ export function App() {
   const appRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="div__app-wrapper">
-      <div ref={appRef} className="div__app">
+    <div className="div__app-wrapper" role="presentation">
+      <div ref={appRef} className="div__app" role="presentation">
         <RouterProvider router={router}/>
       </div>
       {/* <Warning Title="Heads up!" Text="Student sign-ups are not working right now... Azure is down... Email me at *** if you would still like to sign up for lessons. Thanks. ~Charlotte"/> */}
