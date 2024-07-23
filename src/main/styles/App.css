@@ -365,7 +365,7 @@ html, body {
   height: 6px;
   background-color: rgba(209, 171, 21, 1);
   background-position: center;
-  background-image: url(/caution.png);
+  background-image: url(/caution-opt.webp);
   background-repeat:repeat-x;
   background-size: 100px;
 }
@@ -383,7 +383,7 @@ html, body {
 .div__actionable-offer__item {
   margin: 1em;
   padding: 0.3em 0em;
-  background-image: url(/caution.png);
+  background-image: url(/caution-opt.webp);
   background-size: 100px 110%;
   background-repeat: repeat-x;
   background-position: center;
@@ -497,7 +497,7 @@ html, body {
 
 .div__layout-main-wrapper {
   background-color: black;
-  background-image: url(/server-racks-opt.jpg);
+  background-image: url(/server-racks-opt.webp);
   background-repeat: no-repeat;
   background-size: clamp(100%, 200%, 900px) ;
   /* background-size: contain; */
