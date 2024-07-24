@@ -33,7 +33,7 @@ export function FrontPage(props: IFrontPageProps) {
                   </div>
                 </div>
                 <div className="div__features" role="presentation">
-                  {props.Features.map((f, i) => <section key={i}>
+                  {props.Features.map((f, i) => <section className="section__feature" key={i}>
                     <div className="div__feature" role="presentation">
                       <div role="presentation">
                         <h3 className="h3__feature-title">{f.Title}</h3>

@@ -602,6 +602,10 @@ html, body {
   /* background-color: #3433347d; */
 }
 
+.section__feature {
+  display: flex;
+}
+
 .div__feature {
   padding: 20px;
   margin: 15px;
