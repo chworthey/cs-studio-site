@@ -34,6 +34,8 @@ What if the ship was instead a personal computer, and the user plugs in a mouse 
 
 Being side-tracked by a philosophical maze while writing software is far more common than one would think. In fact, when one asks even the simplest questions, that is when you are most bound to be humbled. It may be difficult at times to communicate to your stakeholders why you are unable to fulfill their request. Imagine being told by your boss to set up license checks on an operating system, only to retort with the Ship of Theseus? That is what a software developer might do. And as a person responsible for that software project, this is only the beginning of where the challenges are.
 
+To get even further side-tracked, [click here for a laugh](https://youtu.be/DTYnzLbHUHA).
+
 ## Challenges of Software Development
 
 There are many challenges of software development that arise from philosophical rabbit holes and other forms of churn that even senior practitioners struggle with. These challenges are:
