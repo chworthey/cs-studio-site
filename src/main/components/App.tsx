@@ -13,6 +13,7 @@ import { PropsWithChildren, useEffect, useRef, useState } from "react";
 import { NotFound } from "./NotFound";
 import { SchedulePage } from "./Schedule";
 import { ProjectsPage } from "./ProjectsPage";
+import { BemisPage } from "./BemisPage";
 // import { Warning } from "./Warning";
 
 function isTouchScreen() {
@@ -69,6 +70,10 @@ export function App() {
       {
         path: '/projects',
         element: <ProjectsPage MenuItems={MenuItems}/>
+      },
+      {
+        path: '/bemis',
+        element: <BemisPage MenuItems={MenuItems}/>
       },
       {
         path: '/articles',

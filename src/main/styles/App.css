@@ -954,3 +954,11 @@ html, body {
 .div__warning-text {
   font-weight: 400;
 }
+
+.project-thumbnail {
+  margin: 1em 2em;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: lightgray;
+}
