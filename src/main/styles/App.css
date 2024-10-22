@@ -955,8 +955,8 @@ html, body {
   font-weight: 400;
 }
 
-.project-thumbnail {
-  margin: 1em 2em;
+.div__project-thumbnail {
+  margin: 5%;
   border-style: solid;
   border-radius: 5px;
   border-width: 1px;

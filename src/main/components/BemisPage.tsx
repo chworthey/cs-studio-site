@@ -16,8 +16,8 @@ export function BemisPage(props: IProjectsPageProps) {
         I will be dropping links here as the project progresses. Eventually I would like to work the subsequent section into my portfolio.
       </p>
       <h2>The Bemis Public Library Studio Docs Project</h2>
-      <div>
-        <a href="https://gray-stone-085c4c510.5.azurestaticapps.net/" target="_blank"><img className="project-thumbnail" src="/bemis-studio-docs.webp"/></a>
+      <div className="div__project-thumbnail">
+        <a href="https://gray-stone-085c4c510.5.azurestaticapps.net/" target="_blank"><img src="/bemis-studio-docs.webp"/></a>
       </div>
       <div>
         <b>Project Type:</b> Volunteer
