@@ -1,6 +1,6 @@
 ![Image of Charlotte.](char.jpeg)
 
-Hello, my name is Charlotte Worthey. I use she/her/hers pronouns, and I'm based in Littleton, Colorado.
+Hello, my name is Charlotte Worthey. I use she/her/hers pronouns, and I'm based in Westminster, Colorado.
 
 I am a Software Engineer and Data Engineer with 16 years of software development excellence and multiple top-selling video game title credits.
 

@@ -1,7 +1,7 @@
 ## Class Structure
 1. Classes consist of 3-5 students.
 2. Classes are 45 minutes, remote over a Zoom call.
-3. In-Person special events are generally based in Littleton, CO. **You do not need to live in Littleton, CO to be a student here.** Hackathons may be attended remotely.
+3. In-Person special events are generally based in Westminster, CO. **You do not need to live in Westminster, CO to be a student here.** Hackathons may be attended remotely.
 4. Groups will consist of students of similar ages.
 5. Prospective students may sit-in on a class for their initial consultations. Prospective students will stay on 15 minutes after the class ends.
 

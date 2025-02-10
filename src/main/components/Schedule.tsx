@@ -29,7 +29,7 @@ const events: IEvent[] = [
     FromTime: '10:00AM MST',
     UntilTime: '10:00PM MST',
     Location: 'TBD',
-    City: 'Littleton, CO'
+    City: 'Westminster, CO'
   }
 ];
 

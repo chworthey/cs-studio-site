@@ -39,7 +39,7 @@ export const FrontPageFeatures: IFeature[] = [
   // },
   {
     Title: 'Colorado Local Events',
-    BodyText: 'That\'s right! I\'m based in Littleton, CO. For those of us nearby, we will be doing hackathon get-togethers.',
+    BodyText: 'That\'s right! I\'m based in Westminster, CO. For those of us nearby, we will be doing hackathon get-togethers.',
     LinkText: 'View Events',
     LinkTo: '/schedule'
   },
