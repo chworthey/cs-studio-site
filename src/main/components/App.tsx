@@ -14,7 +14,7 @@ import { NotFound } from "./NotFound";
 import { SchedulePage } from "./Schedule";
 import { ProjectsPage } from "./ProjectsPage";
 import { BemisPage } from "./BemisPage";
-// import { Warning } from "./Warning";
+import { Warning } from "./Warning";
 
 function isTouchScreen() {
   return window.matchMedia("(pointer: coarse)").matches;
@@ -50,7 +50,7 @@ export function App() {
 
   const articleTitlesByID = new Map<string, string>(Articles.map(a => [a.ID, a.Title]));
   const articlesWithWhatToReadNextSections = Articles.filter(a => a.WhatToReadNextIds);
-  const whatToReadNextItemsByID = new Map<String, IWhatToReadNext[]>(articlesWithWhatToReadNextSections.map(a => [
+  const whatToReadNextItemsByID = new Map<string, IWhatToReadNext[]>(articlesWithWhatToReadNextSections.map(a => [
     a.ID, a.WhatToReadNextIds!.map(a => ({ ID: a, Title: articleTitlesByID.get(a)!}))]));
 
   const routes = [
@@ -110,8 +110,8 @@ export function App() {
       <div ref={appRef} className="div__app" role="presentation">
         <RouterProvider router={router}/>
       </div>
-      {/* <Warning Title="Heads up!" Text="Student sign-ups are not working right now... Azure is down... Email me at *** if you would still like to sign up for lessons. Thanks. ~Charlotte"/> */}
+      <Warning Title="Heads up!" Text="6/12/2025: Student sign-ups are not working right now... Azure is down... Please check back later. Thanks. ~Charlotte"/>
       {nekoShown && <NekoOverlay IsTouchScreen={isTouchScreen()}/>}
     </div>
   );
-};
+}
