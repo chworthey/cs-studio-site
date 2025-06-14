@@ -110,7 +110,7 @@ export function App() {
       <div ref={appRef} className="div__app" role="presentation">
         <RouterProvider router={router}/>
       </div>
-      <Warning Title="Heads up!" Text="6/12/2025: Student sign-ups are not working right now... Azure is down... Please check back later. Thanks. ~Charlotte"/>
+      {/* <Warning Title="Heads up!" Text="6/12/2025: Student sign-ups are not working right now... Azure is down... Please check back later. Thanks. ~Charlotte"/> */}
       {nekoShown && <NekoOverlay IsTouchScreen={isTouchScreen()}/>}
     </div>
   );
