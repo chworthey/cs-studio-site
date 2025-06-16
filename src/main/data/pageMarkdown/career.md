@@ -17,7 +17,7 @@ Then along came the first programmable, electronic, general-purpose digital comp
 
 ## Personal Computers
 
-The first commercially successful personal computer, the Altair 8800, came in the year 1974. That was only 50 years ago!
+The first commercially successful personal computer, the Altair 8800, came in the year 1974. That was only 51 years ago!
 
 ## AI in the 80s
 
@@ -29,7 +29,7 @@ Later, the World Wide Web became available for public adoption in the year 1993.
 
 ## Mobile Take-Over
 
-In 2008, Steve Jobs announced the first iPhone. I was still a kid at the time, but I knew things were about to change in a big way. Mobile phone adoption spread like wildfire around the world. Everyone wanted to make an app. Now, in the year of 2024, more than 60% of the world is connected to the internet in large-part due to this spread.
+In 2008, Steve Jobs announced the first iPhone. I was still a kid at the time, but I knew things were about to change in a big way. Mobile phone adoption spread like wildfire around the world. Everyone wanted to make an app. Now, in the year of 2025, more than 60% of the world is connected to the internet in large-part due to this spread.
 
 ## Social Media
 
@@ -75,7 +75,7 @@ The main target demographic here is pre-college students. If all goes as expecte
 
 ## Discussion
 
-I want you to have a realistic understanding of what working the industry is like. Working full-time as a software engineer and sometimes with on-call duties is the status quo in the United States. Freelance/gig work is relatively more infrequent for software workers in the United States because of the outsourcing to places that have lower costs of living. For people with sensory needs like me, the status quo can be challenging. However, I was able to take advantage of the current situation by being willing to work from other countries while living as a digital-nomad. This could be a very exciting life and is something to consider! There are also many opportunities to work with agencies and you might even be able to form one yourself as well at some point.
+I want you to have a realistic understanding of what working the industry is like. Working full-time as a software engineer and sometimes with on-call duties is the status quo in the United States. Freelance/gig work is relatively more infrequent for software workers in the United States because of the outsourcing to places that have lower costs of living. I was able to take advantage of the current situation by being willing to work from other countries while living as a digital-nomad. This could be a very exciting life and is something to consider! There are also many opportunities to work with agencies and you might even be able to form one yourself as well at some point.
 
 So where are we now? What is there to make of all of this?
 

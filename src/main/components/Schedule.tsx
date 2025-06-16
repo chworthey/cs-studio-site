@@ -15,17 +15,17 @@ interface IEvent {
 }
 
 const events: IEvent[] = [
-  // {
-  //   Name: 'Fall Hackathon',
-  //   DateString: 'Saturday, November 16, 2024',
-  //   FromTime: '10:00AM MST',
-  //   UntilTime: '10:00PM MST',
-  //   Location: 'TBD',
-  //   City: 'Littleton, CO'
-  // },
+  {
+    Name: 'Fall Hackathon',
+    DateString: 'Saturday, November 15, 2025',
+    FromTime: '10:00AM MST',
+    UntilTime: '10:00PM MST',
+    Location: 'TBD',
+    City: 'Westminster, CO'
+  },
   {
     Name: 'Spring Hackathon',
-    DateString: 'Saturday, April 12, 2025',
+    DateString: 'Saturday, April 11, 2026',
     FromTime: '10:00AM MST',
     UntilTime: '10:00PM MST',
     Location: 'TBD',

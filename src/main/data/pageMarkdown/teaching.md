@@ -59,7 +59,7 @@ See [Career Overview](/career) for more information.
 
 ## Neuro-Diversity Awareness
 
-I strive to meet students where their needs are at. Oftentimes, this means challenging students in ways that traditional schooling cannot. I myself am transgender, with AuDHD, but I didn't know any of that until a few years ago. I was considered "gifted" when I was growing up. People like me, and I know there are a handful in every school, have special needs. My services are designed to close the gap on those needs so students can get a suitable education that propels them confidently into the working world.
+I strive to meet students where their needs are at. Oftentimes, this means challenging students in ways that traditional schooling cannot. My services are designed to close the gap on those needs so students can get a suitable education that propels them confidently into the working world.
 
 ## Hackathons
 
