@@ -8,15 +8,16 @@ export enum FormType {
   General,
   NotEmpty,
   Name,
-  Email
-};
+  Email,
+  Phone
+}
 
 export interface IConsoleEntryTextPrompt extends IConsoleEntry {
   type: ConsoleEntryType.TextPrompt;
   promptText: string;
   formType: FormType;
   isMultiline: boolean;
-};
+}
 
 export interface IConsoleEntryStateTextPrompt extends IConsoleEntryState {
   type: ConsoleEntryType.TextPrompt;
@@ -38,7 +39,7 @@ export function CreateTextPrompt(id: string, promptText: string, formType: FormT
   };
 
   return newEntry;
-};
+}
 
 export function TextPromptSetInputText(entryId: string, graph: IConsoleGraph, text: string) {
   return ConsoleGraphUpdateEntry<IConsoleEntryTextPrompt, IConsoleEntryStateTextPrompt>(
@@ -46,7 +47,7 @@ export function TextPromptSetInputText(entryId: string, graph: IConsoleGraph, te
     graph,
     state => { state.userInputText = text; state.continued = false; }
   );
-};
+}
 
 export interface ITextPromptTrySetContinuedReturnValue {
   Graph: IConsoleGraph;
@@ -106,7 +107,44 @@ function validate(text: string, formType: FormType) {
           rv.ErrorMessage = 'The email address does not match the expected _@_._ format.';
         }
       }
-    break;
+      break;
+    case FormType.Phone:
+      {
+        let newText = '';
+        let hadDot = true;
+        let digitCount = 0;
+        for (let i = 0; i < text.length; ++i) {
+          const c = text[i];
+          if (c >= '0' && c <= '9') {
+            newText += c;
+            ++digitCount;
+            hadDot = false;
+          }
+          else if (!hadDot) {
+            newText += '.';
+            hadDot = true;
+          }
+        }
+        if (newText.length > 0 && newText[newText.length - 1] === '.') {
+          newText = newText.substring(0, newText.length - 1);
+        }
+        if (!newText.includes('.') && digitCount === 10) {
+          newText = newText.substring(0, 3) + '.' + newText.substring(3, 6) + '.' + newText.substring(6);
+        }
+        rv.CorrectedText = newText;
+        if (digitCount < 7) {
+          rv.Valid = false;
+          rv.ErrorMessage = 'The phone number must have at least 7 digits.';
+        }
+        else if (digitCount > 15) {
+          rv.Valid = false;
+          rv.ErrorMessage = 'The phone number cannot have more than 15 digits.';
+        }
+        else {
+          rv.Valid = true;
+        }
+      }
+      break;
     default:
       break;
   }
@@ -157,7 +195,7 @@ export function TextPromptTrySetContinued(entryId: string, graph: IConsoleGraph,
       ValidationSuccess: true
     };
   }
-};
+}
 
 export function CreateTextPromptState(id: string) {
   const rv: IConsoleEntryStateTextPrompt = {
@@ -171,5 +209,5 @@ export function CreateTextPromptState(id: string) {
   };
 
   return rv;
-};
+}
 

@@ -15,7 +15,7 @@ import { CreateRequirementRecursive } from "../../console/types/requirements/Rec
 // import { VirtualKeyboard } from "../../keyboard/components/VirtualKeyboard";
 // import { ConsoleKeyboard } from "../types/ConsoleKeyboard";
 import { Toolbar } from "./Toolbar";
-import { CreateScheduleMenus, GetScheduledTimeString, NowDateInMST, UpcomingDatesNoService } from "../types/Schedule";
+import { CreateScheduleMenus, GetScheduledTimeString, NowDateInMT, UpcomingDatesNoService } from "../types/Schedule";
 import { CreateRequirementPromptContinued } from "../../console/types/requirements/PromptContinued";
 import { CreateTextPrompt, FormType, IConsoleEntryStateTextPrompt } from "../../console/types/entries/TextPrompt";
 import { CreateRequirementOR } from "../../console/types/requirements/Or";
@@ -25,7 +25,7 @@ import { CreateRequirementInfoConfirmed } from "../../console/types/requirements
 import { CreateRequestButton } from "../../console/types/entries/RequestButton";
 import { SendMessage } from "../types/Backend";
 
-const upcomingDates = UpcomingDatesNoService(NowDateInMST());
+const upcomingDates = UpcomingDatesNoService(NowDateInMT());
 
 const consoleEntries: IConsoleEntry[] =
   [
@@ -158,9 +158,9 @@ const consoleEntries: IConsoleEntry[] =
         return '';
       }
     }, CreateRequirementPromptContinued('input-name')),
-    CreateTextPrompt('input-email', 'What email address may I send the initial Zoom invite to?', FormType.Email, CreateRequirementRecursive('name-greeting')),
-    CreateOutput('email-ok', 'Okay, I will send the link there some time before the meeting, whenever I get around to it.', CreateRequirementPromptContinued('input-email')),
-    CreateOutput('time-to-schedule', 'Now for the consultation scheduling...', CreateRequirementRecursive('email-ok')),
+    CreateTextPrompt('input-phone', 'What is the phone number I can use for the initial consultation?', FormType.Phone, CreateRequirementRecursive('name-greeting')),
+    CreateOutput('phone-ok', 'Okay, this is the phone number I will use. Watch for a confirmation text from a 509* area code over the next day or so. The consultation itself will take place as a phone call to this number. Data rates may apply.', CreateRequirementPromptContinued('input-phone')),
+    CreateOutput('time-to-schedule', 'Now for the consultation scheduling...', CreateRequirementRecursive('phone-ok')),
     CreateScheduleMenus('consult-schedule', upcomingDates, CreateRequirementRecursive('time-to-schedule')),
     CreateOutput('consult-schedule-msg', 'Wowee!!! That time works for me!', CreateRequirementRecursive('consult-schedule')),
     CreateInfoConfirm('consult-schedule-msg2',
@@ -180,7 +180,7 @@ const consoleEntries: IConsoleEntry[] =
           `Adult: ${data.AgeGroupSplit === 'adult' ? 'Yes' : 'No'}\n` +
           (data.Grade ? `Grade: ${data.Grade?.substring(6)}\n` : '') +
           `Preferred First Name: ${data.PreferredFirstName}\n` +
-          `Email Address: ${data.EmailAddress}\n` +
+          `Phone Number: ${data.PhoneNumber}\n` +
           `Scheduled Time: ${data.Time}`;
       }
 
@@ -215,7 +215,7 @@ interface IConsultationScheduleData {
   AgeGroupSplit: string;
   Grade?: string;
   PreferredFirstName: string;
-  EmailAddress: string;
+  PhoneNumber: string;
   Time: string;
 }
 
@@ -255,10 +255,10 @@ function GetConsultationScheduleData(graph: IConsoleGraph) {
   const isAdult = ageGroupSplit === 'adult'
   const grade = isAdult ? undefined :  GraphTryGet<IConsoleEntryStateRadioMenu, string | null>(graph, 'grade-menu', s => s.activeItem);
   const preferredFirstName = GraphTryGet<IConsoleEntryStateTextPrompt, string>(graph, 'input-name', s => s.userInputText);
-  const emailAddress = GraphTryGet<IConsoleEntryStateTextPrompt, string>(graph, 'input-email', s => s.userInputText);
+  const phoneNumber = GraphTryGet<IConsoleEntryStateTextPrompt, string>(graph, 'input-phone', s => s.userInputText);
   const time = GetScheduledTimeString(graph, upcomingDates, 'consult-schedule');
 
-  if (!ageGroupSplit || !preferredFirstName || !emailAddress || !time) {
+  if (!ageGroupSplit || !preferredFirstName || !phoneNumber || !time) {
     return undefined;
   }
 
@@ -266,7 +266,7 @@ function GetConsultationScheduleData(graph: IConsoleGraph) {
     AgeGroupSplit: ageGroupSplit,
     Grade: grade ? grade : undefined,
     PreferredFirstName: preferredFirstName,
-    EmailAddress: emailAddress,
+    PhoneNumber: phoneNumber,
     Time: time
   };
 

@@ -18,16 +18,16 @@ const events: IEvent[] = [
   {
     Name: 'Fall Hackathon',
     DateString: 'Saturday, November 15, 2025',
-    FromTime: '10:00AM MST',
-    UntilTime: '10:00PM MST',
+    FromTime: '10:00AM MT',
+    UntilTime: '10:00PM MT',
     Location: 'TBD',
     City: 'Westminster, CO'
   },
   {
     Name: 'Spring Hackathon',
     DateString: 'Saturday, April 11, 2026',
-    FromTime: '10:00AM MST',
-    UntilTime: '10:00PM MST',
+    FromTime: '10:00AM MT',
+    UntilTime: '10:00PM MT',
     Location: 'TBD',
     City: 'Westminster, CO'
   }
@@ -50,7 +50,7 @@ export function SchedulePage(props: IScheduleProps) {
         <thead>
           <tr>
             <th>Day</th>
-            <th>Time (MST)</th>
+            <th>Time (MT)</th>
             <th>Age-Group</th>
             <th>Class Size</th>
             <th>Seat Available?</th>

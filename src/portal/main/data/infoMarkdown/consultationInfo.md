@@ -1,6 +1,7 @@
-- Consultation calls can be up to an hour long.
-- The first 45 minutes overlap with a lesson time so that you can watch the lesson.
-- The last 15 minutes are just for us to talk.
-- If there are no students slotted for the scheduled time, it will just be us with no lesson to watch.
+- Consultation calls can be up to 30 minutes long.
+- After submitting this form, watch for a confirmation text from a 509* area code over the next day or so. Data rates may apply.
+- A phone call will be made to the phone number you provided at the scheduled consultation time. Watch for a 509* area code. Data rates may apply.
+- Texts may occur after the consultation call to exchange important details. Data rates may apply.
 - The consultation is free. Woohoo!
-- If the prospective student is under 18, an adult family member must be present in the call.
+- If the prospective student is under 18, I must be speaking to an adult guardian during the entire length of the consultation.
+- Please review the policies available on this website before/during/after the consultation and let me know if you have any questions on them.
