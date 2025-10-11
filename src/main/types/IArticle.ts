@@ -4,4 +4,5 @@ export interface IArticle {
   Description: string;
   MarkdownText: string;
   WhatToReadNextIds?: string[];
-};
+  ListedPublicly: boolean;
+}

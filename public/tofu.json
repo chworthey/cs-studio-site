@@ -1,0 +1,80 @@
+{
+  "$schema": "./schema/tofu.schema.json",
+  "project_name": "Tofu Engine",
+  "project_description": "",
+  "fryer_version": "0.0.1",
+  "textures": [
+    {
+      "texture_id": "texture_grid_color",
+      "source_file": "./content/textures/textureGrid_c.png",
+      "texture_type": "2d",
+      "is_normal_map": false,
+      "compression_ratio": 0.25
+    },
+    {
+      "texture_id": "texture_grid_normal",
+      "source_file": "./content/textures/textureGrid_n.png",
+      "texture_type": "2d",
+      "is_normal_map": true,
+      "compression_ratio": 0.25
+    }
+  ],
+  "shader_include_directories": [
+    "./content/shaders"
+  ],
+  "shaders": [
+    {
+      "shader_id": "base_vert",
+      "shader_type": "vertex",
+      "source_file": "./content/shaders/base_vert.glsl"
+    },
+    {
+      "shader_id": "base_frag",
+      "shader_type": "fragment",
+      "source_file": "./content/shaders/base_frag.glsl"
+    },
+    {
+      "shader_id": "shadow_vert",
+      "shader_type": "vertex",
+      "source_file": "./content/shaders/shadow_vert.glsl"
+    }
+  ],
+  "materials": [
+    {
+      "material_id": "default_material",
+      "material_model": "lit",
+      "shader_assignments": [
+        {
+          "shader_id": "base_vert"
+        },
+        {
+          "shader_id": "base_frag",
+          "texture_assignments": [
+            {
+              "sampler_id": "sampler_base_frag_color_texture",
+              "texture_id": "texture_grid_color",
+              "destination_binding": 1
+            },
+            {
+              "sampler_id": "sampler_base_frag_normal_texture",
+              "texture_id": "texture_grid_normal",
+              "destination_binding": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "models": [
+    {
+      "model_id": "test_model",
+      "source_file": "./content/models/suzanne.fbx",
+      "material_assignments": [
+        {
+          "material_id": "default_material",
+          "material_index": 0
+        }
+      ]
+    }
+  ]
+}

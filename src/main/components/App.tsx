@@ -77,7 +77,7 @@ export function App() {
       },
       {
         path: '/articles',
-        element: <ArticlesPage MenuItems={MenuItems} Articles={Articles.map(a => ({
+        element: <ArticlesPage MenuItems={MenuItems} Articles={Articles.filter(a => a.ListedPublicly).map(a => ({
             Title: a.Title,
             Description: a.Description,
             ID: a.ID
