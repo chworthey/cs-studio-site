@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren, useState } from "react";
 import { PartyModeWrapper } from "./PartyModeWrapper";
 import { Menubar } from "./Menubar";
 import { IMenuItem } from "../types/IMenuItem";
@@ -9,14 +9,14 @@ interface IPageLayoutProps {
 
 export function PageLayout(props: PropsWithChildren<IPageLayoutProps>) {
   const [partyMode, setPartyMode] = useState(false);
-  const [showBackToTop, setShowBackToTop] = useState(false);
+  // const [showBackToTop, setShowBackToTop] = useState(false);
 
-  useEffect(() => {
-    const onScroll = () => setShowBackToTop(window.scrollY > 20);
-    window.removeEventListener('scroll', onScroll);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  // useEffect(() => {
+  //   const onScroll = () => setShowBackToTop(window.scrollY > 20);
+  //   window.removeEventListener('scroll', onScroll);
+  //   window.addEventListener('scroll', onScroll, { passive: true });
+  //   return () => window.removeEventListener('scroll', onScroll);
+  // }, []);
 
   return (
     <PartyModeWrapper IsPartyModeOn={partyMode}>
