@@ -700,7 +700,7 @@ html, body {
 
 .div__page {
   padding: 20px;
-  width: 50ch;
+  width: 70ch;
   line-height: 1.5;
   margin-top: 15px;
   margin-bottom: 20px;
@@ -750,6 +750,7 @@ html, body {
   display: flex;
   justify-content: center;
   overflow: hidden;
+  height: 3em;
 }
 
 .button__back-to-top {
@@ -908,6 +909,51 @@ html, body {
 
 .a__article {
   font-size: 1.4rem;
+}
+
+
+.div__carousel3d-container {
+  width: 100%;
+  overflow: visible;
+  margin: 5em 0;
+}
+
+.div__carousel3d{
+  position: relative;
+  width: 200px;
+  height: 250px;
+  left: calc(50% - 100px);
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+  animation: carousel3d 20s linear infinite;
+  z-index: 2;
+}
+
+@keyframes carousel3d{
+  from{
+    transform: perspective(1000px) rotateX(-5deg) rotateY(360deg);
+      
+  }to{
+    transform: perspective(1000px) rotateX(-5deg) rotateY(0deg);
+  }
+}
+
+.div__carousel3d .div__carousel3d-item{
+    position: absolute;
+    transform: 
+        rotateY(calc( var(--position) * (360 / var(--quantity)) * 1deg))
+        translateZ(500px);
+}
+.div__carousel3d .div__carousel3d-item img{
+    width: 100px;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.div__article-img-grid img {
+  width: auto;
+  margin: 2px;
+  border-radius: 3px;
 }
 
 .div__warning {

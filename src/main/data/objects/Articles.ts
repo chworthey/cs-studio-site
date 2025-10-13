@@ -2,7 +2,6 @@ import { IArticle } from "../../types/IArticle";
 import aboutPage from "../pageMarkdown/about.md?raw";
 import careerPage from '../pageMarkdown/career.md?raw';
 import policiesPage from "../pageMarkdown/policies.md?raw";
-import portfolioPage from '../pageMarkdown/portfolio.md?raw';
 import teachingPage from "../pageMarkdown/teaching.md?raw";
 
 export const Articles: IArticle[] = [
@@ -31,13 +30,6 @@ export const Articles: IArticle[] = [
     Description: 'Learn about the class policies.',
     MarkdownText: policiesPage,
     ListedPublicly: true
-  },
-  {
-    Title: 'Charlotte Worthey\'s Portfolio',
-    ID: 'portfolio',
-    Description: 'See my portfolio.',
-    MarkdownText: portfolioPage,
-    ListedPublicly: false
   },
   {
     Title: 'Teaching Style',

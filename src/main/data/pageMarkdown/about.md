@@ -2,7 +2,7 @@
 
 Hello, my name is Charlotte Worthey. I use she/her/hers pronouns, and I'm based in Westminster, Colorado.
 
-I am a Software Engineer and Data Engineer with 16 years of software development excellence and multiple top-selling video game title credits.
+I am a Software Engineer and Data Engineer with 17 years of software development excellence and multiple top-selling video game title credits.
 
 I grew up in a teaching family. Teaching is in my blood!
 

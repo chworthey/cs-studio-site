@@ -14,6 +14,7 @@ import { NotFound } from "./NotFound";
 import { SchedulePage } from "./Schedule";
 import { ProjectsPage } from "./ProjectsPage";
 import { BemisPage } from "./BemisPage";
+import { PortfolioPage } from "./PortfolioPage";
 // import { Warning } from "./Warning";
 
 function isTouchScreen() {
@@ -74,6 +75,10 @@ export function App() {
       {
         path: '/bemis',
         element: <BemisPage MenuItems={MenuItems}/>
+      },
+      {
+        path: '/portfolio',
+        element: <PortfolioPage MenuItems={MenuItems}/>
       },
       {
         path: '/articles',
