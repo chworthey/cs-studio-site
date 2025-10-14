@@ -179,8 +179,10 @@ Here are some more to check out:
 - [My first Unity project in 2020, made over a week's time](https://github.com/chworthey/JewelThief). It's proof of how quickly I can pick up new tech because I know my fundamentals well.
 - [A 2021 exploration of big data tools Hadoop HDFS, Hive, SQL](https://github.com/chworthey/hdfs-hive-sql-playground), and an [incomplete exploration of astronomy data using PySpark](https://github.com/chworthey/astro/blob/main/workspace/AstroM33.ipynb). This is data engineering stuff.
 - [A 2024 documentation demo built on MKDocs for the makerspace located within the Littleton Bemis Public Library](https://gray-stone-085c4c510.5.azurestaticapps.net/Tutorials/tutorial-audio-recording/). I would love to see a makerspace use a format like this some day.
-- [A 2020 sound library with a Python interface](https://github.com/chworthey/synther-examples/blob/master/notebooks/general_usage.ipynb). I would be surprised if it still runs.
+- [A 2020 sound library with a Python interface](https://github.com/chworthey/synther-examples/blob/master/notebooks/general_usage.ipynb). I manipulate wave files directly in C++ for performance purposes, then surface it to Python with bindings. The python side of also has an iterative build system so you can "compile" your music with layers of processing.
 - [A 2018 Unreal Project that is deeply embarrassing to me](https://youtu.be/pOASPVQvPN8). We shipped it on Google Play a few months after this demo, but it's no longer up. I did the camera animation, drunk-vision, materials, and physics.
+
+You may have noticed that there hasn't been a lot of cloud-infrastructure-related projects in my portfolio. And yet, I have gained the reputation as the "cloud person" amongst my peers because I've written a fair bit of networking code and have deployed a great number of Azure resources during my Microsoft tenure. There have been a handful of AWS and GCP projects throughout the years as well, enough to get me a baseline familiarity with them. I have made a habit out of investigating every new technology I can get my hands on and I do this because I love to explore.
 
 Feel free to check out [my GitHub](https://github.com/chworthey) if you need even more projects.
 
