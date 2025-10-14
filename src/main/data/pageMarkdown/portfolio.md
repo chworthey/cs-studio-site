@@ -18,13 +18,15 @@ Please enjoy.
 
 ![Screenshot of the Worthey Studios website portal.](screenshot-website-portal.png)
 
-Worthey Studios is my private teaching initiative for software development. Here is where I place many of my hopes and dreams outside of the usual working hours.
+Worthey Studios is my private teaching initiative for software development as a way to give back to the community. If you are reading this, you might be wondering how it fits into my schedule while having a job. And the answer is: it doesn't. Worthey Studios is a project I'm doing while not employed, and a job would take precedence. However, I think it's a project with good intentions and there are many learnings to be taken from it. I will outline those here.
+
+Here was the project pitch:
 
 Thanks to the internet, knowledge has never been more accessible to those that have the motivation to obtain it. However, learning in a vacuum without feedback can lead to problems: reinforcement of maladjusted practices, over-reliance on products that have known limitations, and lack of team experiences.
 
-Over-reliance on University degrees and certification programs also lead to problems: students are often disconnected from the reality that self-learning is an important part of the job, the cost is arguably too high for a field with unstable career prospects, and the student–teacher ratio is unfavorable for the students.
+Over-reliance on university degrees and certification programs also lead to problems: students are often disconnected from the reality that self-learning is an important part of the job, the cost is arguably too high, and the student–teacher ratio is unfavorable for the students.
 
-I see a need for an affordable education tier that cuts through the middle of these two extremes, where the portfolios the students create speak for themselves, leading to skill-based career opportunities. The class sizes are 3-5. I recognize that learning comes from experience, and I seek to foster an experience that reflects the working world as closely as possible while supporting individual student needs. I feel that for the right students, this approach will be a better fit than a bootcamp.
+I see a need for an education tier that provides a middle path. This is a path where portfolios and professional development are the prime focus. It's supplementary towards the other learning paths, and provides a unique opportunity for those that need individualized mentorship. The class sizes are a 3-5. I seek to foster an experience that reflects the working world as closely as possible while supporting individual student needs. I feel that for the right students, this approach is a better fit than something more rigid and structured (like a bootcamp, for example).
 
 Worthey Studios, in summary, is the educational opportunity I wish I had.
 
@@ -40,19 +42,19 @@ Worthey Studios, in summary, is the educational opportunity I wish I had.
 
 *CI/CD:* Automated build and deployment with GitHub actions.
 
-*Student Portal:* The beginnings of a stylishly minimal student portal that, with luck, will become a stand-alone open-source project in the future explicitly for teachers that are cool. Modeled after a BIOS interface from the early days of IBM.
+*Student Portal:* The beginnings of a stylishly minimal student portal that was explicitly made to look cool. Modeled after a BIOS interface from the early days of IBM.
 
 *Neko and Party-Mode:* Fun and unique graphical flourishes on the website. The first flourish is Neko, a cat sprite that follows the cursor. The other flourish is party-mode, a toggle that makes the website dance with color.
 
-*Learning Materials:* Library of growing learning materials, challenges, and projects to hand to students as needed.
+*Learning Materials:* Library of learning materials, challenges, and projects to hand to students as needed.
 
 *Marketing Materials:* Fliers, business cards for the purposes of marketing.
 
 ### Learning #1 - Finding my Audience
 
-Adults that wish to enhance their software skills are responding to fliers much more frequently than those in the 13-18 age range.
+Adults that wish to enhance their software skills have been responding to fliers much more frequently than those in the 13-18 age range and university students.
 
-My current understanding is that students in public and private schools have access to computer science curriculum and prefer to solely rely on it. Still, I may be able to provide supplementary support for students that showcase special interest in computer science subjects or for those in alternative education settings, provided I can find a way to reach them.
+My current understanding is that students in public schools, private schools, and universities have access to computer science curriculum and prefer to solely rely on it. That doesn't necessarily mean people that need the supplementary support aren't out there, however.
 
 Meanwhile, the adult students I have had are commonly motivated by personal growth which is wonderful to see.
 
