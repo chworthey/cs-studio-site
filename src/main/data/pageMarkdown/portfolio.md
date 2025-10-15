@@ -174,8 +174,6 @@ Here are some more to check out:
 - [A 2020 sound library with a Python interface](https://github.com/chworthey/synther-examples/blob/master/notebooks/general_usage.ipynb). I manipulate wave files directly in C++ for performance purposes, then surface it to Python with bindings. The python side of also has an iterative build system so you can "compile" your music with layers of processing.
 - [A 2018 Unreal Project that is deeply embarrassing to me](https://youtu.be/pOASPVQvPN8). We shipped it on Google Play a few months after this demo, but it's no longer up. I did the camera animation, drunk-vision, materials, and physics.
 
-You may have noticed that there hasn't been a lot of cloud-infrastructure-related projects in my portfolio. And yet, I have gained the reputation as the "cloud person" amongst my peers because I've written a fair bit of networking code and have deployed a great number of Azure resources during my Microsoft tenure. There have been a handful of AWS and GCP projects throughout the years as well, enough to get me a baseline familiarity with them. I have made a habit out of investigating every new technology I can get my hands on and I do this because I love to explore.
-
 Feel free to check out [my GitHub](https://github.com/chworthey) if you need even more projects.
 
 ## Last Project: Party-Mode Extension for VSCode, 2024
