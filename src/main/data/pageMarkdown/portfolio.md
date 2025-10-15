@@ -97,14 +97,6 @@ The neko that follows the cursor on the website is now my reference implementati
 
 AI tools used to write code are an unfortunate learning distraction at this time for my students. Those that learn with AI generate unprecedented levels of [technical debt](https://en.wikipedia.org/wiki/Technical_debt). While it may seem that AI-users get impressive things done on the surface, it's at the expense of future software endeavors because of the sheer volume of black-box code that they will one day need to update, and without the expertise to do so. What I took away from this is that students need to work on dedicated long-term projects so that their AI-usage eventually becomes their own worst enemy.
 
-### Learning #8 - Cloud Outages Worry Me
-
-Azure has allowed me to keep the costs way down and has had reasonable performance, which has been great. However, Azure technical support for personal-tier users is struggling right now and is far from the enterprise-tier support I'm used to.
-
-My site was rendered un-operable for days at a time twice this year, breaking SLA's. One of those times made the news and took down airlines and things like that. The other seemed to only affect my specific app, and I had to recreate the app because it was unrecoverable from my end, and I could not get human support. Sure, I got "AI" support, but it wasted a couple days of my time and has me drawing up a contingency plan at the moment.
-
-Because of these outages, reliable alerting infrastructure is a must-have. I was thankful I had spent time on it.
-
 ### Project Links
 
 - [Website Home](https://chworthey.net/)
