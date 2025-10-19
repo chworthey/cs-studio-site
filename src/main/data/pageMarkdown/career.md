@@ -53,18 +53,6 @@ More often than not, large companies are looking to buy out silicon-valley start
 
 It's worth noting that some companies escape buy-out as well.
 
-## When Technology Grows Teeth
-
-Diaspora is an open-source Facebook-like user-owned social network originally made by a young group of students. After its initial release, the social network was co-opted by the militant group ISIS. I tell this story mainly to keep those interested in technology mindful about the possible unintended consequences of making any technology more available.
-
-The consequences themselves may be bad on their own, but it's important to note that the creators of these technologies may be psychologically burdened by the consequences as well and this is not something to be taken lightly from a health standpoint.
-
-If you walk the path of a technology creator or any kind of creator for that matter, it's important to make space for healing whenever a disruption like this occurs and to do your best to understand the impact of the things you make, ideally before you make them.
-
-Relevant Movie: [Dave Made a Maze](https://youtu.be/1m8N9sfxzDg)
-
-This is a movie very near and dear to me that shows one's own creations growing teeth. Even though the movie is not directly related to the software development discipline, I imagine this movie would be relatable to many tech workers. I highly recommend you give this a watch at some point!
-
 ## Education Disruption
 
 The internet brought about new opportunities to share and exchange knowledge. I learned coding primarily from internet resources although those resources weren't as complete and engaging as the ones that exist today. I did not have a dedicated mentor at the time which would have been helpful. However, the internet of that time was enough to make me feel more attuned to industry trends than those who were primarily relying on coursework.
