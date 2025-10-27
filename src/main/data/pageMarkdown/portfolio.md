@@ -18,9 +18,9 @@ Please enjoy.
 
 ![Screenshot of the Worthey Studios website portal.](screenshot-website-portal.png)
 
-Worthey Studios is my private teaching initiative for software development as a way to give back to the community. If you are reading this, you might be wondering how it fits into my schedule while having a job. And the answer is: it doesn't. Worthey Studios is a project I'm doing while not employed, and a job would take precedence. However, I think it's a project with good intentions and there are many learnings to be taken from it. I will outline those here.
+Worthey Studios is my private teaching initiative for software development as a way to give back to the community. If you are reading this, you might be wondering how it fits into my schedule while having a job. And the answer is: a job would take precedence. However, there are many learnings that I took from this project. I will outline those here.
 
-Here was the project pitch:
+Here is the project pitch:
 
 Thanks to the internet, knowledge has never been more accessible to those that have the motivation to obtain it. However, learning in a vacuum without feedback can lead to problems: reinforcement of maladjusted practices, over-reliance on products that have known limitations, and lack of team experiences.
 
@@ -60,7 +60,7 @@ Meanwhile, the adult students I have had are commonly motivated by personal grow
 
 ### Learning #2 - Accessibility Issues
 
-Web technology in general is behind on accessibility, and this project has been quite eye-opening to me in that regard. I used NVDA, a popular screen-reader, to explore various websites while wearing a physical blindfold. I was astonished at how badly implemented many websites were. Even certain websites from technology giants like Microsoft that have dedicated accessibility personnel had accessibility gaps that were glaring.
+Web technology in general is behind on accessibility, and this project has been quite eye-opening to me in that regard. I used NVDA, a popular screen-reader, to explore various websites while wearing a physical blindfold. I was astonished at how badly implemented many websites were. Even certain websites from technology giants that have dedicated accessibility personnel had accessibility gaps that were glaring.
 
 After following W3C guidelines and educating myself on WAI-ARIA for my project, I found that the tools simply were not powerful enough to deliver proper accessibility for my app as I had originally intended.
 
@@ -181,5 +181,7 @@ Feel free to check out [my GitHub](https://github.com/chworthey) if you need eve
 ## Last Project: Party-Mode Extension for VSCode, 2024
 
 ![A Gif of VSCode party-mode extension](party-mode.gif)
+
+Like the party-mode toggle featured on the Worthey Studios website's menu bar, my VSCode extension features a (more-subtle) display of changing colors on top of the entire window. It certainly makes coding more interesting!
 
 Code provided upon request.

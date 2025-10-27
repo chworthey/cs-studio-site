@@ -18,6 +18,10 @@ export const MenuItems: IMenuItem[] = [
     LinkTo: '/about'
   },
   {
+    LinkText: 'My Portfolio',
+    LinkTo: '/portfolio'
+  },
+  {
     LinkText: 'Portal',
     LinkTo: '/portal'
   }
