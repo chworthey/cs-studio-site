@@ -21,10 +21,10 @@ export function FrontPage(props: IFrontPageProps) {
         <Menubar IsPartyModeOn={partyMode} OnPartyModeSet={setPartyMode} Items={props.MenuItems}/>
         <Marquee MarqueeTexts={props.MarqueeTexts}/>
         <div className="div__layout-main-wrapper" role="presentation">
-          <main>
+          <main className="main__main">
             <div className="div__layout-main" role="presentation">
               <Banner/>
-              <section>
+              <section className="section__features">
                 <div className="div__features-divider" role="presentation">
                   <div className="div__features-label-container" role="presentation">
                     <h2 className="h2__features-label-text">
@@ -51,4 +51,4 @@ export function FrontPage(props: IFrontPageProps) {
       </div>
     </PartyModeWrapper>
   );
-};
+}

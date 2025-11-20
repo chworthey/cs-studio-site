@@ -215,6 +215,7 @@ html, body {
   transition: margin-right 0.1s ease-in-out;
   background-color: transparent;
   border-width: 0;
+  cursor: pointer;
   padding: 0;
   /* flex-shrink: 0; */
 }
@@ -581,6 +582,12 @@ html, body {
   color: rgba(255, 243, 215, 0.94);
 }
 
+.section__features {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 .div__features {
   display: flex;
   padding: 1em 5% 2em;
@@ -603,8 +610,17 @@ html, body {
   /* background-color: #3433347d; */
 }
 
+.main__main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 .section__feature {
   display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
 }
 
 .div__feature {
