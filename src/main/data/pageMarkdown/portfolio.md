@@ -91,7 +91,7 @@ The scheduler in the student portal is pretty much hacked in at the moment. When
 
 ### Learning #6 - Nice State-Machine!
 
-The neko that follows the cursor on the website is now my reference implementation for state-machines because it was done so cleanly. Seriously! Take a look! [See the code here](https://github.com/chworthey/cs-studio-site/blob/main/src/neko/types/Neko.ts).
+The neko that follows the cursor on the website is now my reference implementation for state-machines because it was done so cleanly. Seriously! Take a look! [See the code here](https://github.com/wortheybyte/cs-studio-site/blob/main/src/neko/types/Neko.ts).
 
 ### Learning #7 - Students Use AI Too Much
 
@@ -101,7 +101,7 @@ AI tools used to write code are an unfortunate learning distraction at this time
 
 - [Website Home](https://chworthey.net/)
 - [Website Portal](https://chworthey.net/portal)
-- [Front-end Code](https://github.com/chworthey/cs-studio-site)
+- [Front-end Code](https://github.com/wortheybyte/cs-studio-site)
 - [A sample starter project for my current students setting out to learn C++ (I'm teaching them C first, but I'm also introducing them to CMake so they can use their own tools)](https://github.com/worthey-studios-students/starter-c89-90-cmake)
 
 ## Tofu Engine, 2025
@@ -170,13 +170,13 @@ In the end, I loaded images through KTX which made the decisions for me. Still, 
 So far, I have discussed my more recent projects at length. But these are only the latest ones in a sea of [mostly private] lifetime projects.
 
 Here are some more to check out:
-- [My first Unity project in 2020, made over a week's time](https://github.com/chworthey/JewelThief). It's proof of how quickly I can pick up new tech because I know my fundamentals well.
-- [A 2021 exploration of big data tools Hadoop HDFS, Hive, SQL](https://github.com/chworthey/hdfs-hive-sql-playground), and an [incomplete exploration of astronomy data using PySpark](https://github.com/chworthey/astro/blob/main/workspace/AstroM33.ipynb). This is data engineering stuff.
+- [My first Unity project in 2020, made over a week's time](https://github.com/wortheybyte/JewelThief). It's proof of how quickly I can pick up new tech because I know my fundamentals well.
+- [A 2021 exploration of big data tools Hadoop HDFS, Hive, SQL](https://github.com/wortheybyte/hdfs-hive-sql-playground), and an [incomplete exploration of astronomy data using PySpark](https://github.com/wortheybyte/astro/blob/main/workspace/AstroM33.ipynb). This is data engineering stuff.
 - [A 2024 documentation demo built on MKDocs for the makerspace located within the Littleton Bemis Public Library](https://gray-stone-085c4c510.5.azurestaticapps.net/Tutorials/tutorial-audio-recording/). I would love to see a makerspace use a format like this some day.
-- [A 2020 sound library with a Python interface](https://github.com/chworthey/synther-examples/blob/master/notebooks/general_usage.ipynb). I manipulate wave files directly in C++ for performance purposes, then surface it to Python with bindings. The python side of also has an iterative build system so you can "compile" your music with layers of processing.
+- [A 2020 sound library with a Python interface](https://github.com/wortheybyte/synther-examples/blob/master/notebooks/general_usage.ipynb). I manipulate wave files directly in C++ for performance purposes, then surface it to Python with bindings. The python side of also has an iterative build system so you can "compile" your music with layers of processing.
 - [A 2018 Unreal Project that is deeply embarrassing to me](https://youtu.be/pOASPVQvPN8). We shipped it on Google Play a few months after this demo, but it's no longer up. I did the camera animation, drunk-vision, materials, and physics.
 
-Feel free to check out [my GitHub](https://github.com/chworthey) if you need even more projects.
+Feel free to check out [my GitHub](https://github.com/wortheybyte) if you need even more projects.
 
 ## Last Project: Party-Mode Extension for VSCode, 2024
 

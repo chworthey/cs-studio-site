@@ -2,7 +2,7 @@
 
 Hello, my name is Charlotte Worthey. I use she/her/hers pronouns, and I'm based in Westminster, Colorado.
 
-I am a Software Engineer and Data Engineer with 17 years of software development excellence and multiple top-selling video game title credits.
+I am a Software Engineer and Data Engineer with 17 years of software development excellence and multiple top-selling video game title credits. I have worked on the Minecraft, Crackdown, Age of Empires, Microsoft Solitaire Collection, and Forza franchises.
 
 Thanks to the internet, knowledge has never been more accessible to those that have the motivation to obtain it. However, learning in a vacuum without feedback can lead to problems: reinforcement of maladjusted practices, over-reliance on products that have known limitations, and lack of team experiences.
 
@@ -12,11 +12,4 @@ I see a need for an education tier that provides a middle path. This is a path w
 
 Worthey Studios, in summary, is the educational opportunity I wish I had.
 
-If you would like to learn more about me and my work, check out my [portfolio here](/portfolio). This is also an example of a portfolio my students would be making for themselves.
-
-Here are a few key things to notice about the portfolio:
-- Learnings from the featured projects are highlighted.
-- Only some of the projects are completed, and that's okay.
-- The portfolio is detailed, but brief. There is more on GitHub that readers may dive into should they wish to.
-
-Please feel free check out the rest of the site too!
+Please feel free check out the rest of the site!
