@@ -29,7 +29,7 @@ Later, the World Wide Web became available for public adoption in the year 1993.
 
 ## Mobile Take-Over
 
-In 2008, Steve Jobs announced the first iPhone. I was still a kid at the time, but I knew things were about to change in a big way. Mobile phone adoption spread like wildfire around the world. Everyone wanted to make an app. Now, in the year of 2025, more than 60% of the world is connected to the internet in large-part due to this spread.
+In 2008, Steve Jobs announced the first iPhone. I was still a kid at the time, but I knew things were about to change in a big way. Mobile phone adoption spread like wildfire around the world. Everyone wanted to make an app. Now, in the year of 2026, more than 60% of the world is connected to the internet in large-part due to this spread.
 
 ## Social Media
 

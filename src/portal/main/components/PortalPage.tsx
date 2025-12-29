@@ -291,7 +291,7 @@ export function PortalPage(props: IPortalProps) {
         <div className="div__console-area" role="presentation">
           <aside className="aside__console-header-wrapper">
             <h1 className="h1__console-header">
-              Portal Utility - Copyright (C) 2024-2025 Charlotte Worthey
+              Portal Utility - Copyright (C) 2024-2026 Charlotte Worthey
             </h1>
           </aside>
           <header>

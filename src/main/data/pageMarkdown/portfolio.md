@@ -12,7 +12,7 @@ Please enjoy.
 
 *~ Charlotte*
 
-## Worthey Studios, 2024-2025
+## Worthey Studios, 2024-2026
 
 ![Screenshot of the Worthey Studios website.](screenshot-website.png)
 

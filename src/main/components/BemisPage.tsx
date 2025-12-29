@@ -53,9 +53,9 @@ export function BemisPage(props: IProjectsPageProps) {
           <a href="https://gray-stone-085c4c510.5.azurestaticapps.net/" target="_blank">Demo Website</a> - A working demo for the documentation
         </li>
         <li>
-          <a href="https://github.com/chworthey/bemis-public-library-studio-docs" target="_blank">GitHub Sources</a> - The source files that power the documentation
+          <a href="https://github.com/wortheybyte/bemis-public-library-studio-docs" target="_blank">GitHub Sources</a> - The source files that power the documentation
         </li>
       </ul>
     </PageLayout>
   );
-};
+}
