@@ -6,6 +6,7 @@ import { Banner } from "./Banner";
 import { Link } from "react-router-dom";
 import { IMenuItem } from "../types/IMenuItem";
 import { IFeature } from "../types/IFeature";
+import { Footer } from "./Footer";
 
 interface IFrontPageProps {
   MarqueeTexts: string[];
@@ -32,18 +33,21 @@ export function FrontPage(props: IFrontPageProps) {
                     </h2>
                   </div>
                 </div>
-                <div className="div__features" role="presentation">
-                  {props.Features.map((f, i) => <section className="section__feature" key={i}>
-                    <div className="div__feature" role="presentation">
-                      <div role="presentation">
-                        <h3 className="h3__feature-title">{f.Title}</h3>
-                        <p className="p__feature-body">{f.BodyText}</p>
+                <div className="div__front-page-bottom">
+                  <div className="div__features" role="presentation">
+                    {props.Features.map((f, i) => <section className="section__feature" key={i}>
+                      <div className="div__feature" role="presentation">
+                        <div role="presentation">
+                          <h3 className="h3__feature-title">{f.Title}</h3>
+                          <p className="p__feature-body">{f.BodyText}</p>
+                        </div>
+                        <div role="presentation">
+                          <Link className="a__feature-button" to={f.LinkTo}>{f.LinkText}<span aria-hidden={true}> &#8811;</span></Link>
+                        </div>
                       </div>
-                      <div role="presentation">
-                        <Link className="a__feature-button" to={f.LinkTo}>{f.LinkText}<span aria-hidden={true}> &#8811;</span></Link>
-                      </div>
-                    </div>
-                  </section>)}
+                    </section>)}
+                  </div>
+                  <Footer/>
                 </div>
               </section>
             </div>

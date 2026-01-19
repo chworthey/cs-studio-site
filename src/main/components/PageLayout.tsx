@@ -2,6 +2,7 @@ import { PropsWithChildren, useState } from "react";
 import { PartyModeWrapper } from "./PartyModeWrapper";
 import { Menubar } from "./Menubar";
 import { IMenuItem } from "../types/IMenuItem";
+import { Footer } from "./Footer";
 
 interface IPageLayoutProps {
   MenuItems: IMenuItem[];
@@ -32,19 +33,7 @@ export function PageLayout(props: PropsWithChildren<IPageLayoutProps>) {
             </div>
           </div>
         <footer>
-          <div className="div__page-bottom" role="presentation">
-            {/* <button disabled={!showBackToTop} aria-hidden={!showBackToTop} className={showBackToTop ? "button__back-to-top" : "button__back-to-top button__back-to-top--hidden"} onClick={() => {
-              window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: 'smooth'
-              });
-            }}>
-              <span aria-hidden={true}>&#x25B4;</span>
-              <br aria-hidden={true}/>
-              Back to Top
-            </button> */}
-          </div>
+          <Footer/>
         </footer>
       </div>
     </PartyModeWrapper>

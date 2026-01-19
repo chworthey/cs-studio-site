@@ -3,6 +3,7 @@ import aboutPage from "../pageMarkdown/about.md?raw";
 import careerPage from '../pageMarkdown/career.md?raw';
 import policiesPage from "../pageMarkdown/policies.md?raw";
 import teachingPage from "../pageMarkdown/teaching.md?raw";
+import privacyPage from "../pageMarkdown/privacy.md?raw";
 
 export const Articles: IArticle[] = [
   {
@@ -36,6 +37,16 @@ export const Articles: IArticle[] = [
     ID: 'teaching',
     Description: 'Learn about my teaching style!',
     MarkdownText: teachingPage,
+    WhatToReadNextIds: [
+      'policies'
+    ],
+    ListedPublicly: true
+  },
+  {
+    Title: 'No Data, No Cookies Policy',
+    ID: 'privacy',
+    Description: 'Learn about this website\'s privacy practices.',
+    MarkdownText: privacyPage,
     WhatToReadNextIds: [
       'policies'
     ],
